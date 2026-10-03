@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->decimal('amount', 10, 2);
             $table->date('deadline')->nullable();
             $table->json('deliverable_links')->nullable();
-            $table->enum('status', ['PENDING', 'UNLOCKED', 'SUBMITTED', 'ACCEPTED', 'REVISION_REQUEST']);
+            $table->enum('status', ['pending', 'unlocked', 'submitted', 'accepted', 'revision_request']);
             $table->timestamp('unlocked_at')->nullable();
             $table->timestamp('submitted_at')->nullable();
             $table->timestamp('accepted_at')->nullable();

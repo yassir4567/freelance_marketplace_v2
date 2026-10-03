@@ -21,4 +21,18 @@ class PaymentFactory extends Factory
             //
         ];
     }
+
+    public function escrow()
+    {
+        return $this->state([
+            'status' => 'escrow'
+        ]);
+    }
+
+    public function released()
+    {
+        return $this->state([
+            'status' => 'released'
+        ]);
+    }
 }

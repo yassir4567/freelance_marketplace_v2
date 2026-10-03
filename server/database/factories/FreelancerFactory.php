@@ -19,6 +19,9 @@ class FreelancerFactory extends Factory
     {
         return [
             //
+            'title' => fake()->sentence(),
+            'bio' => fake()->paragraph(),
+            'portfolio_url' => fake()->url()
         ];
     }
 }

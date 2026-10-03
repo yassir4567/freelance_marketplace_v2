@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('contract_pdf')->nullable();
             $table->text('description')->nullable();
-            $table->enum('status', ['PENDING', 'AWAITING_FREELANCER_ACCEPT', 'ACTIVE', 'COMPLETED', 'REJECTED']);
+            $table->enum('status', ['pending', 'awaiting_freelancer_accept', 'active', 'completed', 'rejected']);
             $table->decimal('finalPrice', 10, 2)->nullable();
             $table->date('finalDeadline')->nullable();
 

@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->decimal('amount', 10, 2);
-            $table->enum('status', ['ESCROW', 'RELEASED', 'REFUNDED']);
+            $table->enum('status', ['escrow', 'released']);
 
             $table->foreignId('deliverable_id')
                 ->unique()

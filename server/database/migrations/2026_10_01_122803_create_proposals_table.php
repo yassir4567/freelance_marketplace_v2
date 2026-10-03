@@ -13,12 +13,14 @@ return new class extends Migration {
         Schema::create('proposals', function (Blueprint $table) {
             $table->id();
             $table->text('coverLetter');
-            $table->enum('status', ['PENDING', 'ACCEPTED', 'REJECTED', 'WITHDRAW', 'REVOKED', 'CONTRACTED']);
+            $table->enum('status', ['pending', 'accepted', 'rejected', 'revoked', 'contracted']);
             $table->string('proposedDuration');
             $table->decimal('proposedPrice', 10, 2);
-            
+
             $table->foreignId('freelancer_id')->constrained('freelancers');
             $table->foreignId('project_id')->constrained('projects');
+
+            $table->unique(['project_id', 'freelancer_id']);
             $table->timestamps();
         });
     }

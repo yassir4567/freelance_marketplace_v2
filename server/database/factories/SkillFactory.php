@@ -19,6 +19,7 @@ class SkillFactory extends Factory
     {
         return [
             //
+            'name' => fake()->word()
         ];
     }
 }

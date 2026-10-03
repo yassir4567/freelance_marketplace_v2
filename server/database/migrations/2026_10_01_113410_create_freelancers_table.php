@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('freelancers', function (Blueprint $table) {
             $table->id();
-            $table->string('bio')->nullable();
+            $table->text('bio')->nullable();
             $table->string('title')->nullable();
             $table->string('portfolio_url')->nullable();
 

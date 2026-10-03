@@ -13,12 +13,12 @@ return new class extends Migration {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->decimal('budget', 10, 2);
-            $table->enum('status', ['OPEN', 'IN_REVIEW', 'IN_PROGRESS', 'COMPLETED', 'CLOSED']);
-            $table->enum('experienceLevel', ['JUNIOR', 'MID-LEVEL', 'SENIOR']);
-            $table->enum('size', ['SMALL', 'MEDIUM', 'LARGE']);
-            $table->enum('duration', ['LESS_THAN_1_MONTH', '1_TO_3_MONTH', '3_TO_6_MONTH', 'MORE_THAN_6_MONTH']);
+            $table->enum('status', ['open', 'in_review', 'in_progress', 'completed']);
+            $table->enum('experienceLevel', ['junior', 'mid-level', 'senior']);
+            $table->enum('size', ['small', 'medium', 'large']);
+            $table->enum('duration', ['less_than_1_month', '1_to_3_month', '3_to_6_month', 'more_than_6_month']);
 
             $table->foreignId('category_id')
                 ->nullable()
