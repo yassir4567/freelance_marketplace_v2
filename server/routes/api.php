@@ -1,13 +1,12 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/projects', function () {
-    return response()->json([
-        'message' => 'Hello from Laravel!',
-        'projects' => [
-            ['id' => 1, 'title' => 'Build a website'],
-            ['id' => 2, 'title' => 'Create a mobile app'],
-        ]
-    ]);
+Route::post("/login", [AuthController::class, 'login']);
+Route::post("/register", [AuthController::class, 'register']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'me']);
 });
