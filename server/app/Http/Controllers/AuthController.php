@@ -85,7 +85,7 @@ class AuthController extends Controller
                 ],
                 'token' => $transactionResult['token']
             ]
-        ]);
+        ], 201);
     }
 
     public function logout(Request $request)
@@ -94,7 +94,7 @@ class AuthController extends Controller
         $user->currentAccessToken()->delete();
         return response()->json([
             'message' => 'User logged out successfully'
-        ]);
+        ], 200);
     }
 
 
@@ -113,6 +113,6 @@ class AuthController extends Controller
                     'role' => $user->role,
                 ]
             ]
-        ]);
+        ], 200);
     }
 }

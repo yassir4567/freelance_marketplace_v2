@@ -1,12 +1,14 @@
+import { getToken } from "../utils/helpers";
+
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
-type ValidationErrors = Record<string, string[]>;
+export type ValidationErrors = Record<string, string[]>;
 
-type ApiSuccess<T> = {
+type ApiSuccess<TResponse> = {
   success: true;
   status: number;
   message: string;
-  data: T | null;
+  data: TResponse | null;
 };
 
 type ApiError = {
@@ -16,16 +18,12 @@ type ApiError = {
   errors: ValidationErrors | null;
 };
 
-type ApiResponse<T> = ApiSuccess<T> | ApiError;
+type ApiResponse<TResponse> = ApiSuccess<TResponse> | ApiError;
 
-function getToken() {
-  return localStorage.getItem("auth_token");
-}
-
-async function request<T>(
+async function request<TResponse>(
   endpoint: string,
   options: RequestInit = {},
-): Promise<ApiResponse<T>> {
+): Promise<ApiResponse<TResponse>> {
   try {
     const token = getToken();
 
