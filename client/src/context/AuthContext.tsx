@@ -24,6 +24,7 @@ type AuthAction =
   | {
       success: true;
       status: number;
+      user: User;
     };
 
 interface ContextType {
@@ -89,6 +90,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return {
       success: true,
       status: result.status,
+      user: user,
     };
   }
 
@@ -117,6 +119,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return {
       success: true,
       status: result.status,
+      user,
     };
   }
 

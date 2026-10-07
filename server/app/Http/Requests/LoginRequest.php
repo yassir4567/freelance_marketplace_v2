@@ -15,6 +15,16 @@ class LoginRequest extends FormRequest
         return true;
     }
 
+    public function messages(): array
+    {
+        return [
+            'email.required' => "Email is required",
+            'email.email' => "Please enter a valid email",
+            'password.required' => "Password is required",
+            'password.min' => "Password must contain at least 8 characters"
+        ];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

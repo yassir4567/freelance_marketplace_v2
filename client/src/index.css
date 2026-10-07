@@ -1,23 +1,30 @@
 :root {
   /* Brand */
-  --color-primary: #3272cc;
+  --color-primary: #3c7cd7;
   --color-primary-hover: #285ba6;
   --color-primary-light: #f0f7ff;
 
-  /* Supportive */
-  --color-supportive: #7562d1;
-  --color-supportive-hover: #6251b0;
-  --color-supportive-light: #f7f5ff;
+  /* Secondary */
+  --color-secondary: #7562d1;
+  --color-secondary-hover: #6251b0;
+  --color-secondary-light: #f7f5ff;
 
   /* Feedback */
   --color-success: #16a34a;
+
+  /* Warning */
   --color-warning: #d99a1e;
+  
+  /* Danger */
   --color-danger: #dc3f3f;
+  --color-danger-light: #ff0d001e;
 
   /* Surfaces */
   --color-background: #f8fafc;
-  --color-surface: #ffffff;
   --color-surface-muted: #f1f5f9;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
 
   /* Borders */
   --color-border: #e2e8f0;
@@ -60,6 +67,7 @@
   --border-width-0: 0px;
   --border-width-1: 1px;
   --border-width-2: 2px;
+  --border-width-3: 3px;
 
   /* CONTROL SIZES */
 
@@ -85,6 +93,7 @@
 
   /* CONTAINER WIDTHS*/
 
+  --container-xs: 520px;
   --container-sm: 640px;
   --container-md: 768px;
   --container-lg: 1024px;
@@ -107,4 +116,16 @@
   --shadow-md: 0 4px 6px rgb(15 23 42 / 0.07);
   --shadow-lg: 0 10px 20px rgb(15 23 42 / 0.08);
   --shadow-xl: 0 20px 30px rgb(15 23 42 / 0.1);
+}
+
+* {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+a {
+  text-decoration: none;
 }
