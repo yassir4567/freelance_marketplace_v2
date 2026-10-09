@@ -20,6 +20,7 @@
 .title {
   font-size: 36px;
   margin-bottom: var(--space-4);
+  color: var(--color-primary);
 }
 
 .field {
@@ -39,16 +40,4 @@
 
 .signup:hover {
   color: var(--color-secondary-hover);
-}
-
-.error {
-  background-color: var(--color-danger-light);
-  color: var(--color-danger);
-  height: 40px;
-  display: flex;
-  align-items: center;
-  padding: var(--space-4);
-  margin-bottom: var(--space-3);
-  font-size: 14px;
-  border-radius: var(--radius-sm);
 }

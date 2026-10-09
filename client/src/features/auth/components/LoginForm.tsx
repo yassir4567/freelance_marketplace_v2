@@ -64,10 +64,10 @@ export function LoginForm() {
     <div className={styles.formWrapper}>
       <h1 className={styles.title}>Login</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
-        {generalError && <div className={styles.error}>{generalError}</div>}
+        {generalError && <div className="error">{generalError}</div>}
         <FormField label="Email" className={styles.field} error={errors.email}>
           <Input
-            type="text"
+            type="email"
             name="email"
             value={form.email}
             onChange={handleInputChange}

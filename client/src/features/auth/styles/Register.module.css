@@ -1,0 +1,78 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formWrapper {
+  border: var(--border-width-1) solid var(--color-primary);
+  border-radius: var(--radius-md);
+  width: 680px;
+  padding: var(--space-12) var(--space-10);
+}
+
+.title {
+  font-size: 36px;
+  margin-bottom: var(--space-6);
+  text-align: center;
+  color: var(--color-primary);
+}
+
+.fullNameFields {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.field {
+  width: 100%;
+  margin-bottom: var(--space-5);
+}
+
+.input {
+  width: 100%;
+}
+
+.rolesWrapper {
+  margin-bottom: var(--space-5);
+}
+
+.roles {
+  display: flex;
+  justify-content: space-evenly;
+  border: var(--border-width-1) solid var(--color-primary);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-1);
+}
+
+.role {
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+}
+
+.role input {
+  margin-left: var(--space-3);
+}
+
+.signup-info {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: var(--space-5);
+}
+
+.signup {
+  color: var(--color-secondary);
+}
+
+.signup:hover {
+  color: var(--color-secondary-hover);
+}
+
+.error {
+  color: var(--color-danger);
+  font-size: 14px;
+}

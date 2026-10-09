@@ -8,3 +8,8 @@ export const GetFieldError = (
 
   return errors[field][0];
 };
+
+export const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};

@@ -14,7 +14,7 @@
 
   /* Warning */
   --color-warning: #d99a1e;
-  
+
   /* Danger */
   --color-danger: #dc3f3f;
   --color-danger-light: #ff0d001e;
@@ -125,7 +125,18 @@
   box-sizing: border-box;
 }
 
-
 a {
   text-decoration: none;
+}
+
+.error {
+  background-color: var(--color-danger-light);
+  color: var(--color-danger);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+  font-size: 14px;
+  border-radius: var(--radius-md);
 }

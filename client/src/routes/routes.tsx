@@ -4,6 +4,7 @@ import App from "../App";
 import { ClientDashboard } from "../features/dashboards/pages/ClientDashboard";
 import { FreelancerDashboard } from "../features/dashboards/pages/FreelancerDashboard";
 import { AdminDashboard } from "../features/dashboards/pages/AdminDashboard";
+import RegisterPage from "../features/auth/pages/RegisterPage";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
   },
   {
     path: "/client/dashboard",

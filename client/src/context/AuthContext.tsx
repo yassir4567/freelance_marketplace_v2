@@ -119,7 +119,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return {
       success: true,
       status: result.status,
-      user,
+      user: user,
     };
   }
 

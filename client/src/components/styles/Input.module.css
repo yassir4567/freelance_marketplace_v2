@@ -10,3 +10,7 @@
 .input:focus {
   border-color: var(--color-primary-hover);
 }
+
+.input[type="radio"] {
+  width: 20px;
+}
