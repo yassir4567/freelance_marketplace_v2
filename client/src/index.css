@@ -1,12 +1,12 @@
 :root {
   /* Brand */
   --color-primary: #3c7cd7;
-  --color-primary-hover: #285ba6;
+  --color-primary-strong: #285ba6;
   --color-primary-light: #f0f7ff;
 
   /* Secondary */
   --color-secondary: #7562d1;
-  --color-secondary-hover: #6251b0;
+  --color-secondary-strong: #6251b0;
   --color-secondary-light: #f7f5ff;
 
   /* Feedback */

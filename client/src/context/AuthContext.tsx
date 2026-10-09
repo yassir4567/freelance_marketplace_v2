@@ -33,6 +33,7 @@ interface ContextType {
   login(credentials: LoginCredentials): Promise<AuthAction>;
   register(credentials: RegisterCredentials): Promise<AuthAction>;
   logout(): Promise<void>;
+  isAuthenticated: Boolean;
 }
 
 interface AuthProviderProps {
@@ -135,6 +136,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     login,
     register,
     logout,
+    isAuthenticated: user !== null,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

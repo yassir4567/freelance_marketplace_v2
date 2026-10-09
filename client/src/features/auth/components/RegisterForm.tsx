@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Button } from "../../../components/ui/Button";
 import { FormField } from "../../../components/ui/FormField";
 import { Input } from "../../../components/ui/Input";
@@ -34,7 +34,7 @@ function RegisterForm() {
   const navigate = useNavigate();
 
   if (user) {
-    navigate(`/${user.role}/dashboard`, { replace: true });
+    return <Navigate to={`/${user.role}/dashboard`} replace={true} />;
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

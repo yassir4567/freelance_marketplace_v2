@@ -69,7 +69,7 @@
 }
 
 .signup:hover {
-  color: var(--color-secondary-hover);
+  color: var(--color-secondary-strong);
 }
 
 .error {
