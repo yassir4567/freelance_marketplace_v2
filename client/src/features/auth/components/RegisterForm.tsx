@@ -18,7 +18,7 @@ const InitErrors: Record<keyof RegisterForm, string> = {
   role: "",
 };
 
-function RegisterForm() {
+export default function RegisterForm() {
   const { user, register } = useAuth();
   const [form, setForm] = useState<RegisterForm>({
     firstName: "",
@@ -195,5 +195,3 @@ function RegisterForm() {
     </div>
   );
 }
-
-export default RegisterForm;

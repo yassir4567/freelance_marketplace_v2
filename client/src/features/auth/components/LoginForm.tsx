@@ -8,7 +8,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { useState } from "react";
 import { GetFieldError } from "../utils/helpers";
 
-export function LoginForm() {
+export default function LoginForm() {
   const navigate = useNavigate();
 
   const { user, login } = useAuth();
