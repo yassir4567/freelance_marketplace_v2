@@ -3,7 +3,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 
 export const AdminRoutes = [
   {
-    element: <ProtectedRoutes />,
+    element: <ProtectedRoutes role="admin" />,
     children: [
       {
         path: "/admin/dashboard",

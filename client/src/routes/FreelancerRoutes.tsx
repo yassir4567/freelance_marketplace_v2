@@ -3,7 +3,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 
 export const FreelancerRoutes = [
   {
-    element: <ProtectedRoutes />,
+    element: <ProtectedRoutes role="freelancer" />,
     children: [
       {
         path: "/freelancer/dashboard",

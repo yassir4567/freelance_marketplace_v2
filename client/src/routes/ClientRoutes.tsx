@@ -3,7 +3,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 
 export const ClientRoutes = [
   {
-    element: <ProtectedRoutes />,
+    element: <ProtectedRoutes role="client" />,
     children: [
       {
         path: "/client/dashboard",

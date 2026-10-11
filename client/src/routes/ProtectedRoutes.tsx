@@ -2,8 +2,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import LoadingScreen from "../components/ui/LoadingScreen";
 
-export default function ProtectedRoutes() {
-  const { isAuthenticated, isLoading } = useAuth();
+export default function ProtectedRoutes({ role }: { role: string }) {
+  const { isLoading, user } = useAuth();
 
   if (isLoading) {
     return (
@@ -14,8 +14,12 @@ export default function ProtectedRoutes() {
     );
   }
 
-  if (!isAuthenticated) {
+  if (!user) {
     return <Navigate to="/login" replace={true} />;
+  }
+
+  if (role && role !== user.role) {
+    return <Navigate to={`/${user.role}/dashboard`} replace={true} />;
   }
 
   return <Outlet />;
