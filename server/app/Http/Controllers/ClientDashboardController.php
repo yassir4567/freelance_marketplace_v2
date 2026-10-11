@@ -7,14 +7,8 @@ use App\Models\Payment;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
-class ClientDashboard extends Controller
+class ClientDashboardController extends Controller
 {
-    // total projects
-    // total active projects (active contracts) 
-    // completed projects
-    // freelances he worked with
-    // total amount 
-    // 
     public function stats(Request $request)
     {
         $client = $request->user();

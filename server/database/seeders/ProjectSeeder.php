@@ -21,28 +21,28 @@ class ProjectSeeder extends Seeder
         $skills = Skill::pluck('id');
 
         foreach ($clients as $client) {
-            $projects = Project::factory()->open()->count(rand(0, 3))->create([
+            $projects = Project::factory()->open()->count(rand(0, 10))->create([
                 'client_id' => $client->id,
                 'category_id' => $categories->random()
             ]);
 
             $this->attachRandomSkills($projects, $skills);
 
-            $projects = Project::factory()->in_review()->count(rand(0, 3))->create([
+            $projects = Project::factory()->in_review()->count(rand(0, 10))->create([
                 'client_id' => $client->id,
                 'category_id' => $categories->random()
             ]);
 
             $this->attachRandomSkills($projects, $skills);
 
-            $projects = Project::factory()->in_progress()->count(rand(0, 3))->create([
+            $projects = Project::factory()->in_progress()->count(rand(0, 10))->create([
                 'client_id' => $client->id,
                 'category_id' => $categories->random()
             ]);
 
             $this->attachRandomSkills($projects, $skills);
 
-            $projects = Project::factory()->completed()->count(rand(0, 3))->create([
+            $projects = Project::factory()->completed()->count(rand(0, 10))->create([
                 'client_id' => $client->id,
                 'category_id' => $categories->random()
             ]);
