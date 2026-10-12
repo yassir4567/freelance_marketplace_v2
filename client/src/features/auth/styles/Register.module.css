@@ -57,18 +57,22 @@
   margin-left: var(--space-3);
 }
 
-.signup-info {
+.signup-btn {
+  width: 100%;
+}
+
+.login-info {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-top: var(--space-5);
 }
 
-.signup {
+.login {
   color: var(--color-secondary);
 }
 
-.signup:hover {
+.login:hover {
   color: var(--color-secondary-strong);
 }
 

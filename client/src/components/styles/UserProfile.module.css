@@ -1,0 +1,45 @@
+.profile {
+  width: 250px;
+  background-color: var(--color-primary-light);
+  box-shadow: var(--shadow-md);
+  height: 60px;
+  border-radius: var(--radius-lg);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-inline: var(--space-4);
+}
+
+.avatarImg {
+  width: 40px;
+  height: 40px;
+}
+
+.avatarImg img {
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.name {
+  font-size: 16px;
+}
+
+.logout{
+  width: 100%;
+  padding-block:var(--space-1) ;
+  border-radius: var(--radius-sm);
+  color: var(--color-danger);
+  transition: all .2s;
+}
+
+.logout:hover {
+  background-color: var(--color-danger-light);
+  color: var(--color-white);
+}

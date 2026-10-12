@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class FreelancerDashboardController extends Controller
 {
-    public function stats(Request $request)
+    public function index(Request $request)
     {
         $user = $request->user();
         $freelancer = $user->freelancer;

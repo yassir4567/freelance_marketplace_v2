@@ -1,5 +1,5 @@
 .button {
-  width: 100%;
+  padding-inline: var(--space-4);
   height: 45px;
   outline: none;
   border: none;
@@ -13,10 +13,9 @@
   border: var(--border-width-1) solid var(--color-primary-strong);
   background-color: var(--color-primary);
   color: var(--color-white);
-  transition: background-color .2s;
+  transition: background-color 0.2s;
 }
 
 .button-primary:hover {
-    background-color: var(--color-primary-strong);
+  background-color: var(--color-primary-strong);
 }
-

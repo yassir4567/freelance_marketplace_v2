@@ -13,10 +13,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
 
     Route::middleware('role:client')->group(function () {
-        Route::get('/client/dashboard/stats', [ClientDashboardController::class, 'stats']);
+        Route::get('/client/dashboard', [ClientDashboardController::class, 'index']);
     });
 
     Route::middleware('role:freelancer')->group(function () {
-        Route::get('/freelancer/dashboard/stats', [FreelancerDashboardController::class, 'stats']);
+        Route::get('/freelancer/dashboard', [FreelancerDashboardController::class, 'index']);
     });
 });

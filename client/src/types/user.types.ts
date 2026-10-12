@@ -6,6 +6,12 @@ export type User = {
   lastName: string;
   email: string;
   role: Role;
+  avatar: string | null;
+  phone: string;
+  country: string;
+  city: string;
+  address: string;
+  
 };
 
 export type LoginCredentials = {

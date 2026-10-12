@@ -14,6 +14,8 @@ import { getToken } from "../utils/helpers";
 import { authApi } from "../api/auth.api";
 import type { ValidationErrors } from "../api/config.api";
 
+type AuthUser = Pick<User, "id" | "firstName" | "lastName" | "email" | "role">;
+
 type AuthAction =
   | {
       success: false;
@@ -24,11 +26,11 @@ type AuthAction =
   | {
       success: true;
       status: number;
-      user: User;
+      user: AuthUser;
     };
 
 interface ContextType {
-  user: User | null;
+  user: AuthUser | null;
   isLoading: boolean;
   login(credentials: LoginCredentials): Promise<AuthAction>;
   register(credentials: RegisterCredentials): Promise<AuthAction>;
@@ -43,7 +45,7 @@ interface AuthProviderProps {
 const AuthContext = createContext<ContextType | null>(null);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

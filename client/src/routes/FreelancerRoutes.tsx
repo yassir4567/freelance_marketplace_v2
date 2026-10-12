@@ -1,4 +1,4 @@
-import { FreelancerDashboard } from "../features/dashboards/pages/FreelancerDashboard";
+import FreelancerDashboardPage from "../features/dashboards/freelancer/pages/FreelancerDashboardPage";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 export const FreelancerRoutes = [
@@ -7,7 +7,7 @@ export const FreelancerRoutes = [
     children: [
       {
         path: "/freelancer/dashboard",
-        element: <FreelancerDashboard />,
+        element: <FreelancerDashboardPage />,
       },
     ],
   },

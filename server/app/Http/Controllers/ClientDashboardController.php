@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contract;
+use App\Models\Deliverable;
 use App\Models\Payment;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
 class ClientDashboardController extends Controller
 {
-    public function stats(Request $request)
+    public function index(Request $request)
     {
         $client = $request->user();
 
@@ -34,6 +35,15 @@ class ClientDashboardController extends Controller
                 return $query->where('client_id', $client->id);
             })->sum('amount');
 
+
+        $recentProjects = Project::select('id', 'title', 'status', 'created_at')
+            ->where('client_id', $client->id)
+            ->withCount('proposals')
+            ->latest()
+            ->take(3)
+            ->get();
+
+
         return response()->json([
             'message' => "Stats retrieved successfully",
             'data' => [
@@ -43,7 +53,8 @@ class ClientDashboardController extends Controller
                     'completedProjects' => $completedProjects,
                     'hiredFreelancers' => $hiredFreelancers,
                     'totalSpending' => (float) $totalSpending,
-                ]
+                ],
+                'recentProjects' => $recentProjects,
             ]
         ], 200);
 

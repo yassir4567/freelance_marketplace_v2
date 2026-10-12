@@ -89,7 +89,7 @@ export default function LoginForm() {
           />
         </FormField>
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" className={styles["login-btn"]}>
           Login
         </Button>
       </form>

@@ -1,4 +1,4 @@
-import { AdminDashboard } from "../features/dashboards/pages/AdminDashboard";
+import AdminDashboardPage from "../features/dashboards/admin/pages/AdminDashboardPage";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 export const AdminRoutes = [
@@ -7,7 +7,7 @@ export const AdminRoutes = [
     children: [
       {
         path: "/admin/dashboard",
-        element: <AdminDashboard />,
+        element: <AdminDashboardPage />,
       },
     ],
   },

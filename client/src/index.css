@@ -2,6 +2,7 @@
   /* Brand */
   --color-primary: #3c7cd7;
   --color-primary-strong: #285ba6;
+  --color-primary-soft: #deeeff;
   --color-primary-light: #f0f7ff;
 
   /* Secondary */
@@ -17,7 +18,7 @@
 
   /* Danger */
   --color-danger: #dc3f3f;
-  --color-danger-light: #ff0d001e;
+  --color-danger-light: #ff0d0049;
 
   /* Surfaces */
   --color-background: #f8fafc;
@@ -129,6 +130,10 @@ a {
   text-decoration: none;
 }
 
+li {
+  list-style-type: none;
+}
+
 .error {
   background-color: var(--color-danger-light);
   color: var(--color-danger);
@@ -139,4 +144,13 @@ a {
   margin-bottom: var(--space-3);
   font-size: 14px;
   border-radius: var(--radius-md);
+}
+
+button {
+  outline: none;
+  border: none;
+}
+
+thead tr th {
+  text-align: start;
 }

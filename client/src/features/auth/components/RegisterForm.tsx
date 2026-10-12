@@ -182,13 +182,17 @@ export default function RegisterForm() {
           )}
         </div>
 
-        <Button type="submit" variant="primary">
+        <Button
+          type="submit"
+          variant="primary"
+          className={styles["signup-btn"]}
+        >
           Signup
         </Button>
       </form>
-      <div className={styles["signup-info"]}>
+      <div className={styles["login-info"]}>
         <p>You have already an account ?</p>
-        <Link to="/login" className={styles.signup}>
+        <Link to="/login" className={styles.login}>
           log in
         </Link>
       </div>
