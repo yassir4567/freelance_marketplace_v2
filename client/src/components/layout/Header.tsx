@@ -5,17 +5,18 @@ import NavBar from "./NavBar";
 
 interface HeaderProps {
   links: Record<string, string>[];
-  fullName: string;
 }
 
-export default function Header({ links, fullName }: HeaderProps) {
+export default function Header({ links }: HeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
         <Logo />
       </div>
-      <NavBar links={links} />
-      <UserProfile fullName={fullName} />
+      <div className={styles["left-navbar"]}>
+        <NavBar links={links} />
+        <UserProfile />
+      </div>
     </header>
   );
 }

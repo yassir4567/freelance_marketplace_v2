@@ -1,6 +1,12 @@
 .header {
   display: flex;
   align-items: center;
-  gap: 15px;
-  background-color: var(--color-background);
+  justify-content: space-between;
+  height: 80px;
+  padding-inline: 170px;
+}
+
+.left-navbar {
+  display: flex;
+  gap: 20px;
 }

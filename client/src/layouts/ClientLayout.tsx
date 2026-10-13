@@ -4,7 +4,6 @@ import styles from "./ClientLayout.module.css";
 import { useRequiredAuth } from "../context/AuthContext";
 
 export default function ClientLayout() {
-  const { user } = useRequiredAuth();
   const navlinks = [
     {
       label: "Dashboard",
@@ -15,7 +14,7 @@ export default function ClientLayout() {
       to: "/client/post-project",
     },
     {
-      label: "Projects and Proposals",
+      label: "Projects",
       to: "/client/projects",
     },
     {
@@ -32,7 +31,6 @@ export default function ClientLayout() {
     <div className={styles.container}>
       <Header
         links={navlinks}
-        fullName={user.firstName + " " + user.lastName}
       />
       <main className={styles.main}>
         <Outlet />

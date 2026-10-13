@@ -1,46 +1,35 @@
 .profile {
-  width: 250px;
-  background-color: var(--color-primary-light);
-  box-shadow: var(--shadow-md);
-  height: 60px;
-  border-radius: var(--radius-lg);
-  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding-inline: var(--space-4);
+  gap: 5px;
+  background-color: var(--color-secondary-light);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 25px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
 }
 
-.avatarImg {
-  width: 40px;
-  height: 40px;
-}
-
-.avatarImg img {
-  width: 100%;
-  height: 100%;
-}
-
-.content {
+.avatarIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   display: flex;
-  flex-direction: column;
-  gap: 3px;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-strong);
+  font-weight: 900;
+  background: #87c3ff;
+  background: linear-gradient(
+    160deg,
+    rgba(181, 216, 251, 0.568) 0%,
+    rgba(236, 235, 235, 0.582) 100%
+  );
+  font-size: 13px;
+}
+.arrow {
+  transition: 0.2s;
 }
 
-.name {
-  font-size: 16px;
-  text-transform: capitalize;
-}
-
-.logout{
-  width: 100%;
-  padding-block:var(--space-1) ;
-  border-radius: var(--radius-sm);
-  color: var(--color-danger);
-  transition: all .2s;
-}
-
-.logout:hover {
-  background-color: var(--color-danger-light);
-  color: var(--color-white);
+.swap-arrow {
+  transform: rotate(180deg);
 }

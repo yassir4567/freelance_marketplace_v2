@@ -31,10 +31,7 @@ export default function FreelancerLayout() {
 
   return (
     <div className={styles.container}>
-      <Header
-        links={navlinks}
-        fullName={user.firstName + " " + user.lastName}
-      />
+      <Header links={navlinks} />
       <main className={styles.main}>
         <Outlet />
       </main>

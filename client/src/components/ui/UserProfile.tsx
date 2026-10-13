@@ -1,28 +1,28 @@
 import styles from "../styles/UserProfile.module.css";
-import avatar from "../../assets/images/avatar.png";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth, useRequiredAuth } from "../../context/AuthContext";
+import { getUserInitials } from "../../utils/helpers";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import useShow from "../../hooks/useShow";
+import UserProfileMenu from "../layout/UserProfileMenu";
 
-interface UserProfileProps {
-  fullName: string;
-}
+export default function UserProfile() {
+  const { isOpen, onToggle } = useShow();
+  const { user } = useRequiredAuth();
 
-export default function UserProfile({ fullName }: UserProfileProps) {
-  const { logout } = useAuth();
-  const handleLogOut = async () => {
-    await logout();
-    localStorage.removeItem("auth_token");
-  };
+  const userInitials = getUserInitials(user.firstName, user.lastName);
+
   return (
     <div className={styles.profile}>
-      <div className={styles.avatarImg}>
-        <img src={avatar} alt="avatar" />
+      <div className={styles.avatarIcon}>{userInitials}</div>
+      <div className={styles.arrow}>
+        <MdKeyboardArrowDown
+          size={20}
+          onClick={onToggle}
+          className={`${isOpen && styles["swap-arrow"]} ${styles["arrow"]}`}
+        />
       </div>
-      <div className={styles.content}>
-        <p className={styles.name}>{fullName}</p>
-        <button className={styles.logout} onClick={handleLogOut}>
-          Logout
-        </button>
-      </div>
+
+      {isOpen && <UserProfileMenu />}
     </div>
   );
 }

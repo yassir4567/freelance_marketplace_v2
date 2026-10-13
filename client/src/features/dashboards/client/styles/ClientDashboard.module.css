@@ -6,7 +6,7 @@
 
 .title {
   text-transform: capitalize;
-  font-size: 40px;
+  font-size: var(--big-title-size);
   color: var(--color-primary-strong);
   margin-bottom: var(--space-1);
 }
