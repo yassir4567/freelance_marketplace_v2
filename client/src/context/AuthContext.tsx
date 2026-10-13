@@ -153,3 +153,16 @@ export function useAuth() {
 
   return context;
 }
+
+export function useRequiredAuth() {
+  const auth = useAuth();
+  
+  if (!auth.user) {
+    throw new Error("useRequiredAuth must be used with an authenticated user");
+  }
+
+  return {
+    ...auth,
+    user: auth.user,
+  };
+}

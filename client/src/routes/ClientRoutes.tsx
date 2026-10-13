@@ -1,4 +1,4 @@
-import ClientDashboardPage  from "../features/dashboards/client/pages/ClientDashboardPage";
+import ClientDashboardPage from "../features/dashboards/client/pages/ClientDashboardPage";
 import ClientLayout from "../layouts/ClientLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 
@@ -9,9 +9,7 @@ export const ClientRoutes = [
       {
         path: "/client/dashboard",
         element: <ClientLayout />,
-        children : [
-          {index: true ,element: <ClientDashboardPage />}
-        ]
+        children: [{ index: true, element: <ClientDashboardPage /> }],
       },
     ],
   },

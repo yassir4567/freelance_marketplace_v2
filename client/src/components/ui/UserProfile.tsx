@@ -2,7 +2,11 @@ import styles from "../styles/UserProfile.module.css";
 import avatar from "../../assets/images/avatar.png";
 import { useAuth } from "../../context/AuthContext";
 
-export default function UserProfile() {
+interface UserProfileProps {
+  fullName: string;
+}
+
+export default function UserProfile({ fullName }: UserProfileProps) {
   const { logout } = useAuth();
   const handleLogOut = async () => {
     await logout();
@@ -14,7 +18,7 @@ export default function UserProfile() {
         <img src={avatar} alt="avatar" />
       </div>
       <div className={styles.content}>
-        <p className={styles.name}>Yassir Laaouisset</p>
+        <p className={styles.name}>{fullName}</p>
         <button className={styles.logout} onClick={handleLogOut}>
           Logout
         </button>

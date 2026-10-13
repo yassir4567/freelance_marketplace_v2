@@ -1,6 +1,5 @@
-import { Navigate } from "react-router-dom";
 import LoadingScreen from "../../../../components/ui/LoadingScreen";
-import { useAuth } from "../../../../context/AuthContext";
+import { useRequiredAuth } from "../../../../context/AuthContext";
 import DashboardHeader from "../components/DashboardHeader";
 import useDashboard from "../hooks/useDashboard";
 import styles from "../styles/ClientDashboard.module.css";
@@ -8,17 +7,8 @@ import DashboardOverview from "../components/DashboardOverview";
 import DashboardRecentProjects from "../components/DashboardRecentProjects";
 
 export default function ClientDashboardPage() {
-  const { user, isLoading: isUserLoading } = useAuth();
+  const { user } = useRequiredAuth();
   const { data, isLoading, error } = useDashboard();
-
-  if (isUserLoading) {
-    return (
-      <LoadingScreen
-        text="Loading..."
-        placeholder="Please wait while we verify your session."
-      />
-    );
-  }
 
   if (isLoading) {
     return (
@@ -27,10 +17,6 @@ export default function ClientDashboardPage() {
         placeholder="Please wait while we fetch the dashboard data."
       />
     );
-  }
-
-  if (!user) {
-    return <Navigate to="/login" replace={true} />;
   }
 
   if (!data) return null;

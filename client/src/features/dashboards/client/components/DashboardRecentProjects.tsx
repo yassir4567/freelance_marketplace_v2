@@ -20,7 +20,13 @@ export default function DashboardRecentProjects({
           <MdArrowOutward />
         </Link>
       </div>
-      <RecentProjectsTable recentProjects={recentProjects} />
+      {recentProjects.length === 0 ? (
+        <div className={styles["empty-table"]}>
+          You do not have projects yet
+        </div>
+      ) : (
+        <RecentProjectsTable recentProjects={recentProjects} />
+      )}
     </div>
   );
 }

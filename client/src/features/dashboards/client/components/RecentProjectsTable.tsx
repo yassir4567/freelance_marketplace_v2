@@ -23,13 +23,18 @@ export default function RecentProjectsTable({
       </thead>
       <tbody>
         {recentProjects.map((project) => (
-          <tr>
+          <tr key={project.id}>
             <td>{project.title}</td>
             <td>{project.status}</td>
             <td>{formatDate(project.created_at)}</td>
             <td>{project.proposals_count}</td>
             <td>
-              <Link to={`/client/projects/${project.id}`} className={styles['recent-project-link']}>View details</Link>
+              <Link
+                to={`/client/projects/${project.id}`}
+                className={styles["recent-project-link"]}
+              >
+                View details
+              </Link>
             </td>
           </tr>
         ))}

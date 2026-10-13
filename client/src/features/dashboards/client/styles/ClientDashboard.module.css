@@ -161,3 +161,10 @@
 .recent-project-link:hover {
   color: var(--color-primary-strongF);
 }
+
+.empty-table {
+  text-align: center;
+  margin-top: var(--space-20);
+  color: var(--color-danger);
+  font-size: 19px;
+}

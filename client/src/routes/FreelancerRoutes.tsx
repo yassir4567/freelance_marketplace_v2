@@ -1,4 +1,5 @@
 import FreelancerDashboardPage from "../features/dashboards/freelancer/pages/FreelancerDashboardPage";
+import FreelancerLayout from "../layouts/FreelancerLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 export const FreelancerRoutes = [
@@ -7,7 +8,13 @@ export const FreelancerRoutes = [
     children: [
       {
         path: "/freelancer/dashboard",
-        element: <FreelancerDashboardPage />,
+        element: <FreelancerLayout />,
+        children: [
+          {
+            index: true,
+            element: <FreelancerDashboardPage />,
+          },
+        ],
       },
     ],
   },

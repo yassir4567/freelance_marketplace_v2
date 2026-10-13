@@ -1,0 +1,11 @@
+.container {
+  padding: var(--space-3) var(--space-24);
+  background-color: var(--color-background);
+  min-height: 100vh;
+  padding-bottom: var(--space-20);
+}
+
+.main {
+  margin-top: var(--space-16);
+  padding-inline: var(--space-10);
+}
