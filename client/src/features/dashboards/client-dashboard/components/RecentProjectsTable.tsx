@@ -25,7 +25,7 @@ function RecentProjectsTable({ projects }: RecentProjectsTableProps) {
             <td>{project.title}</td>
             <td>{project.status}</td>
             <td>{project.proposals_count}</td>
-            <td>{formatDate(project.created_at)}</td>
+            <td>{formatDate(project.publishedAt)}</td>
             <td>
               <Link
                 to={`/client/projects/${project.id}`}

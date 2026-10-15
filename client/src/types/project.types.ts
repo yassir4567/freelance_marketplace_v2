@@ -16,7 +16,7 @@ export type Project = {
   experienceLevel: ExperienceLevel;
   size: Size;
   duration: Duration;
-  created_at: string;
+  publishedAt: string;
   category_id: number;
   client_id: number;
 };

@@ -36,7 +36,7 @@ class ClientDashboardController extends Controller
             })->sum('amount');
 
 
-        $recentProjects = Project::select('id', 'title', 'status', 'created_at')
+        $recentProjects = Project::select('id', 'title', 'status', 'created_at as publishedAt')
             ->where('client_id', $client->id)
             ->withCount('proposals')
             ->latest()

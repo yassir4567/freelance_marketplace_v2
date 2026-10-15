@@ -10,7 +10,7 @@ export type ClientDashboardStats = {
 
 export type ClientDashboardRecentProject = Pick<
   Project,
-  "id" | "title" | "status" | "created_at"
+  "id" | "title" | "status" | "publishedAt"
 > & {
   proposals_count: number;
 };
