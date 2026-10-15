@@ -23,7 +23,7 @@ function DashboardRecentProjects({ projects }: DashboardRecentProjectsProps) {
           <RecentProjectsTable projects={projects} />
         ) : (
           <div className={styles["recent-projects-empty-stats"]}>
-            You have not any projects yet
+            You have not had any projects yet
           </div>
         )}
       </div>

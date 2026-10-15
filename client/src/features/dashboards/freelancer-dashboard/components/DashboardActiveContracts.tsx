@@ -5,11 +5,11 @@ import { MdArrowOutward } from "react-icons/md";
 import ActiveContractsTable from "./ActiveContractsTable";
 
 interface DashboardActiveContractsProps {
-  activeContracts: LatestActiveContracts[];
+  contracts: LatestActiveContracts[];
 }
 
 export default function DashboardActiveContracts({
-  activeContracts,
+  contracts,
 }: DashboardActiveContractsProps) {
   return (
     <div className={styles["active-contracts-container"]}>
@@ -24,12 +24,12 @@ export default function DashboardActiveContracts({
         </Link>
       </div>
 
-      {activeContracts.length === 0 ? (
-        <div className={styles["empty-table"]}>
-          You do not have active contracts yet
+      {contracts.length === 0 ? (
+        <div className={styles["active-contracts-empty-table"]}>
+          You have not had any active contracts yet
         </div>
       ) : (
-        <ActiveContractsTable activeContracts={activeContracts} />
+        <ActiveContractsTable contracts={contracts} />
       )}
     </div>
   );

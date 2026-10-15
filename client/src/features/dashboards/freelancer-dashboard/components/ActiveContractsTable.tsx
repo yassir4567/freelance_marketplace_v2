@@ -4,23 +4,23 @@ import { formatDate } from "../../../../utils/helpers";
 import { Link } from "react-router-dom";
 
 interface ActiveContractsTableProps {
-  activeContracts: LatestActiveContracts[];
+  contracts: LatestActiveContracts[];
 }
 
-function ActiveContractsTable({ activeContracts }: ActiveContractsTableProps) {
+function ActiveContractsTable({ contracts }: ActiveContractsTableProps) {
   return (
-    <table className={styles["active-contracts-table"]} cellSpacing={0}>
+    <table className={styles["active-contracts-table"]}>
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Client</th>
-          <th>Price</th>
-          <th>Deadline</th>
-          <th>Actions</th>
+          <th className={styles["col-title"]}>Title</th>
+          <th className={styles["col-client"]}>Client</th>
+          <th className={styles["col-price"]}>Price</th>
+          <th className={styles["col-deadline"]}>Deadline</th>
+          <th className={styles["col-actions"]}>Actions</th>
         </tr>
       </thead>
       <tbody>
-        {activeContracts.map((contract) => (
+        {contracts.map((contract) => (
           <tr key={contract.id}>
             <td>{contract.title}</td>
             <td>
@@ -31,7 +31,7 @@ function ActiveContractsTable({ activeContracts }: ActiveContractsTableProps) {
             <td>
               <Link
                 to={`/freelancer/contracts/${contract.id}`}
-                className={styles["active-contract-link"]}
+                className={styles["view-details-action"]}
               >
                 View details
               </Link>

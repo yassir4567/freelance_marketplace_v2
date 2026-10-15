@@ -7,12 +7,11 @@ import { HiOutlinePlusSmall } from "react-icons/hi2";
 function DashboardHeader() {
   const { user } = useRequiredAuth();
 
-  const fullName = user.firstName + " " + user.lastName;
 
   return (
     <div className={styles.header}>
       <div className={styles.greeting}>
-        <h3 className={styles.welcome}>Welcome {fullName}</h3>
+        <h3 className={styles.welcome}>Welcome {user.firstName}</h3>
         <p className={styles.description}>Here's your dashboard</p>
       </div>
       <div className={styles.action}>
