@@ -1,4 +1,4 @@
-import AdminDashboardPage from "../features/dashboards/admin/pages/AdminDashboardPage";
+import AdminDashboardPage from "../features/dashboards/admin-dashboard/pages/AdminDashboardPage";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 export const AdminRoutes = [

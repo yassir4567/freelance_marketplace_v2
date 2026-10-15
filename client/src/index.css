@@ -104,6 +104,7 @@
   --container-xl: 1200px;
   --container-2xl: 1400px;
   --container-3xl: 1500px;
+  --container-4xl: 2000px;
 
   /* CONTENT WIDTH */
 
@@ -122,8 +123,6 @@
   --shadow-md: 0 4px 6px rgb(15 23 42 / 0.07);
   --shadow-lg: 0 10px 20px rgb(15 23 42 / 0.08);
   --shadow-xl: 0 20px 30px rgb(15 23 42 / 0.1);
-
- 
 }
 
 * {
@@ -131,6 +130,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
 
 a {

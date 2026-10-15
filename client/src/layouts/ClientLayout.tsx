@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/layout/Header";
 import styles from "./ClientLayout.module.css";
-import { useRequiredAuth } from "../context/AuthContext";
 
 export default function ClientLayout() {
   const navlinks = [
@@ -29,9 +28,7 @@ export default function ClientLayout() {
 
   return (
     <div className={styles.container}>
-      <Header
-        links={navlinks}
-      />
+      <Header links={navlinks} />
       <main className={styles.main}>
         <Outlet />
       </main>

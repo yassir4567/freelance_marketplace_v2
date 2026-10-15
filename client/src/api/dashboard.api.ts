@@ -1,5 +1,5 @@
-import type { ClientDashboardData } from "../features/dashboards/client/types/dashboard.types";
-import type { FreelancerDashboardData } from "../features/dashboards/freelancer/types/dashboard.types";
+import type { ClientDashboardData } from "../features/dashboards/client-dashboard/types/dashboard.types";
+import type { FreelancerDashboardData } from "../features/dashboards/freelancer-dashboard/types/dashboard.types";
 import { request } from "./config.api";
 
 const dashboardApi = {

@@ -4,34 +4,32 @@ import styles from "../styles/ClientDashboard.module.css";
 import type { ClientDashboardRecentProject } from "../types/dashboard.types";
 
 interface RecentProjectsTableProps {
-  recentProjects: ClientDashboardRecentProject[];
+  projects: ClientDashboardRecentProject[];
 }
 
-export default function RecentProjectsTable({
-  recentProjects,
-}: RecentProjectsTableProps) {
+function RecentProjectsTable({ projects }: RecentProjectsTableProps) {
   return (
-    <table className={styles["recent-projects-table"]} cellSpacing={0}>
+    <table className={styles["recent-projects-table"]}>
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Status</th>
-          <th>Published At</th>
-          <th>Total Proposals</th>
-          <th>Actions</th>
+          <th className={styles["col-title"]}>Title</th>
+          <th className={styles["col-status"]}>Status</th>
+          <th className={styles["col-proposals"]}>Received Proposals</th>
+          <th className={styles["col-published-date"]}>Published At</th>
+          <th className={styles["col-actions"]}>Actions</th>
         </tr>
       </thead>
       <tbody>
-        {recentProjects.map((project) => (
+        {projects.map((project) => (
           <tr key={project.id}>
             <td>{project.title}</td>
             <td>{project.status}</td>
-            <td>{formatDate(project.created_at)}</td>
             <td>{project.proposals_count}</td>
+            <td>{formatDate(project.created_at)}</td>
             <td>
               <Link
                 to={`/client/projects/${project.id}`}
-                className={styles["recent-project-link"]}
+                className={styles["view-details-action"]}
               >
                 View details
               </Link>
@@ -42,3 +40,5 @@ export default function RecentProjectsTable({
     </table>
   );
 }
+
+export default RecentProjectsTable;

@@ -1,13 +1,11 @@
 import LoadingScreen from "../../../../components/ui/LoadingScreen";
-import { useRequiredAuth } from "../../../../context/AuthContext";
-import DashboardHeader from "../components/DashboardHeader";
+import ClientDashboardHeader from "../components/DashboardHeader";
+import DashboardRecentProjects from "../components/DashboardRecentProjects";
+import DashboardStats from "../components/DashboardStats";
 import useDashboard from "../hooks/useDashboard";
 import styles from "../styles/ClientDashboard.module.css";
-import DashboardOverview from "../components/DashboardOverview";
-import DashboardRecentProjects from "../components/DashboardRecentProjects";
 
 export default function ClientDashboardPage() {
-  const { user } = useRequiredAuth();
   const { data, isLoading, error } = useDashboard();
 
   if (isLoading) {
@@ -23,10 +21,10 @@ export default function ClientDashboardPage() {
 
   return (
     <div className={styles.container}>
-      <DashboardHeader firstName={user.firstName} />
-      <DashboardOverview stats={data.stats} />
+      <ClientDashboardHeader />
       <div className={styles.main}>
-        <DashboardRecentProjects recentProjects={data.recentProjects} />
+        <DashboardStats stats={data.stats} />
+        <DashboardRecentProjects projects={data.recentProjects} />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import styles from "../styles/UserProfile.module.css";
-import { useAuth, useRequiredAuth } from "../../context/AuthContext";
+import { useRequiredAuth } from "../../context/AuthContext";
 import { getUserInitials } from "../../utils/helpers";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import useShow from "../../hooks/useShow";

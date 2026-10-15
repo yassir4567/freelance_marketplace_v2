@@ -1,10 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/layout/Header";
 import styles from "./FreelancerLayout.module.css";
-import { useRequiredAuth } from "../context/AuthContext";
 
 export default function FreelancerLayout() {
-  const { user } = useRequiredAuth();
 
   const navlinks = [
     {

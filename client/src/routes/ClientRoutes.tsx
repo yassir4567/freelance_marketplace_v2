@@ -1,4 +1,4 @@
-import ClientDashboardPage from "../features/dashboards/client/pages/ClientDashboardPage";
+import ClientDashboardPage from "../features/dashboards/client-dashboard/pages/ClientDashboardPage";
 import ClientLayout from "../layouts/ClientLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 

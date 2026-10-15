@@ -5,6 +5,6 @@
 }
 
 .main {
-  margin-top: var(--space-16);
-  padding-inline: var(--space-10);
+  margin-top: var(--space-10);
+  margin-inline: 220px;
 }

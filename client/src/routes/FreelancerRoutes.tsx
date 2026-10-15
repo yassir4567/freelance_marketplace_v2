@@ -1,4 +1,4 @@
-import FreelancerDashboardPage from "../features/dashboards/freelancer/pages/FreelancerDashboardPage";
+import FreelancerDashboardPage from "../features/dashboards/freelancer-dashboard/pages/FreelancerDashboardPage";
 import FreelancerLayout from "../layouts/FreelancerLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 
