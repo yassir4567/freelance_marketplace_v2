@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientDashboardController;
+use App\Http\Controllers\ClientProjectController;
 use App\Http\Controllers\FreelancerDashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,10 +14,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
 
     Route::middleware('role:client')->group(function () {
-        Route::get('/client/dashboard', [ClientDashboardController::class, 'index']);
+        Route::prefix('client')->group(function () {
+            Route::get('/dashboard', [ClientDashboardController::class, 'index']);
+
+            Route::get("/projects", [ClientProjectController::class, 'index']);
+        });
     });
 
     Route::middleware('role:freelancer')->group(function () {
-        Route::get('/freelancer/dashboard', [FreelancerDashboardController::class, 'index']);
+        Route::prefix('freelancer')->group(function () {
+            Route::get('/dashboard', [FreelancerDashboardController::class, 'index']);
+        });
     });
 });
