@@ -16,8 +16,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('role:client')->group(function () {
         Route::prefix('client')->group(function () {
             Route::get('/dashboard', [ClientDashboardController::class, 'index']);
-
             Route::get("/projects", [ClientProjectController::class, 'index']);
+            Route::get("/projects/{id}", [ClientProjectController::class, 'show']);
         });
     });
 

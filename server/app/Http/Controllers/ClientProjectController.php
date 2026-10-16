@@ -91,4 +91,81 @@ class ClientProjectController extends Controller
             'data' => $projects
         ]);
     }
+
+    public function show(string $id)
+    {
+        $project = Project::select(
+            'id',
+            'title',
+            'description',
+            'budget',
+            'status',
+            'experienceLevel',
+            'size',
+            'duration',
+            'category_id',
+            'client_id'
+        )->withCount('proposals')
+            ->with([
+                'category:id,name',
+                'skills:id,name'
+            ])->findOrFail($id);
+
+        $this->authorize('view', $project);
+
+        $data = [
+            'id' => $project->id,
+            'title' => $project->title,
+            'description' => $project->description,
+            'budget' => $project->budget,
+            'status' => $project->status,
+            'experienceLevel' => $project->experienceLevel,
+            'size' => $project->size,
+            'duration' => $project->duration,
+            'proposalsCount' => $project->proposals_count,
+            'category' => [
+                'id' => $project->category->id,
+                'name' => $project->category->name,
+            ],
+            'skills' => $project->skills->map(function ($skill) {
+                return [
+                    'id' => $skill->id,
+                    'name' => $skill->name,
+                ];
+            })
+        ];
+
+        $isProjectHasContract = in_array($project->status, ['in_progress', 'completed']);
+
+        if ($isProjectHasContract) {
+            $project->load([
+                'proposals' => function ($query) {
+                    return $query->where('status', 'contracted')->select('id', 'project_id', 'freelancer_id');
+                },
+                'proposals.freelancer:id,title,user_id',
+                'proposals.freelancer.user:id,firstName,lastName,avatar',
+                'proposals.contract:id,finalPrice,finalDeadline,proposal_id'
+            ]);
+
+            $contract = $project->proposals->first()->contract;
+            $freelancer = $project->proposals->first()->freelancer;
+            $data['finalPrice'] = $contract->finalPrice;
+            $data['deadline'] = $contract->finalDeadline;
+            $data['freelancer'] = [
+                'id' => $freelancer->id,
+                'user_id' => $freelancer->user->id,
+                'title' => $freelancer->title,
+                'firstName' => $freelancer->user->firstName,
+                'lastName' => $freelancer->user->lastName,
+                'avatar' => $freelancer->user->avatar
+            ];
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Project retreived successfully',
+            'data' => $data
+        ]);
+    }
 }
+
