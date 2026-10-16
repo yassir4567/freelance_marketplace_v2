@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/dashboard', [ClientDashboardController::class, 'index']);
             Route::get("/projects", [ClientProjectController::class, 'index']);
             Route::get("/projects/{id}", [ClientProjectController::class, 'show']);
+            Route::post("/projects", [ClientProjectController::class, 'store']);
         });
     });
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PublishProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClientProjectController extends Controller
 {
@@ -166,6 +168,61 @@ class ClientProjectController extends Controller
             'message' => 'Project retreived successfully',
             'data' => $data
         ]);
+    }
+
+    public function store(PublishProjectRequest $request)
+    {
+        $client = $request->user();
+        $validated = $request->validated();
+
+        $project = DB::transaction(function () use ($client, $validated) {
+            $project = Project::create([
+                'title' => $validated['title'],
+                'description' => $validated['description'],
+                'budget' => $validated['budget'],
+                'experienceLevel' => $validated['experienceLevel'],
+                'size' => $validated['size'],
+                'duration' => $validated['duration'],
+                'category_id' => $validated['category_id'],
+                'client_id' => $client->id,
+                'status' => 'open',
+            ]);
+
+            $project->skills()->attach($validated['skills']);
+
+            return $project;
+        });
+
+        $project->load(['category:id,name', 'skills:id,name']);
+
+        $project = [
+            'id' => $project->id,
+            'title' => $project->title,
+            'description' => $project->description,
+            'budget' => $project->budget,
+            'status' => $project->status,
+            'experienceLevel' => $project->experienceLevel,
+            'size' => $project->size,
+            'duration' => $project->duration,
+            'category' => [
+                'id' => $project->category->id,
+                'name' => $project->category->name,
+            ],
+            'skills' => $project->skills->map(function ($skill) {
+                return [
+                    'id' => $skill->id,
+                    'name' => $skill->name,
+                ];
+            })
+        ];
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Project published successfully',
+            'data' => $project
+        ]);
+
     }
 }
 
