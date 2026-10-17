@@ -92,7 +92,7 @@ class ClientProjectController extends Controller
             'success' => true,
             'message' => "Projects retreived successfully",
             'data' => $projects
-        ]);
+        ], 200);
     }
 
     public function show(string $id)
@@ -170,7 +170,7 @@ class ClientProjectController extends Controller
             'success' => true,
             'message' => 'Project retreived successfully',
             'data' => $data
-        ]);
+        ], 200);
     }
 
     public function store(PublishProjectRequest $request)
@@ -224,14 +224,15 @@ class ClientProjectController extends Controller
             'success' => true,
             'message' => 'Project published successfully',
             'data' => $project
-        ]);
+        ], 201);
 
     }
 
     public function update(UpdateProjectRequest $request, string $id)
     {
         $validated = $request->validated();
-        $project = DB::transaction(function () use ($validated, $id) {
+
+        $transaction = DB::transaction(function () use ($validated, $id) {
             $project = Project::whereKey($id)
                 ->lockForUpdate()
                 ->firstOrFail();
@@ -241,14 +242,54 @@ class ClientProjectController extends Controller
             $skillsProvided = array_key_exists('skills', $validated);
             $projectSkills = $validated['skills'] ?? [];
 
-            $project->update($validated);
+            unset($validated['skills']);
+
+            $project->fill($validated);
+
+            $isProjectChanged = $project->isDirty();
 
             if ($skillsProvided) {
+                $currentSkillsIds = $project->skills()
+                    ->pluck('skills.id')
+                    ->map(fn($id) => (int) $id)
+                    ->sort()
+                    ->values()
+                    ->all();
+
+                $newSkillsIds = collect($projectSkills)
+                    ->map(fn($id) => (int) $id)
+                    ->sort()
+                    ->values()
+                    ->all();
+
+                $isSkillsChanged = $currentSkillsIds !== $newSkillsIds;
+            } else {
+                $isSkillsChanged = false;
+            }
+
+            if (!$isProjectChanged && !$isSkillsChanged) {
+                return ['updated' => false];
+            }
+
+            if ($isProjectChanged) {
+                $project->save();
+            }
+
+            if ($skillsProvided && $isSkillsChanged) {
                 $project->skills()->sync($projectSkills);
             }
 
-            return $project;
+            return ['updated' => true, 'project' => $project];
         });
+
+        if (!$transaction['updated']) {
+            return response()->json([
+                'success' => false,
+                'message' => "No changes detected"
+            ], 422);
+        }
+
+        $project = $transaction['project'];
 
         $project->load(['category:id,name', 'skills:id,name'])
             ->loadCount('proposals');
@@ -279,7 +320,7 @@ class ClientProjectController extends Controller
             'success' => true,
             'message' => "Project updated successfully",
             "data" => $project
-        ]);
+        ], 200);
     }
 
 }
