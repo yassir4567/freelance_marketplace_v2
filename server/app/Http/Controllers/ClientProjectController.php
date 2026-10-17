@@ -106,6 +106,7 @@ class ClientProjectController extends Controller
             'experienceLevel',
             'size',
             'duration',
+            'created_at',
             'category_id',
             'client_id'
         )->withCount('proposals')
@@ -125,6 +126,7 @@ class ClientProjectController extends Controller
             'experienceLevel' => $project->experienceLevel,
             'size' => $project->size,
             'duration' => $project->duration,
+            'publishedAt' => $project->created_at,
             'proposalsCount' => $project->proposals_count,
             'category' => [
                 'id' => $project->category->id,
@@ -205,6 +207,7 @@ class ClientProjectController extends Controller
             'experienceLevel' => $project->experienceLevel,
             'size' => $project->size,
             'duration' => $project->duration,
+            'publishedAt' => $project->created_at,
             'category' => [
                 'id' => $project->category->id,
                 'name' => $project->category->name,
@@ -216,7 +219,6 @@ class ClientProjectController extends Controller
                 ];
             })
         ];
-
 
         return response()->json([
             'success' => true,
@@ -260,6 +262,7 @@ class ClientProjectController extends Controller
             'experienceLevel' => $project->experienceLevel,
             'size' => $project->size,
             'duration' => $project->duration,
+            'publishedAt' => $project->created_at,
             'category' => [
                 'id' => $project->category->id,
                 'name' => $project->category->name,
