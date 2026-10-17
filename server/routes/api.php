@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get("/projects", [ClientProjectController::class, 'index']);
             Route::get("/projects/{id}", [ClientProjectController::class, 'show']);
             Route::post("/projects", [ClientProjectController::class, 'store']);
+            Route::put("/projects/{id}", [ClientProjectController::class, 'update']);
         });
     });
 

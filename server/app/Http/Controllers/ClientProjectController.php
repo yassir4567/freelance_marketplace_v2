@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PublishProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -224,5 +225,59 @@ class ClientProjectController extends Controller
         ]);
 
     }
+
+    public function update(UpdateProjectRequest $request, string $id)
+    {
+        $validated = $request->validated();
+        $project = DB::transaction(function () use ($validated, $id) {
+            $project = Project::whereKey($id)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            $this->authorize('update', $project);
+
+            $skillsProvided = array_key_exists('skills', $validated);
+            $projectSkills = $validated['skills'] ?? [];
+
+            $project->update($validated);
+
+            if ($skillsProvided) {
+                $project->skills()->sync($projectSkills);
+            }
+
+            return $project;
+        });
+
+        $project->load(['category:id,name', 'skills:id,name'])
+            ->loadCount('proposals');
+
+        $project = [
+            'id' => $project->id,
+            'title' => $project->title,
+            'description' => $project->description,
+            'budget' => $project->budget,
+            'status' => $project->status,
+            'experienceLevel' => $project->experienceLevel,
+            'size' => $project->size,
+            'duration' => $project->duration,
+            'category' => [
+                'id' => $project->category->id,
+                'name' => $project->category->name,
+            ],
+            'skills' => $project->skills->map(function ($skill) {
+                return [
+                    'id' => $skill->id,
+                    'name' => $skill->name,
+                ];
+            })
+        ];
+
+        return response()->json([
+            'success' => true,
+            'message' => "Project updated successfully",
+            "data" => $project
+        ]);
+    }
+
 }
 

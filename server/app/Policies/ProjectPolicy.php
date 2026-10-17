@@ -15,7 +15,9 @@ class ProjectPolicy
 
     public function update(User $user, Project $project): bool
     {
-        return true;
+        return $project->client_id === $user->id
+            && $project->status === 'open'
+            && $project->proposals()->count() === 0;
     }
 
     public function delete(User $user, Project $project): bool
