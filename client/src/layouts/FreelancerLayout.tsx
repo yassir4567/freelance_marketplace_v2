@@ -1,9 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/layout/Header";
-import styles from "./FreelancerLayout.module.css";
 
 export default function FreelancerLayout() {
-
   const navlinks = [
     {
       label: "Dashboard",
@@ -28,9 +26,9 @@ export default function FreelancerLayout() {
   ];
 
   return (
-    <div className={styles.container}>
+    <div className="bg-gray-50 min-h-screen pb-30">
       <Header links={navlinks} />
-      <main className={styles.main}>
+      <main className="mt-15 mx-55">
         <Outlet />
       </main>
     </div>

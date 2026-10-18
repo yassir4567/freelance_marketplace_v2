@@ -1,5 +1,4 @@
 import StateCard from "../../../../components/ui/StateCard";
-import styles from "../styles/ClientDashboard.module.css";
 import type { ClientDashboardStats } from "../types/dashboard.types";
 
 interface DashboardStatsProps {
@@ -35,14 +34,14 @@ function DashboardStats({ stats }: DashboardStatsProps) {
     },
   ];
   return (
-    <div className={styles["stats-container"]}>
+    <div className="flex flex-col gap-4">
       {statsCards.map((card) => (
         <StateCard>
-          <div className={styles["card-content"]}>
-            <h3 className={styles["card-title"]}>{card.title}</h3>
-            <p className={styles["card-description"]}>{card.description}</p>
+          <div>
+            <h3 className="text-sm text-blue-600 mb-1">{card.title}</h3>
+            <p className="text-xs text-gray-600">{card.description}</p>
           </div>
-          <div className={styles["card-value"]}>{card.value}</div>
+          <div className="text-md">{card.value}</div>
         </StateCard>
       ))}
     </div>

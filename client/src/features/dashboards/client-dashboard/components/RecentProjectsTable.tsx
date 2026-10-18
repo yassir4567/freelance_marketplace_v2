@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { formatDate } from "../../../../utils/helpers";
-import styles from "../styles/ClientDashboard.module.css";
 import type { ClientDashboardRecentProject } from "../types/dashboard.types";
 
 interface RecentProjectsTableProps {
@@ -9,27 +8,45 @@ interface RecentProjectsTableProps {
 
 function RecentProjectsTable({ projects }: RecentProjectsTableProps) {
   return (
-    <table className={styles["recent-projects-table"]}>
-      <thead>
+    <table className="w-full table-fixed border-collapse">
+      <thead className="h-15">
         <tr>
-          <th className={styles["col-title"]}>Title</th>
-          <th className={styles["col-status"]}>Status</th>
-          <th className={styles["col-proposals"]}>Received Proposals</th>
-          <th className={styles["col-published-date"]}>Published At</th>
-          <th className={styles["col-actions"]}>Actions</th>
+          <th className="text-center w-full p-4 border-b border-solid border-gray-300 text-gray-400 text-xs font-medium tracking-wide">
+            Title
+          </th>
+          <th className="text-center w-32 p-4 border-b border-solid border-gray-300 text-gray-400 text-xs font-medium tracking-wide">
+            Status
+          </th>
+          <th className="text-center w-32 p-4 border-b border-solid border-gray-300 text-gray-400 text-xs font-medium tracking-wide">
+            Received Proposals
+          </th>
+          <th className="text-center w-32 p-4 border-b border-solid border-gray-300 text-gray-400 text-xs font-medium tracking-wide">
+            Published At
+          </th>
+          <th className="text-center w-32 p-4 border-b border-solid border-gray-300 text-gray-400 text-xs font-medium tracking-wide">
+            Actions
+          </th>
         </tr>
       </thead>
       <tbody>
         {projects.map((project) => (
           <tr key={project.id}>
-            <td>{project.title}</td>
-            <td>{project.status}</td>
-            <td>{project.proposals_count}</td>
-            <td>{formatDate(project.publishedAt)}</td>
-            <td>
+            <td className="p-4 border-b border-solid border-gray-300 text-sm">
+              {project.title}
+            </td>
+            <td className="p-4 border-b border-solid border-gray-300 text-sm">
+              {project.status}
+            </td>
+            <td className="p-4 border-b border-solid border-gray-300 text-sm">
+              {project.proposals_count}
+            </td>
+            <td className="p-4 border-b border-solid border-gray-300 text-sm">
+              {formatDate(project.publishedAt)}
+            </td>
+            <td className="p-4 border-b border-solid border-gray-300 text-sm">
               <Link
                 to={`/client/projects/${project.id}`}
-                className={styles["view-details-action"]}
+                className="text-xs text-blue-500 hover:text-blue-600"
               >
                 View details
               </Link>

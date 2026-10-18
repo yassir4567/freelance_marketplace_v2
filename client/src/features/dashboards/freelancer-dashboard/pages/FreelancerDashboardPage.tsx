@@ -3,7 +3,6 @@ import DashboardActiveContracts from "../components/DashboardActiveContracts";
 import DashboardHeader from "../components/DashboardHeader";
 import DashboardStats from "../components/DashboardStats";
 import useDashboard from "../hooks/useDashboard";
-import styles from "../styles/FreelancerDashboard.module.css";
 
 export default function FreelancerDashboardPage() {
   const { data, isLoading, error } = useDashboard();
@@ -20,9 +19,9 @@ export default function FreelancerDashboardPage() {
   if (!data) return null;
 
   return (
-    <div className={styles.container}>
+    <div>
       <DashboardHeader />
-      <div className={styles.main}>
+      <div className="mt-12 grid grid-cols-[340px_1fr] gap-5">
         <DashboardStats stats={data.stats} />
         <DashboardActiveContracts contracts={data.activeContracts} />
       </div>

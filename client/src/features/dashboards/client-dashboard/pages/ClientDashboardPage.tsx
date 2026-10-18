@@ -3,7 +3,6 @@ import ClientDashboardHeader from "../components/DashboardHeader";
 import DashboardRecentProjects from "../components/DashboardRecentProjects";
 import DashboardStats from "../components/DashboardStats";
 import useDashboard from "../hooks/useDashboard";
-import styles from "../styles/ClientDashboard.module.css";
 
 export default function ClientDashboardPage() {
   const { data, isLoading, error } = useDashboard();
@@ -20,9 +19,9 @@ export default function ClientDashboardPage() {
   if (!data) return null;
 
   return (
-    <div className={styles.container}>
+    <div>
       <ClientDashboardHeader />
-      <div className={styles.main}>
+      <div className="mt-12 grid grid-cols-[320px_1fr] gap-4">
         <DashboardStats stats={data.stats} />
         <DashboardRecentProjects projects={data.recentProjects} />
       </div>

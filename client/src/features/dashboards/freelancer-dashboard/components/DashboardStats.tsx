@@ -1,5 +1,4 @@
 import StateCard from "../../../../components/ui/StateCard";
-import styles from "../styles/FreelancerDashboard.module.css";
 import type { FreelancerDashboardStats } from "../types/dashboard.types";
 
 interface DashboardStatsProps {
@@ -31,14 +30,14 @@ export default function DashboardStats({ stats }: DashboardStatsProps) {
   ];
 
   return (
-    <div className={styles["stats-container"]}>
+    <div className="flex flex-col gap-4">
       {statsCards.map((card) => (
         <StateCard key={card.title}>
-          <div className={styles["card-content"]}>
-            <h4 className={styles["card-title"]}>{card.title}</h4>
-            <p className={styles["card-description"]}>{card.description}</p>
+          <div>
+            <h4 className="text-sm text-blue-600 mb-1">{card.title}</h4>
+            <p className="text-xs text-gray-600">{card.description}</p>
           </div>
-          <div className={styles["card-value"]}>{card.value}</div>
+          <div className="text-md">{card.value}</div>
         </StateCard>
       ))}
     </div>

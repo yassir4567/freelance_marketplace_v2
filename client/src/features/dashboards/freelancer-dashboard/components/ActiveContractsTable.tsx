@@ -1,6 +1,5 @@
 import type { LatestActiveContracts } from "../types/dashboard.types";
-import styles from "../styles/FreelancerDashboard.module.css";
-import { formatDate } from "../../../../utils/helpers";
+ import { formatDate } from "../../../../utils/helpers";
 import { Link } from "react-router-dom";
 
 interface ActiveContractsTableProps {
@@ -9,29 +8,45 @@ interface ActiveContractsTableProps {
 
 function ActiveContractsTable({ contracts }: ActiveContractsTableProps) {
   return (
-    <table className={styles["active-contracts-table"]}>
-      <thead>
+    <table className="w-full table-fixed border-collapse">
+      <thead className="h-15">
         <tr>
-          <th className={styles["col-title"]}>Title</th>
-          <th className={styles["col-client"]}>Client</th>
-          <th className={styles["col-price"]}>Price</th>
-          <th className={styles["col-deadline"]}>Deadline</th>
-          <th className={styles["col-actions"]}>Actions</th>
+          <th className="text-center w-full p-4 border-b text-gray-400 border-gray-300 text-sm font-medium tracking-wide">
+            Title
+          </th>
+          <th className="text-center w-32 p-4 border-b text-gray-400 border-gray-300 text-sm font-medium tracking-wide">
+            Client
+          </th>
+          <th className="text-center w-32 p-4 border-b text-gray-400 border-gray-300 text-sm font-medium tracking-wide">
+            Price
+          </th>
+          <th className="text-center w-32 p-4 border-b text-gray-400 border-gray-300 text-sm font-medium tracking-wide">
+            Deadline
+          </th>
+          <th className="text-center w-32 p-4 border-b text-gray-400 border-gray-300 text-sm font-medium tracking-wide">
+            Actions
+          </th>
         </tr>
       </thead>
       <tbody>
         {contracts.map((contract) => (
           <tr key={contract.id}>
-            <td>{contract.title}</td>
-            <td>
+            <td className="p-4 border-b border-solid border-gray-300 text-sm">
+              {contract.title}
+            </td>
+            <td className="p-4 border-b border-solid border-gray-300 text-sm">
               {contract.client.firstName + " " + contract.client.lastName}
             </td>
-            <td>{contract.price}</td>
-            <td>{formatDate(contract.deadline)}</td>
-            <td>
+            <td className="p-4 border-b border-solid border-gray-300 text-sm">
+              {contract.price}
+            </td>
+            <td className="p-4 border-b border-solid border-gray-300 text-sm">
+              {formatDate(contract.deadline)}
+            </td>
+            <td className="p-4 border-b border-solid border-gray-300 text-sm">
               <Link
                 to={`/freelancer/contracts/${contract.id}`}
-                className={styles["view-details-action"]}
+                className="text-xs text-blue-500 hover:text-blue-600"
               >
                 View details
               </Link>

@@ -1,14 +1,15 @@
 import { useRequiredAuth } from "../../../../context/AuthContext";
-import styles from "../styles/FreelancerDashboard.module.css";
 
 export default function DashboardHeader() {
   const { user } = useRequiredAuth();
 
   return (
-    <div className={styles.header}>
-      <div className={styles.content}>
-        <h1 className={styles.welcome}>Welcome {user.firstName}</h1>
-        <p className={styles.description}>
+    <div className="flex justify-between items-center">
+      <div>
+        <h1 className="font-normal text-lg capitalize">
+          Welcome {user.firstName}
+        </h1>
+        <p className="mx-2 text-sm text-gray-500">
           Here's what's happening with your contracts.
         </p>
       </div>

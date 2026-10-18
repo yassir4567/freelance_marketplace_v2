@@ -1,21 +1,23 @@
 import { Link } from "react-router-dom";
 import { useRequiredAuth } from "../../../../context/AuthContext";
-import styles from "../styles/ClientDashboard.module.css";
 import { HiOutlinePlusSmall } from "react-icons/hi2";
-
 
 function DashboardHeader() {
   const { user } = useRequiredAuth();
 
-
   return (
-    <div className={styles.header}>
-      <div className={styles.greeting}>
-        <h3 className={styles.welcome}>Welcome {user.firstName}</h3>
-        <p className={styles.description}>Here's your dashboard</p>
+    <div className="flex justify-between">
+      <div>
+        <h3 className="font-normal text-lg capitalize">
+          Welcome {user.firstName}
+        </h3>
+        <p className="mx-2 text-sm text-gray-500">Here's your dashboard</p>
       </div>
-      <div className={styles.action}>
-        <Link to="/client/post-project" className={styles["post-project-link"]}>
+      <div>
+        <Link
+          to="/client/post-project"
+          className="flex justify-center items-center gap-1 rounded-xl border-blue-500 border text-blue-500 w-40 h-10 text-sm hover:border-blue-700 hover:text-blue-700"
+        >
           <span>Post Project</span>
           <HiOutlinePlusSmall />
         </Link>
