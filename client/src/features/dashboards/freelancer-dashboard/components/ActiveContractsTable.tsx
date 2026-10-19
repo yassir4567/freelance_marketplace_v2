@@ -1,5 +1,5 @@
 import type { LatestActiveContracts } from "../types/dashboard.types";
- import { formatDate } from "../../../../utils/helpers";
+ import { formatDate } from "@/utils/helpers";
 import { Link } from "react-router-dom";
 
 interface ActiveContractsTableProps {

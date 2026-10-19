@@ -1,13 +1,13 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { Button } from "../../../components/ui/Button";
-import { FormField } from "../../../components/ui/FormField";
-import { Input } from "../../../components/ui/Input";
+import { Button } from "@/components/ui/Button";
+import { FormField } from "@/components/ui/FormField";
+import { Input } from "@/components/ui/Input";
 import styles from "../styles/Register.module.css";
 import React, { useState } from "react";
 import type { RegisterForm } from "../types/form.types";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { validateRegisterForm } from "../utils/validation";
-import type { RegisterCredentials } from "../../../types/user.types";
+import type { RegisterCredentials } from "@/types/user.types";
 import { GetFieldError } from "../utils/helpers";
 
 const InitErrors: Record<keyof RegisterForm, string> = {

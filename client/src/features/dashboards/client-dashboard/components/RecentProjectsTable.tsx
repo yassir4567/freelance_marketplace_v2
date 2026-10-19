@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { formatDate } from "../../../../utils/helpers";
 import type { ClientDashboardRecentProject } from "../types/dashboard.types";
+import { formatDate } from "@/utils/helpers";
 
 interface RecentProjectsTableProps {
   projects: ClientDashboardRecentProject[];

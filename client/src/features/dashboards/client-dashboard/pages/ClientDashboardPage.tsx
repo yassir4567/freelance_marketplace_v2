@@ -1,4 +1,4 @@
-import LoadingScreen from "../../../../components/ui/LoadingScreen";
+import LoadingScreen from "@/components/ui/LoadingScreen";
 import ClientDashboardHeader from "../components/DashboardHeader";
 import DashboardRecentProjects from "../components/DashboardRecentProjects";
 import DashboardStats from "../components/DashboardStats";

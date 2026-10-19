@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useRequiredAuth } from "../../../../context/AuthContext";
+import { useRequiredAuth } from "@/context/AuthContext";
 import { HiOutlinePlusSmall } from "react-icons/hi2";
 
 function DashboardHeader() {

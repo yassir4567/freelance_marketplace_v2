@@ -1,4 +1,4 @@
-import StateCard from "../../../../components/ui/StateCard";
+import StateCard from "@/components/ui/StateCard";
 import type { FreelancerDashboardStats } from "../types/dashboard.types";
 
 interface DashboardStatsProps {

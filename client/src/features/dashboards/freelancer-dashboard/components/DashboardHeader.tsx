@@ -1,4 +1,4 @@
-import { useRequiredAuth } from "../../../../context/AuthContext";
+import { useRequiredAuth } from "@/context/AuthContext";
 
 export default function DashboardHeader() {
   const { user } = useRequiredAuth();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ClientDashboardData } from "../types/dashboard.types";
-import { dashboardApi } from "../../../../api/dashboard.api";
+import { dashboardApi } from "@/api/dashboard.api";
 
 export default function useDashboard() {
   const [data, setData] = useState<ClientDashboardData | null>(null);

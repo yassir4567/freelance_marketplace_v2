@@ -1,10 +1,10 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { Button } from "../../../components/ui/Button";
-import { FormField } from "../../../components/ui/FormField";
-import { Input } from "../../../components/ui/Input";
-import type { LoginCredentials } from "../../../types/user.types";
+import { Button } from "@/components/ui/Button";
+import { FormField } from "@/components/ui/FormField";
+import { Input } from "@/components/ui/Input";
+import type { LoginCredentials } from "@/types/user.types";
 import styles from "../styles/Login.module.css";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { GetFieldError } from "../utils/helpers";
 

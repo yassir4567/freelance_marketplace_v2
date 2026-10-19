@@ -1,6 +1,6 @@
-import type { ActiveContract } from "../../../../types/contract.types";
-import type { Project } from "../../../../types/project.types";
-import type { User } from "../../../../types/user.types";
+import type { ActiveContract } from "@/types/contract.types";
+import type { Project } from "@/types/project.types";
+import type { User } from "@/types/user.types";
 
 export type FreelancerDashboardStats = {
   totalProjects: number;
