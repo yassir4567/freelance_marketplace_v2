@@ -1,14 +1,20 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/Button";
-import { FormField } from "@/components/ui/FormField";
-import { Input } from "@/components/ui/Input";
-import styles from "../styles/Register.module.css";
+import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import type { RegisterForm } from "../types/form.types";
 import { useAuth } from "@/context/AuthContext";
 import { validateRegisterForm } from "../utils/validation";
 import type { RegisterCredentials } from "@/types/user.types";
 import { GetFieldError } from "../utils/helpers";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 const InitErrors: Record<keyof RegisterForm, string> = {
   firstName: "",
@@ -98,104 +104,116 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className={styles.formWrapper}>
-      <h1 className={styles.title}>Create Your Account</h1>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        {generalError && <div className="error">{generalError}</div>}
-        <div className={styles.fullNameFields}>
-          <FormField
-            label="First Name"
-            className={styles.field}
-            error={errors.firstName}
-          >
+    <form className="w-150" onSubmit={handleSubmit}>
+      <h1 className="text-xl text-sky-600 font-semibold text-center mb-12">
+        Create Your Account
+      </h1>
+      {generalError && (
+        <div className="bg-red-100 text-red-800 text-sm font-medium capitalize mb-8 px-4 py-3 rounded-md">
+          {generalError}
+        </div>
+      )}
+      <FieldGroup className="gap-8">
+        <div className="grid max-w-sm grid-cols-2 gap-4">
+          <Field>
+            <FieldLabel className="text-sm font-normal text-blue-700">
+              First Name
+            </FieldLabel>
             <Input
               type="text"
               name="firstName"
               value={form.firstName}
               onChange={handleInputChange}
               placeholder="Enter your first name"
-              className={styles.input}
+              className="w-full border border-sky-200 shadow-none focus:outline-none h-10 px-4"
             />
-          </FormField>
-          <FormField
-            label="Last Name"
-            className={styles.field}
-            error={errors.lastName}
-          >
+            {errors.firstName && <FieldError>{errors.firstName}</FieldError>}
+          </Field>
+          <Field>
+            <FieldLabel className="text-sm font-normal text-blue-700">
+              Last Name
+            </FieldLabel>
             <Input
               type="text"
               name="lastName"
               value={form.lastName}
               onChange={handleInputChange}
               placeholder="Enter your last name"
-              className={styles.input}
+              className="w-full border border-sky-200 shadow-none focus:outline-none h-10 px-4"
             />
-          </FormField>
+            {errors.lastName && <FieldError>{errors.lastName}</FieldError>}
+          </Field>
         </div>
-        <FormField label="Email" className={styles.field} error={errors.email}>
+        <Field>
+          <FieldLabel className="text-sm font-normal text-blue-700">
+            Email
+          </FieldLabel>
           <Input
             type="text"
             name="email"
             value={form.email}
             onChange={handleInputChange}
-            placeholder="Enter your email"
-            className={styles.input}
+            placeholder="Enter your email (ex@gm.co)"
+            className="w-full border border-sky-200 shadow-none focus:outline-none h-10 px-4"
           />
-        </FormField>
-        <FormField
-          label="Password"
-          className={styles.field}
-          error={errors.password}
-        >
+          {errors.email && <FieldError>{errors.email}</FieldError>}
+        </Field>
+        <Field>
+          <FieldLabel className="text-sm font-normal text-blue-700">
+            Password
+          </FieldLabel>
           <Input
             type="password"
             name="password"
             value={form.password}
             onChange={handleInputChange}
             placeholder="Enter your password"
-            className={styles.input}
+            className="w-full border border-sky-200 shadow-none focus:outline-none h-10 px-4"
           />
-        </FormField>
-        <div className={styles.rolesWrapper}>
-          <div className={styles.roles}>
-            <FormField label="Freelancer" className={styles.role}>
-              <Input
-                type="radio"
-                name="role"
-                value="freelancer"
-                checked={form.role === "freelancer"}
-                onChange={handleInputChange}
-              />
-            </FormField>
-            <FormField label="Client" className={styles.role}>
-              <Input
-                type="radio"
-                name="role"
-                value="client"
-                checked={form.role === "client"}
-                onChange={handleInputChange}
-              />
-            </FormField>
-          </div>
-          {errors.role.trim() != "" && (
-            <div className={styles.error}>{errors.role}</div>
-          )}
-        </div>
+          {errors.password && <FieldError>{errors.password}</FieldError>}
+        </Field>
 
-        <Button
-          type="submit"
-          variant="primary"
-          className={styles["signup-btn"]}
+        <RadioGroup
+          value={form.role}
+          name="role"
+          onValueChange={(value) => {
+            setForm((prev) => ({ ...prev, role: value }));
+          }}
+          className="flex justify-evenly"
         >
-          Signup
+          <div className="flex items-center gap-2">
+            <RadioGroupItem
+              value="freelancer"
+              id="freelancer"
+              className="border-blue-400 data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 text-white"
+            />
+            <Label htmlFor="freelancer">Freelancer</Label>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <RadioGroupItem
+              value="client"
+              id="client"
+              className="border-blue-500 text-blue-600 data-[state=checked]:border-blue-600"
+            />
+            <Label htmlFor="client">Client</Label>
+          </div>
+        </RadioGroup>
+
+        <Button variant="primary" size="lg" type="submit">
+          Register
         </Button>
-      </form>
-      <div className={styles["login-info"]}>
-        <p>You have already an account ?</p>
-        <Link to="/login" className={styles.login}>
-          log in
-        </Link>
-      </div>
-    </div>
+
+        <div className="flex text-sm items-center justify-center gap-2">
+          <p className="text-gray-600">Do you have an account?</p>
+          <Link
+            to="/login"
+            className="text-blue-500 capitalize hover:text-blue-600"
+          >
+            login
+          </Link>
+        </div>
+      </FieldGroup>
+    </form>
   );
 }

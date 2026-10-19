@@ -1,4 +1,4 @@
-import { LoginPage } from "../features/auth/pages/LoginPage";
+import LoginPage  from "../features/auth/pages/LoginPage";
 import RegisterPage from "../features/auth/pages/RegisterPage";
 import GuestRoutes from "./GuestRoutes";
 

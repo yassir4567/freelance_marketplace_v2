@@ -1,12 +1,16 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/Button";
-import { FormField } from "@/components/ui/FormField";
-import { Input } from "@/components/ui/Input";
 import type { LoginCredentials } from "@/types/user.types";
-import styles from "../styles/Login.module.css";
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { GetFieldError } from "../utils/helpers";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -61,44 +65,59 @@ export default function LoginForm() {
     navigate(`/${result.user.role}/dashboard`, { replace: true });
   };
   return (
-    <div className={styles.formWrapper}>
-      <h1 className={styles.title}>Login</h1>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        {generalError && <div className="error">{generalError}</div>}
-        <FormField label="Email" className={styles.field} error={errors.email}>
+    <form className="w-87" onSubmit={handleSubmit}>
+      <h1 className="text-xl text-sky-600 font-semibold text-center mb-8">
+        Login
+      </h1>
+      {generalError && (
+        <div className="bg-red-100 text-red-800 text-sm font-medium capitalize mb-8 px-4 py-3 rounded-md">
+          {generalError}
+        </div>
+      )}
+      <FieldGroup>
+        <Field>
+          <FieldLabel className="text-sm font-normal text-blue-700">
+            Email
+          </FieldLabel>
           <Input
-            type="email"
+            type="text"
             name="email"
             value={form.email}
             onChange={handleInputChange}
-            placeholder="Enter Your Email..."
+            placeholder="Enter your email"
+            className="w-full border border-sky-200 shadow-none focus:outline-none h-10 px-4"
           />
-        </FormField>
-
-        <FormField
-          label="Password"
-          className={styles.field}
-          error={errors.password}
-        >
+          {errors.email && <FieldError>{errors.email}</FieldError>}
+        </Field>
+        <Field>
+          <FieldLabel className="text-sm font-normal text-blue-700">
+            Password
+          </FieldLabel>
           <Input
             type="password"
             name="password"
             value={form.password}
             onChange={handleInputChange}
-            placeholder="Enter Your Password..."
+            placeholder="Enter your password"
+            className="w-full border border-sky-200 shadow-none focus:outline-none h-10 px-4"
           />
-        </FormField>
+          {errors.password && <FieldError>{errors.password}</FieldError>}
+        </Field>
 
-        <Button type="submit" variant="primary" className={styles["login-btn"]}>
+        <Button variant="primary" size="lg" type="submit">
           Login
         </Button>
-      </form>
-      <div className={styles["signup-info"]}>
-        <p>You don't have account?</p>
-        <Link to="/register" className={styles.signup}>
-          sign up
-        </Link>
-      </div>
-    </div>
+
+        <div className="flex text-sm items-center justify-center gap-2">
+          <p className="text-gray-600">Don't you have an account?</p>
+          <Link
+            to="/register"
+            className="text-blue-500 capitalize hover:text-blue-600"
+          >
+            signup
+          </Link>
+        </div>
+      </FieldGroup>
+    </form>
   );
 }

@@ -1,9 +1,8 @@
-import styles from "../styles/Register.module.css";
 import RegisterForm from "../components/RegisterForm";
 
 function RegisterPage() {
   return (
-    <div className={styles.container}>
+    <div className="h-screen bg-gray-100 flex items-center justify-center">
       <RegisterForm />
     </div>
   );
