@@ -36,7 +36,7 @@ function DashboardStats({ stats }: DashboardStatsProps) {
   return (
     <div className="flex flex-col gap-4">
       {statsCards.map((card) => (
-        <StateCard>
+        <StateCard key={card.title}>
           <div>
             <h3 className="text-sm text-blue-600 mb-1">{card.title}</h3>
             <p className="text-xs text-gray-600">{card.description}</p>
