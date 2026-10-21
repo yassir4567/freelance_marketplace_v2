@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientDashboardController;
 use App\Http\Controllers\ClientProjectController;
 use App\Http\Controllers\FreelancerDashboardController;
+use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Route;
 
 Route::post("/login", [AuthController::class, 'login']);
@@ -28,4 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/dashboard', [FreelancerDashboardController::class, 'index']);
         });
     });
+
+    Route::get("/categories", [CategoryController::class, 'index']);
+    Route::get("/skills", [SkillController::class, 'index']);
 });
