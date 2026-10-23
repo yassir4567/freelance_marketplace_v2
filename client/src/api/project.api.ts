@@ -6,7 +6,7 @@ import { request } from "./config.api";
 
 const projectApi = {
   publish(form: PublishProjectType) {
-    return request<ClientProject>("/projects", {
+    return request<ClientProject>("/client/projects", {
       method: "POST",
       body: JSON.stringify(form),
     });

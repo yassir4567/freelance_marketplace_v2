@@ -1,27 +1,42 @@
 import { FieldLabel } from "@/components/ui/field";
-import { useCategory } from "@/hooks/useCategory";
-import { useSkills } from "@/hooks/useSkill";
+import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
-import type { PublishProjectFormType } from "../hooks/usePublishProjectForm";
+import type { PublishProjectFormInput } from "./PublishProjectForm";
+import type { Category } from "@/types/category.types";
+import type { Skill } from "@/types/skill.types";
+
 interface ProjectScopeFormProps {
-  form: PublishProjectFormType;
-  onChange: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void;
-  errors: Record<string, string>;
+  register: UseFormRegister<PublishProjectFormInput>;
+  errors: FieldErrors<PublishProjectFormInput>;
+
+  categories: Category[] | null;
+  skills: Skill[] | null;
+
+  isCategoriesLoading: boolean;
+  isSkillsLoading: boolean;
+
+  categoryError: string;
+  skillError: string;
+
+  handleAddSkill: (skill: number) => void;
+  handleRemoveSkill: (skill: number) => void;
+
+  formSkills: number[];
 }
 
-function ProjectScopeForm({ form, onChange, errors }: ProjectScopeFormProps) {
-  const {
-    categories,
-    isLoading: isCategoriesLoading,
-    error: categoryError,
-  } = useCategory();
-
-  const { skills, isLoading: isSkillsLoading, error: skillError } = useSkills();
-
+function ProjectScopeForm({
+  register,
+  errors,
+  categories,
+  skills,
+  isCategoriesLoading,
+  isSkillsLoading,
+  categoryError,
+  skillError,
+  handleAddSkill,
+  handleRemoveSkill,
+  formSkills,
+}: ProjectScopeFormProps) {
   const EXPERIENCE_LEVEL = [
     { label: "Junior", value: "junior" },
     { label: "Mid-Level", value: "mid-level" },
@@ -34,15 +49,16 @@ function ProjectScopeForm({ form, onChange, errors }: ProjectScopeFormProps) {
     { label: "Large", value: "large" },
   ];
 
+  const renderedSkillsForSelect =
+    skills?.filter((sk) => !formSkills.includes(sk.id)) ?? null;
+
   return (
     <div>
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="flex flex-col gap-1">
           <FieldLabel htmlFor="exp-level">Experience Level</FieldLabel>
           <select
-            name="experienceLevel"
-            value={form.experienceLevel}
-            onChange={onChange}
+            {...register("experienceLevel")}
             id="exp-level"
             className="border mt-2 border-gray-200 h-10 text-sm px-2 rounded-lg text-gray-500"
           >
@@ -56,16 +72,16 @@ function ProjectScopeForm({ form, onChange, errors }: ProjectScopeFormProps) {
             ))}
           </select>
           {errors.experienceLevel && (
-            <div className="text-red-500 text-sm">{errors.experienceLevel}</div>
+            <div className="text-sm text-red-400">
+              {errors.experienceLevel.message}
+            </div>
           )}
         </div>
 
         <div className="flex flex-col gap-1">
           <FieldLabel htmlFor="project-size">Project Size</FieldLabel>
           <select
-            name="size"
-            value={form.size}
-            onChange={onChange}
+            {...register("size")}
             id="project-size"
             className="border mt-2 border-gray-200 h-10 text-sm px-2 rounded-lg text-gray-500"
           >
@@ -79,7 +95,7 @@ function ProjectScopeForm({ form, onChange, errors }: ProjectScopeFormProps) {
             ))}
           </select>
           {errors.size && (
-            <div className="text-red-500 text-sm">{errors.size}</div>
+            <div className="text-sm text-red-400">{errors.size.message}</div>
           )}
         </div>
       </div>
@@ -87,9 +103,7 @@ function ProjectScopeForm({ form, onChange, errors }: ProjectScopeFormProps) {
       <div className="mb-6">
         <FieldLabel htmlFor="category">Select The Project Category</FieldLabel>
         <select
-          name="category_id"
-          value={form.category_id}
-          onChange={onChange}
+          {...register("category_id")}
           id="category"
           className="w-full mt-2 border border-gray-200 h-10 text-sm px-2 rounded-lg text-gray-500"
         >
@@ -109,25 +123,34 @@ function ProjectScopeForm({ form, onChange, errors }: ProjectScopeFormProps) {
           )}
         </select>
         {errors.category_id && (
-          <div className="text-red-500 text-sm">{errors.category_id}</div>
+          <div className="text-sm text-red-400">
+            {errors.category_id.message}
+          </div>
         )}
       </div>
 
       <div className="mb-6">
         <FieldLabel>Choose the skills </FieldLabel>
         <select
-          name="skills"
           id="skill"
+          onChange={(e) => {
+            const skill = e.target.value;
+
+            if (!skill) return;
+
+            handleAddSkill(+skill);
+            e.target.value = "";
+          }}
           className="w-full mt-2 border border-gray-200 h-10 text-sm px-2 rounded-lg text-gray-500"
         >
           {isSkillsLoading ? (
             <option value="">Fetching skills...</option>
-          ) : skills === null || skillError !== "" ? (
+          ) : renderedSkillsForSelect === null || skillError !== "" ? (
             <option value="">Failed to get skills, Try again</option>
           ) : (
             <>
               <option value="">Select your skill</option>
-              {skills.map((skill) => (
+              {renderedSkillsForSelect.map((skill) => (
                 <option key={skill.id} value={skill.id}>
                   {skill.name}
                 </option>
@@ -136,21 +159,31 @@ function ProjectScopeForm({ form, onChange, errors }: ProjectScopeFormProps) {
           )}
         </select>
         {errors.skills && (
-          <div className="text-red-500 text-sm">{errors.skills}</div>
+          <div className="text-sm text-red-400">{errors.skills.message}</div>
         )}
-        <div className="flex items-start gap-3 flex-wrap mt-3 max-h-20 overflow-auto">
-          {form.skills.map((skill) => (
-            <div
-              key={skill}
-              className="bg-sky-100 text-blue-950 px-3 py-1 rounded-lg flex justify-center items-center gap-1"
-            >
-              <span>{skill}</span>
-              <button>
-                <IoClose />
-              </button>
-            </div>
-          ))}
-        </div>
+
+        {skills !== null && (
+          <div className="flex items-start gap-3 flex-wrap mt-3 max-h-20 overflow-auto">
+            {formSkills.map((skill) => {
+              const skillName = skills.find((sk) => sk.id === skill)?.name;
+
+              return (
+                <div
+                  key={skill}
+                  className="bg-sky-100 text-blue-950 px-3 py-1 rounded-lg flex justify-center items-center gap-1"
+                >
+                  <span>{skillName}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveSkill(skill)}
+                  >
+                    <IoClose />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
