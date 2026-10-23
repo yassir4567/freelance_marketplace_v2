@@ -6,23 +6,15 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import type { PublishProjectFormType } from "../hooks/usePublishProjectForm";
+import type { FieldErrors, UseFormRegister } from "react-hook-form";
+import type { PublishProjectFormInput } from "./PublishProjectForm";
 
 interface ProjectDetailsFormProps {
-  form: PublishProjectFormType;
-  onChange: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void;
-  errors: Record<string, string>;
+  register: UseFormRegister<PublishProjectFormInput>;
+  errors: FieldErrors<PublishProjectFormInput>;
 }
 
-function ProjectDetailsForm({
-  form,
-  onChange,
-  errors,
-}: ProjectDetailsFormProps) {
+function ProjectDetailsForm({ register, errors }: ProjectDetailsFormProps) {
   return (
     <FieldGroup>
       <Field>
@@ -33,15 +25,13 @@ function ProjectDetailsForm({
           </FieldDescription>
         </div>
         <Input
+          {...register("title")}
           id="title"
-          name="title"
-          value={form.title}
-          onChange={onChange}
           placeholder="Enter your title"
           className="h-11 rounded-lg text-sm"
         />
         {errors.title && (
-          <div className="text-red-500 text-sm">{errors.title}</div>
+          <div className="text-sm text-red-400">{errors.title.message}</div>
         )}
       </Field>
 
@@ -54,14 +44,14 @@ function ProjectDetailsForm({
         </div>
         <Textarea
           id="description"
-          name="description"
-          value={form.description}
-          onChange={onChange}
+          {...register("description")}
           placeholder="Enter your project description"
           className="h-32 resize-none"
         />
         {errors.description && (
-          <div className="text-red-500 text-sm">{errors.description}</div>
+          <div className="text-sm text-red-400">
+            {errors.description.message}
+          </div>
         )}
       </Field>
     </FieldGroup>
