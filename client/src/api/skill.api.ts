@@ -3,7 +3,7 @@ import { request } from "./config.api";
 
 const skillApi = {
   getAll() {
-    return request<Skill[]>("/categories");
+    return request<Skill[]>("/skills");
   },
 };
 
