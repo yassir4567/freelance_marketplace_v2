@@ -2,6 +2,7 @@ import PublishProjectPage from "@/features/projects/client-projects/pages/Publis
 import ClientDashboardPage from "../features/dashboards/client-dashboard/pages/ClientDashboardPage";
 import ClientLayout from "../layouts/ClientLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
+import ClientProjectsPage from "@/features/projects/client-projects/pages/ClientProjectsPage";
 
 export const ClientRoutes = [
   {
@@ -14,6 +15,10 @@ export const ClientRoutes = [
           {
             path: "/client/post-project",
             element: <PublishProjectPage />,
+          },
+          {
+            path: "/client/projects",
+            element: <ClientProjectsPage />,
           },
         ],
       },

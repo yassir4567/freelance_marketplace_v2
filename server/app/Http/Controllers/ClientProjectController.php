@@ -26,8 +26,8 @@ class ClientProjectController extends Controller
                 'category:id,name'
             ]);
 
-        if ($request->query->has('title') && trim($request->query('title')) !== "") {
-            $query->where('title', 'like', "%{$request->query('title')}%");
+        if ($request->query->has('search') && trim($request->query('search')) !== "") {
+            $query->where('title', 'like', "%{$request->query('search')}%");
         }
 
         if ($request->query->has('status') && trim($request->query('status')) !== "") {

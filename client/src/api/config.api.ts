@@ -31,7 +31,7 @@ async function request<TResponse>(
 
     headers.set("Accept", "application/json");
 
-    const hasBody = options.body !== undefined;    
+    const hasBody = options.body !== undefined;
 
     if (hasBody) {
       headers.set("Content-Type", "application/json");
@@ -47,9 +47,6 @@ async function request<TResponse>(
     });
 
     const data = await response.json();
-
-    console.log(data);
-    
 
     if (!response.ok) {
       return {

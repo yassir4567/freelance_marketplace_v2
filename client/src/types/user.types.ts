@@ -1,7 +1,7 @@
 type Role = "client" | "freelancer" | "admin";
 
 export type User = {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -11,7 +11,13 @@ export type User = {
   country: string;
   city: string;
   address: string;
-  
+};
+
+export type Freelancer = User & {
+  user_id: number;
+  bio: string | null;
+  title: string | null;
+  portfolio_url: string | null;
 };
 
 export type LoginCredentials = {
