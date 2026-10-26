@@ -16,7 +16,7 @@ function DashboardHeader() {
       <div>
         <Link
           to="/client/post-project"
-          className="flex justify-center items-center gap-1 rounded-xl border-blue-500 border text-blue-500 w-40 h-10 text-sm hover:border-blue-700 hover:text-blue-700"
+          className="bg-transparent border border-blue-500 flex items-center justify-center gap-1 text-sm w-35 p-2 rounded-lg text-blue-500 h-8 hover:text-white hover:bg-blue-500 transition"
         >
           <span>Post Project</span>
           <HiOutlinePlusSmall />

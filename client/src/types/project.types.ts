@@ -1,4 +1,4 @@
-type ProjectStatus = "open" | "in_review" | "in_progress" | "completed";
+export type ProjectStatus = "open" | "in_review" | "in_progress" | "completed";
 type ExperienceLevel = "junior" | "mid-level" | "senior";
 type Size = "small" | "medium" | "large";
 type Duration =

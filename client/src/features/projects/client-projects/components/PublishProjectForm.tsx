@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSkills } from "@/hooks/useSkill";
 import { useCategory } from "@/hooks/useCategory";
 import { projectApi } from "@/api/project.api";
+import { useNavigate } from "react-router-dom";
 
 const publishProjectSchema = z.object({
   title: z
@@ -41,8 +42,8 @@ const publishProjectSchema = z.object({
     }),
   ),
   skills: z
-    .array(z.number(), { error: "You must select at least one skill" })
-    .min(1),
+    .array(z.number(), { error: "Skills must be a valid list" })
+    .min(1, { error: "You must select at least one skill" }),
 });
 
 export type PublishProjectFormInput = z.input<typeof publishProjectSchema>;
@@ -56,6 +57,7 @@ interface PublishProjectFormProps {
 }
 
 function PublishProjectForm({ step, onNext, onPrev }: PublishProjectFormProps) {
+  const navigate = useNavigate();
   const {
     categories,
     isLoading: isCategoriesLoading,
@@ -87,9 +89,10 @@ function PublishProjectForm({ step, onNext, onPrev }: PublishProjectFormProps) {
       setError("root", {
         message: "Something went wrong, try again",
       });
+      return;
     }
 
-    // redirect the client to the project list later
+    navigate("/client/projects");
   };
 
   const formSkills = watch("skills");
@@ -140,7 +143,7 @@ function PublishProjectForm({ step, onNext, onPrev }: PublishProjectFormProps) {
     }
 
     if (!isValid) return;
-    
+
     onNext();
   };
 
