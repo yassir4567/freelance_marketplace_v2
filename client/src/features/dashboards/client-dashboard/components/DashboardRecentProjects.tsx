@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
-import type { ClientDashboardRecentProject } from "../types/dashboard.types";
+import type { ClientDashboardData } from "../types/dashboard.types";
 import { MdArrowOutward } from "react-icons/md";
 import RecentProjectsTable from "./RecentProjectsTable";
 
 interface DashboardRecentProjectsProps {
-  projects: ClientDashboardRecentProject[];
+  data: ClientDashboardData | null;
+  isLoading: boolean;
 }
 
-function DashboardRecentProjects({ projects }: DashboardRecentProjectsProps) {
+function DashboardRecentProjects({
+  data,
+  isLoading,
+}: DashboardRecentProjectsProps) {
   return (
     <div className="mt-3">
       <div className="flex justify-between">
@@ -21,12 +25,16 @@ function DashboardRecentProjects({ projects }: DashboardRecentProjectsProps) {
         </Link>
       </div>
       <div className="w-full mt-4">
-        {projects.length >= 0 ? (
-          <RecentProjectsTable projects={projects} />
-        ) : (
+        {isLoading ? (
+          <div className="text-blue-500 mt-25 text-center bg-gray-100 h-12 flex items-center justify-center rounded-lg text-sm">
+            Loading projects...
+          </div>
+        ) : data === null || data.recentProjects.length === 0 ? (
           <div className="text-red-500 mt-25 text-center bg-gray-100 h-12 flex items-center justify-center rounded-lg text-sm">
             You have not had any projects yet
           </div>
+        ) : (
+          <RecentProjectsTable projects={data.recentProjects} />
         )}
       </div>
     </div>

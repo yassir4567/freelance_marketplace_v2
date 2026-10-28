@@ -7,6 +7,11 @@ import useDashboard from "../hooks/useDashboard";
 export default function FreelancerDashboardPage() {
   const { data, isLoading, error } = useDashboard();
 
+  // todo : I'll improve it later
+  if (error) {
+    return <div className="text-red-500">{error}</div>;
+  }
+
   if (isLoading) {
     return (
       <LoadingScreen
@@ -16,14 +21,12 @@ export default function FreelancerDashboardPage() {
     );
   }
 
-  if (!data) return null;
-
   return (
     <div>
       <DashboardHeader />
       <div className="mt-12 grid grid-cols-[340px_1fr] gap-5">
-        <DashboardStats stats={data.stats} />
-        <DashboardActiveContracts contracts={data.activeContracts} />
+        <DashboardStats data={data} isLoading={isLoading} />
+        <DashboardActiveContracts data={data} isLoading={isLoading} />
       </div>
     </div>
   );

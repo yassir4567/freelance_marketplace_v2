@@ -70,7 +70,7 @@ async function request<TResponse>(
     return {
       success: false,
       status: null,
-      message: "Network error",
+      message: err instanceof Error ? err.message : "NETWORK_ERROR",
       errors: null,
     };
   }
