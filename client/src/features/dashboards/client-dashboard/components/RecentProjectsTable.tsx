@@ -3,7 +3,7 @@ import type { ClientDashboardRecentProject } from "../types/dashboard.types";
 import { formatDate } from "@/utils/helpers";
 
 interface RecentProjectsTableProps {
-  projects: ClientDashboardRecentProject[];
+  projects: ClientDashboardRecentProject[] ;
 }
 
 function RecentProjectsTable({ projects }: RecentProjectsTableProps) {

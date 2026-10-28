@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom";
-import type { LatestActiveContracts } from "../types/dashboard.types";
+import type {
+  FreelancerDashboardData,
+  LatestActiveContracts,
+} from "../types/dashboard.types";
 import { MdArrowOutward } from "react-icons/md";
 import ActiveContractsTable from "./ActiveContractsTable";
 
 interface DashboardActiveContractsProps {
-  contracts: LatestActiveContracts[];
+  data: FreelancerDashboardData | null;
+  isLoading: boolean;
 }
 
 export default function DashboardActiveContracts({
-  contracts,
+  data,
+  isLoading,
 }: DashboardActiveContractsProps) {
   return (
     <div className="mt-2">
@@ -23,12 +28,16 @@ export default function DashboardActiveContracts({
         </Link>
       </div>
 
-      {contracts.length === 0 ? (
-        <div className="text-red-500 mt-20 text-center bg-gray-100 h-12 flex items-center justify-center rounded-lg text-sm">
-          You have not had any active contracts yet
+      {isLoading ? (
+        <div className="text-blue-500 mt-25 text-center bg-gray-100 h-12 flex items-center justify-center rounded-lg text-sm">
+          Loading contracts...
+        </div>
+      ) : data === null || data.activeContracts.length === 0 ? (
+        <div className="text-red-500 mt-25 text-center bg-gray-100 h-12 flex items-center justify-center rounded-lg text-sm">
+          You have not had any active contracts
         </div>
       ) : (
-        <ActiveContractsTable contracts={contracts} />
+        <ActiveContractsTable contracts={data.activeContracts} />
       )}
     </div>
   );
