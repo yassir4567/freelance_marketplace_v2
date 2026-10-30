@@ -33,17 +33,19 @@ export default function DashboardStats({
   ];
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="grid grid-cols-2 gap-4 mb-10">
       {statsCards.map((card) => (
         <div
           key={card.title}
-          className="w-full border border-gray-200 rounded-md px-3 py-5 flex justify-between items-center gap-2.5"
+          className="w-full border border-gray-200 rounded-xl px-4 py-7 flex justify-between items-center gap-2.5"
         >
           <div>
-            <h4 className="text-sm text-blue-600 mb-1">{card.title}</h4>
+            <h3 className="text-md font-medium mb-2">{card.title}</h3>
             <p className="text-xs text-gray-600">{card.description}</p>
           </div>
-          <div className="text-md">{isLoading ? "..." : card.value}</div>
+          <div className="text-xl font-bold">
+            {isLoading ? "..." : card.value}
+          </div>
         </div>
       ))}
     </div>

@@ -14,8 +14,8 @@ function DashboardRecentProjects({
 }: DashboardRecentProjectsProps) {
   return (
     <div className="mt-3">
-      <div className="flex justify-between">
-        <h5 className="text-md font-medium text-blue-500">Recent Projects</h5>
+      <div className="flex justify-between mb-5">
+        <h5 className="text-xl font-medium">Recent Projects</h5>
         <Link
           to="/client/projects"
           className="flex items-center gap-2 text-blue-500 hover:text-blue-600"

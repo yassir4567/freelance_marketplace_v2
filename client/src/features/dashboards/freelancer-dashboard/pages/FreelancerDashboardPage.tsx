@@ -1,4 +1,3 @@
-import LoadingScreen from "@/components/shared/LoadingScreen";
 import DashboardActiveContracts from "../components/DashboardActiveContracts";
 import DashboardHeader from "../components/DashboardHeader";
 import DashboardStats from "../components/DashboardStats";
@@ -12,20 +11,14 @@ export default function FreelancerDashboardPage() {
     return <div className="text-red-500">{error}</div>;
   }
 
-  if (isLoading) {
-    return (
-      <LoadingScreen
-        text="Loading..."
-        placeholder="Please wait while we fetch the dashboard data."
-      />
-    );
-  }
-
   return (
     <div>
       <DashboardHeader />
-      <div className="mt-12 grid grid-cols-[340px_1fr] gap-5">
-        <DashboardStats data={data} isLoading={isLoading} />
+      <div className="mt-12">
+        <div>
+          <h1 className="text-xl font-medium mb-5">Overview</h1>
+          <DashboardStats data={data} isLoading={isLoading} />
+        </div>
         <DashboardActiveContracts data={data} isLoading={isLoading} />
       </div>
     </div>
