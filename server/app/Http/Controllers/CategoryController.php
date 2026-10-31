@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 
 class CategoryController extends Controller
@@ -10,10 +11,9 @@ class CategoryController extends Controller
     {
         $categories = Category::select('id', 'name')->get();
 
-        return response()->json([
+        return CategoryResource::collection($categories)->additional([
             'success' => true,
             'message' => 'Categories retreived successefully',
-            'data' => $categories
         ]);
     }
 }

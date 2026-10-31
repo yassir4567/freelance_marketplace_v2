@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SkillResource;
 use App\Models\Skill;
 
 class SkillController extends Controller
@@ -10,10 +11,9 @@ class SkillController extends Controller
     {
         $skills = Skill::select('id', 'name')->get();
 
-        return response()->json([
+        return SkillResource::collection($skills)->additional([
             'success' => true,
             'message' => 'Skills retreived successefully',
-            'data' => $skills
         ]);
     }
 }

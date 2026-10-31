@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PublishProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class ClientProjectController extends Controller
@@ -117,28 +119,7 @@ class ClientProjectController extends Controller
 
         $this->authorize('view', $project);
 
-        $data = [
-            'id' => $project->id,
-            'title' => $project->title,
-            'description' => $project->description,
-            'budget' => $project->budget,
-            'status' => $project->status,
-            'experienceLevel' => $project->experienceLevel,
-            'size' => $project->size,
-            'duration' => $project->duration,
-            'publishedAt' => $project->created_at,
-            'proposalsCount' => $project->proposals_count,
-            'category' => [
-                'id' => $project->category->id,
-                'name' => $project->category->name,
-            ],
-            'skills' => $project->skills->map(function ($skill) {
-                return [
-                    'id' => $skill->id,
-                    'name' => $skill->name,
-                ];
-            })
-        ];
+        $data = (new ProjectResource($project))->resolve();
 
         $isProjectHasContract = in_array($project->status, ['in_progress', 'completed']);
 
@@ -178,15 +159,19 @@ class ClientProjectController extends Controller
         $client = $request->user();
         $validated = $request->validated();
 
+
         $project = DB::transaction(function () use ($client, $validated) {
+            $projectData = Arr::only($validated, [
+                'title',
+                'description',
+                'budget',
+                'experienceLevel',
+                'size',
+                'duration',
+                'category_id',
+            ]);
             $project = Project::create([
-                'title' => $validated['title'],
-                'description' => $validated['description'],
-                'budget' => $validated['budget'],
-                'experienceLevel' => $validated['experienceLevel'],
-                'size' => $validated['size'],
-                'duration' => $validated['duration'],
-                'category_id' => $validated['category_id'],
+                ...$projectData,
                 'client_id' => $client->id,
                 'status' => 'open',
             ]);
@@ -198,34 +183,11 @@ class ClientProjectController extends Controller
 
         $project->load(['category:id,name', 'skills:id,name']);
 
-        $project = [
-            'id' => $project->id,
-            'title' => $project->title,
-            'description' => $project->description,
-            'budget' => $project->budget,
-            'status' => $project->status,
-            'experienceLevel' => $project->experienceLevel,
-            'size' => $project->size,
-            'duration' => $project->duration,
-            'publishedAt' => $project->created_at,
-            'category' => [
-                'id' => $project->category->id,
-                'name' => $project->category->name,
-            ],
-            'skills' => $project->skills->map(function ($skill) {
-                return [
-                    'id' => $skill->id,
-                    'name' => $skill->name,
-                ];
-            })
-        ];
 
-        return response()->json([
+        return (new ProjectResource($project))->additional([
             'success' => true,
             'message' => 'Project published successfully',
-            'data' => $project
-        ], 201);
-
+        ])->response()->setStatusCode(201);
     }
 
     public function update(UpdateProjectRequest $request, string $id)
@@ -294,33 +256,10 @@ class ClientProjectController extends Controller
         $project->load(['category:id,name', 'skills:id,name'])
             ->loadCount('proposals');
 
-        $project = [
-            'id' => $project->id,
-            'title' => $project->title,
-            'description' => $project->description,
-            'budget' => $project->budget,
-            'status' => $project->status,
-            'experienceLevel' => $project->experienceLevel,
-            'size' => $project->size,
-            'duration' => $project->duration,
-            'publishedAt' => $project->created_at,
-            'category' => [
-                'id' => $project->category->id,
-                'name' => $project->category->name,
-            ],
-            'skills' => $project->skills->map(function ($skill) {
-                return [
-                    'id' => $skill->id,
-                    'name' => $skill->name,
-                ];
-            })
-        ];
-
-        return response()->json([
+        return (new ProjectResource($project))->additional([
             'success' => true,
-            'message' => "Project updated successfully",
-            "data" => $project
-        ], 200);
+            'message' => 'Project updated successfully',
+        ]);
     }
 
 }
