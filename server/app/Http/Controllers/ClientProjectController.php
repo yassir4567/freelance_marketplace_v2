@@ -61,8 +61,7 @@ class ClientProjectController extends Controller
                 $budget = $contract->finalPrice;
                 $deadline = $contract->finalDeadline;
                 $freelancer = [
-                    'id' => $freelancer->id,
-                    'user_id' => $user->id,
+                    'id' => $user->id,
                     'firstName' => $user->firstName,
                     'lastName' => $user->lastName,
                     'avatar' => $user->avatar,
@@ -139,7 +138,6 @@ class ClientProjectController extends Controller
             $data['deadline'] = $contract->finalDeadline;
             $data['freelancer'] = [
                 'id' => $freelancer->id,
-                'user_id' => $freelancer->user->id,
                 'title' => $freelancer->title,
                 'firstName' => $freelancer->user->firstName,
                 'lastName' => $freelancer->user->lastName,

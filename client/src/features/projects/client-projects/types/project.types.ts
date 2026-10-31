@@ -22,6 +22,6 @@ export type ClientProjectList = Pick<
   deadline?: string;
   freelancer?: Pick<
     Freelancer,
-    "id" | "user_id" | "firstName" | "lastName" | "avatar"
+    "id" | "firstName" | "lastName" | "avatar"
   >;
 };
