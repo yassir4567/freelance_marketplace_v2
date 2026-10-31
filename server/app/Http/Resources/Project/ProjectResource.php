@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Project;
 
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\SkillResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,7 +27,7 @@ class ProjectResource extends JsonResource
             'duration' => $this->duration,
             'publishedAt' => $this->created_at,
             'category' => CategoryResource::make($this->whenLoaded('category')),
-            'skills' => SkillResource::collection($this->whenLoaded('skills'))
+            'skills' => SkillResource::collection($this->whenLoaded('skills')),
         ];
     }
 }

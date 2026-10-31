@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PublishProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
-use App\Http\Resources\ProjectResource;
+use App\Http\Resources\Project\ProjectDetailsResource;
+use App\Http\Resources\Project\ProjectListResource;
+use App\Http\Resources\Project\ProjectResource;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -46,54 +48,24 @@ class ClientProjectController extends Controller
         }
 
         $projects = $query->get()->map(function ($project) {
-            $budget = null;
-            $deadline = null;
-            $freelancer = null;
-
-            if (in_array($project->status, ['open', 'in_review'])) {
-                $budget = $project->budget;
-            } else {
-                $proposal = $project->proposals->first();
-                $contract = $proposal->contract;
-                $freelancer = $proposal->freelancer;
-                $user = $proposal->freelancer->user;
-
-                $budget = $contract->finalPrice;
-                $deadline = $contract->finalDeadline;
-                $freelancer = [
-                    'id' => $user->id,
-                    'firstName' => $user->firstName,
-                    'lastName' => $user->lastName,
-                    'avatar' => $user->avatar,
-                ];
+            if (in_array($project->status, ['in_progress', 'completed'])) {
+                $project->load([
+                    'proposals' => function ($query) {
+                        return $query->where('status', 'contracted')->select('id', 'project_id', 'freelancer_id');
+                    },
+                    'proposals.freelancer:id,user_id',
+                    'proposals.freelancer.user:id,firstName,lastName,avatar',
+                ]);
             }
 
-            $data = [
-                'id' => $project->id,
-                'title' => $project->title,
-                'status' => $project->status,
-                'budget' => (int) $budget,
-                'publishedAt' => $project->created_at,
-                'category' => $project->category,
-            ];
-
-            if ($deadline !== null) {
-                $data['deadline'] = $deadline;
-            }
-
-            if ($freelancer !== null) {
-                $data['freelancer'] = $freelancer;
-            }
-
-            return $data;
+            return $project;
         });
 
 
-        return response()->json([
+        return ProjectListResource::collection($projects)->additional([
             'success' => true,
             'message' => "Projects retreived successfully",
-            'data' => $projects
-        ], 200);
+        ]);
     }
 
     public function show(string $id)
@@ -118,11 +90,8 @@ class ClientProjectController extends Controller
 
         $this->authorize('view', $project);
 
-        $data = (new ProjectResource($project))->resolve();
 
-        $isProjectHasContract = in_array($project->status, ['in_progress', 'completed']);
-
-        if ($isProjectHasContract) {
+        if (in_array($project->status, ['in_progress', 'completed'])) {
             $project->load([
                 'proposals' => function ($query) {
                     return $query->where('status', 'contracted')->select('id', 'project_id', 'freelancer_id');
@@ -131,25 +100,12 @@ class ClientProjectController extends Controller
                 'proposals.freelancer.user:id,firstName,lastName,avatar',
                 'proposals.contract:id,finalPrice,finalDeadline,proposal_id'
             ]);
-
-            $contract = $project->proposals->first()->contract;
-            $freelancer = $project->proposals->first()->freelancer;
-            $data['finalPrice'] = $contract->finalPrice;
-            $data['deadline'] = $contract->finalDeadline;
-            $data['freelancer'] = [
-                'id' => $freelancer->id,
-                'title' => $freelancer->title,
-                'firstName' => $freelancer->user->firstName,
-                'lastName' => $freelancer->user->lastName,
-                'avatar' => $freelancer->user->avatar
-            ];
         }
 
-        return response()->json([
+        return (new ProjectDetailsResource($project))->additional([
             'success' => true,
             'message' => 'Project retreived successfully',
-            'data' => $data
-        ], 200);
+        ]);
     }
 
     public function store(PublishProjectRequest $request)

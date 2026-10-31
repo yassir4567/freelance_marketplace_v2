@@ -30,7 +30,7 @@ function ProjectBudgetDuration({
         <FieldLabel htmlFor="budget">Budget</FieldLabel>
         <FieldDescription>Your budget should be atleast 20$</FieldDescription>
         <Input
-          {...register("budget", { valueAsNumber: true })}
+          {...register("budget")}
           type="number"
           placeholder="Enter your budget"
           className="h-11 rounded-lg text-sm"

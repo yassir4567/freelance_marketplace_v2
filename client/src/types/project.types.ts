@@ -11,7 +11,7 @@ export type Project = {
   id: number;
   title: string;
   description: string;
-  budget: number;
+  budget: string;
   status: ProjectStatus;
   experienceLevel: ExperienceLevel;
   size: Size;

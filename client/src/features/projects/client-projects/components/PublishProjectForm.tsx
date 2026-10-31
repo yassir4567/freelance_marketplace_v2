@@ -33,8 +33,15 @@ const publishProjectSchema = z.object({
     { error: "Please select the estimated duration" },
   ),
   budget: z
-    .number({ error: "Budget is required and it must be a number" })
-    .min(20, { error: "Project budget must be at least 20$" }),
+    .string()
+    .trim()
+    .min(1, { error: "Budget is required" })
+    .regex(/^\d+(\.\d{1,2})?$/, {
+      error: "Invalid budget format",
+    })
+    .refine((value) => Number(value) >= 20, {
+      error: "Budget should be at least 20$",
+    }),
   category_id: z.preprocess(
     (value) => (value === "" ? undefined : Number(value)),
     z.number({
