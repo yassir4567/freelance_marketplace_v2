@@ -14,7 +14,6 @@ export type User = {
 };
 
 export type Freelancer = User & {
-  user_id: number;
   bio: string | null;
   title: string | null;
   portfolio_url: string | null;
