@@ -1,4 +1,4 @@
-import type { ClientProjectList } from "../types/project.types";
+import type { ClientProjectList } from "../../types/project.types";
 import ClientProjectCard from "./ClientProjectCard";
 
 interface ClientProjectsListProps {

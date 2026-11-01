@@ -1,4 +1,4 @@
-import { formsHeaderData } from "../utils/data";
+import { formsHeaderData } from "../../utils/data";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import ProjectDetailsForm from "./ProjectDetailsForm";
 import ProjectScopeForm from "./ProjectScopeForm";

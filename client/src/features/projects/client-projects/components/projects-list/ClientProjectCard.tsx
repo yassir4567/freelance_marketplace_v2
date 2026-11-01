@@ -1,7 +1,7 @@
 import { FaRegUser } from "react-icons/fa6";
 import { VscProjectCompact } from "react-icons/vsc";
 import { Link } from "react-router-dom";
-import type { ClientProjectList } from "../types/project.types";
+import type { ClientProjectList } from "../../types/project.types";
 import { formatDate, removeUnderScore } from "@/utils/helpers";
 
 interface ClientProjectCardProps {

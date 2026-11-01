@@ -1,4 +1,4 @@
-import { formsAsideData } from "../utils/data";
+import { formsAsideData } from "../../utils/data";
 
 interface PublishProjectAsideProps {
   step: number;

@@ -1,7 +1,7 @@
-import ClientProjectsList from "../components/ClientProjectsList";
+import ClientProjectsList from "../components/projects-list/ClientProjectsList";
 import { useProjects } from "../hooks/useProjects";
-import ProjectListHeader from "../components/ProjectListHeader";
-import ProjectsListFilters from "../components/ProjectsListFilters";
+import ProjectListHeader from "../components/projects-list/ProjectListHeader";
+import ProjectsListFilters from "../components/projects-list/ProjectsListFilters";
 import { useProjectsFilters } from "../hooks/useProjectsFilters";
 
 function ClientProjectsPage() {

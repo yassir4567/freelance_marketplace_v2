@@ -3,7 +3,7 @@ import { removeUnderScore } from "@/utils/helpers";
 import type {
   ClientProjectsListFilters,
   ProjectStatusForFilter,
-} from "../hooks/useProjectsFilters";
+} from "../../hooks/useProjectsFilters";
 import type React from "react";
 
 interface ProjectsListFiltersProps {

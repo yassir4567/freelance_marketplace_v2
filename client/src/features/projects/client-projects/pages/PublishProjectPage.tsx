@@ -1,6 +1,6 @@
-import PublishProjectAside from "../components/PublishProjectAside";
-import PublishProjectForm from "../components/PublishProjectForm";
-import PublishProjectHeader from "../components/PublishProjectHeader";
+import PublishProjectAside from "../components/publish-project/PublishProjectAside";
+import PublishProjectForm from "../components/publish-project/PublishProjectForm";
+import PublishProjectHeader from "../components/publish-project/PublishProjectHeader";
 import { useStep } from "../hooks/useStep";
 
 function PublishProjectPage() {
