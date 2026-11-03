@@ -26,24 +26,24 @@ class UpdateProjectRequest extends FormRequest
         $durationBySize = [
             'small' => [
                 'less_than_1_month',
-                '1_to_2_month',
-                '2_to_4_month',
+                '1_to_3_month',
+                '3_to_6_month',
             ],
 
             'medium' => [
-                '4_to_6_month',
-                '6_to_9_month',
-                '9_to_10_month',
+                '1_to_3_month',
+                '3_to_6_month',
+                'more_than_6_month',
             ],
 
             'large' => [
-                '10_to_12_month',
-                'more_than_1_year',
+                '1_to_3_month',
+                '3_to_6_month',
+                'more_than_6_month',
             ],
         ];
 
         $size = $this->input('size');
-
 
         return [
             'title' => ['sometimes', 'string', 'min:5', 'max:200'],
