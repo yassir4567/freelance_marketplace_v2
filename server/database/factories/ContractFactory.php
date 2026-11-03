@@ -71,4 +71,17 @@ class ContractFactory extends Factory
             'finalDeadline' => fake()->dateTimeBetween('-30 days', '-1 day')->format('Y-m-d'),
         ]);
     }
+
+    public function cancelled()
+    {
+        return $this->state([
+            'contract_pdf' => fake()->url(),
+            'status' => 'cancelled',
+            'activated_at' => fake()->dateTimeBetween('-30 days', '-15 days'),
+            'cancelled_at' => fake()->dateTimeBetween('-14 days', '-1 day'),
+            'description' => fake()->paragraphs(rand(4, 7), true),
+            'finalPrice' => fake()->randomFloat(2, 50, 10000),
+            'finalDeadline' => fake()->dateTimeBetween('-30 days', '-1 day')->format('Y-m-d'),
+        ]);
+    }
 }

@@ -20,8 +20,5 @@ export type ClientProjectList = Pick<
 > & {
   category: Category;
   deadline?: string;
-  freelancer?: Pick<
-    Freelancer,
-    "id" | "firstName" | "lastName" | "avatar"
-  >;
+  freelancer?: Pick<Freelancer, "id" | "firstName" | "lastName" | "avatar">;
 };

@@ -14,12 +14,13 @@ return new class extends Migration {
             $table->id();
             $table->string('contract_pdf')->nullable();
             $table->text('description')->nullable();
-            $table->enum('status', ['pending', 'awaiting_freelancer_accept', 'active', 'completed', 'rejected']);
+            $table->enum('status', ['pending', 'awaiting_freelancer_accept', 'active', 'completed', 'rejected', 'cancelled']);
             $table->decimal('finalPrice', 10, 2)->nullable();
             $table->date('finalDeadline')->nullable();
 
             $table->timestamp('activated_at')->nullable();
             $table->timestamp('completed_at')->nullable();
+            $table->timestamp('cancelled_at')->nullable();
 
             $table->foreignId('proposal_id')
                 ->unique()

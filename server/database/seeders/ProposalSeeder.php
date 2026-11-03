@@ -55,6 +55,18 @@ class ProposalSeeder extends Seeder
                 }
             }
 
+            if ($project->status == 'closed') {
+                $count = rand(1, $freelancers->count());
+                $randomFreelancers = $freelancers->shuffle()->take($count);
+
+                foreach ($randomFreelancers as $freelancer) {
+                    Proposal::factory()->rejected()->create([
+                        'project_id' => $project->id,
+                        'freelancer_id' => $freelancer->id,
+                    ]);
+                }
+            }
+
             if ($project->status == 'in_progress' || $project->status == 'completed') {
 
                 $count = rand(4, $freelancers->count());
@@ -64,6 +76,28 @@ class ProposalSeeder extends Seeder
                 Proposal::factory()->contracted()->create([
                     'project_id' => $project->id,
                     'freelancer_id' => $randomFreelancers->first()->id
+                ]);
+
+                $randomFreelancers = $randomFreelancers->skip(1);
+
+                foreach ($randomFreelancers as $freelancer) {
+                    Proposal::factory()->create([
+                        'project_id' => $project->id,
+                        'freelancer_id' => $freelancer->id,
+                        'status' => fake()->randomElement(['rejected', 'revoked'])
+                    ]);
+                }
+            }
+
+            if ($project->status == 'cancelled') {
+                $count = rand(4, $freelancers->count());
+
+                $randomFreelancers = $freelancers->shuffle()->take($count);
+
+                Proposal::factory()->accepted()->create([
+                    'project_id' => $project->id,
+                    'freelancer_id' => $randomFreelancers->first()->id,
+                    'status' => 'contracted',
                 ]);
 
                 $randomFreelancers = $randomFreelancers->skip(1);

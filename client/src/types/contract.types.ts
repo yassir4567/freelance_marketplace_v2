@@ -3,7 +3,8 @@ type ContractStatus =
   | "awaiting_freelancer_accept"
   | "active"
   | "completed"
-  | "rejected";
+  | "rejected"
+  | "cancelled";
 
 type ContractBase = {
   id: number;

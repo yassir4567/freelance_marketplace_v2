@@ -48,6 +48,27 @@ class ProjectSeeder extends Seeder
             ]);
 
             $this->attachRandomSkills($projects, $skills);
+
+            $projects = Project::factory()->closed()->count(rand(3, 10))->create([
+                'client_id' => $client->id,
+                'category_id' => $categories->random()
+            ]);
+
+            $this->attachRandomSkills($projects, $skills);
+
+            $projects = Project::factory()->draft()->count(rand(1, 4))->create([
+                'client_id' => $client->id,
+                'category_id' => $categories->random()
+            ]);
+
+            $this->attachRandomSkills($projects, $skills);
+
+            $projects = Project::factory()->cancelled()->count(rand(1, 4))->create([
+                'client_id' => $client->id,
+                'category_id' => $categories->random()
+            ]);
+
+            $this->attachRandomSkills($projects, $skills);
         }
     }
 

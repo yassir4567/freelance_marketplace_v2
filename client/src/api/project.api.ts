@@ -1,7 +1,8 @@
-import type {
-  ClientProject,
-  ClientProjectList,
-  PublishProjectType,
+import {
+  type ClientProjectDetails,
+  type ClientProject,
+  type ClientProjectList,
+  type PublishProjectType,
 } from "@/features/projects/client-projects/types/project.types";
 import { request } from "./config.api";
 
@@ -14,6 +15,9 @@ const projectApi = {
   },
   getAll(query: string) {
     return request<ClientProjectList[]>(`/client/projects${query}`);
+  },
+  getDetails(id: string) {
+    return request<ClientProjectDetails>(`/client/projects/${id}`);
   },
 };
 

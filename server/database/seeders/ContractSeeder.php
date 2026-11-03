@@ -30,15 +30,21 @@ class ContractSeeder extends Seeder
             }
 
             if ($proposal->status == 'contracted') {
-                $num = rand(0, 1);
-                if ($num == 0) {
-                    Contract::factory()->active()->create([
+                if ($proposal->project->status == "cancelled") {
+                    Contract::factory()->cancelled()->create([
                         'proposal_id' => $proposal->id
                     ]);
                 } else {
-                    Contract::factory()->completed()->create([
-                        'proposal_id' => $proposal->id
-                    ]);
+                    $num = rand(0, 1);
+                    if ($num == 0) {
+                        Contract::factory()->active()->create([
+                            'proposal_id' => $proposal->id
+                        ]);
+                    } else {
+                        Contract::factory()->completed()->create([
+                            'proposal_id' => $proposal->id
+                        ]);
+                    }
                 }
             }
         }

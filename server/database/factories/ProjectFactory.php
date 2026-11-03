@@ -24,7 +24,16 @@ class ProjectFactory extends Factory
             'budget' => fake()->randomFloat(2, 50, 10000),
             'experienceLevel' => fake()->randomElement(['junior', 'mid-level', 'senior']),
             'size' => fake()->randomElement(['small', 'medium', 'large']),
-            'duration' => fake()->randomElement(['less_than_1_month', '1_to_3_month', '3_to_6_month', 'more_than_6_month']),
+            'duration' => fake()->randomElement([
+                'less_than_1_month',
+                '1_to_2_month',
+                '2_to_4_month',
+                '4_to_6_month',
+                '6_to_9_month',
+                '9_to_10_month',
+                '10_to_12_month',
+                'more_than_1_year'
+            ]),
         ];
     }
 
@@ -49,10 +58,30 @@ class ProjectFactory extends Factory
         ]);
     }
 
+    public function closed()
+    {
+        return $this->state([
+            'status' => 'closed'
+        ]);
+    }
+    public function draft()
+    {
+        return $this->state([
+            'status' => 'draft'
+        ]);
+    }
+
     public function completed()
     {
         return $this->state([
             'status' => 'completed'
+        ]);
+    }
+
+    public function cancelled()
+    {
+        return $this->state([
+            'status' => 'cancelled'
         ]);
     }
 }
