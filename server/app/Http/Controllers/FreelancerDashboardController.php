@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ContractStatus;
+use App\Enums\PaymentStatus;
 use App\Models\Contract;
 use App\Models\Payment;
 use Illuminate\Http\Request;
@@ -13,28 +15,27 @@ class FreelancerDashboardController extends Controller
         $user = $request->user();
         $freelancer = $user->freelancer;
 
-        $totalProjects = Contract::whereIn('status', ['active', 'completed'])
-            ->whereHas('proposal', function ($query) use ($freelancer) {
-                return $query->where('freelancer_id', $freelancer->id);
-
-            })->count();
-
-        $countActiveContracts = Contract::where('status', 'active')
+        $totalProjects = Contract::whereIn('status', [ContractStatus::ACTIVE, ContractStatus::COMPLETED])
             ->whereHas('proposal', function ($query) use ($freelancer) {
                 return $query->where('freelancer_id', $freelancer->id);
             })->count();
 
-        $totalEarnings = Payment::where('status', 'released')
+        $countActiveContracts = Contract::where('status', ContractStatus::ACTIVE)
+            ->whereHas('proposal', function ($query) use ($freelancer) {
+                return $query->where('freelancer_id', $freelancer->id);
+            })->count();
+
+        $totalEarnings = Payment::where('status', PaymentStatus::RELEASED)
             ->whereHas('deliverable.contract.proposal', function ($query) use ($freelancer) {
                 return $query->where('freelancer_id', $freelancer->id);
             })->sum('amount');
 
-        $escrowPayments = Payment::where('status', 'escrow')
+        $escrowPayments = Payment::where('status', PaymentStatus::ESCROW)
             ->whereHas('deliverable.contract.proposal', function ($query) use ($freelancer) {
                 return $query->where('freelancer_id', $freelancer->id);
             })->sum('amount');
 
-        $activeContracts = Contract::select("id", "proposal_id", "finalPrice", "finalDeadline")->where('status', 'active')
+        $activeContracts = Contract::select("id", "proposal_id", "finalPrice", "finalDeadline")->where('status', ContractStatus::ACTIVE)
             ->whereHas('proposal', function ($query) use ($freelancer) {
                 return $query->where('freelancer_id', $freelancer->id);
             })->with([

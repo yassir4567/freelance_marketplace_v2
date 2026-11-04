@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProjectStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,7 +28,8 @@ class Project extends Model
     protected function casts()
     {
         return [
-            'budget' => 'decimal:2'
+            'budget' => 'decimal:2',
+            'status' => ProjectStatus::class
         ];
     }
 

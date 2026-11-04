@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProposalStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,7 +24,8 @@ class Proposal extends Model
     protected function casts()
     {
         return [
-            'proposedPrice' => 'decimal:2'
+            'proposedPrice' => 'decimal:2',
+            'status' => ProposalStatus::class
         ];
     }
 

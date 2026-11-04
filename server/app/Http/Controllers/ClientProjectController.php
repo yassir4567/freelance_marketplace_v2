@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProjectStatus;
+use App\Enums\ProposalStatus;
 use App\Http\Requests\PublishProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\Project\ProjectDetailsResource;
@@ -22,7 +24,7 @@ class ClientProjectController extends Controller
             ->select('id', 'title', 'budget', 'status', 'created_at', 'category_id')
             ->with([
                 'proposals' => function ($query) {
-                    return $query->where('status', 'contracted')->select('id', 'freelancer_id', 'project_id');
+                    return $query->where('status', ProposalStatus::CONTRACTED)->select('id', 'freelancer_id', 'project_id');
                 },
                 'proposals.contract:id,proposal_id,finalPrice,finalDeadline',
                 'proposals.freelancer:id,user_id',
@@ -48,10 +50,10 @@ class ClientProjectController extends Controller
         }
 
         $projects = $query->get()->map(function ($project) {
-            if (in_array($project->status, ['in_progress', 'completed'])) {
+            if (in_array($project->status, [ProjectStatus::IN_PROGRESS, ProjectStatus::COMPLETED])) {
                 $project->load([
                     'proposals' => function ($query) {
-                        return $query->where('status', 'contracted')->select('id', 'project_id', 'freelancer_id');
+                        return $query->where('status', ProposalStatus::CONTRACTED)->select('id', 'project_id', 'freelancer_id');
                     },
                     'proposals.freelancer:id,user_id',
                     'proposals.freelancer.user:id,firstName,lastName,avatar',
@@ -91,10 +93,10 @@ class ClientProjectController extends Controller
         $this->authorize('view', $project);
 
 
-        if (in_array($project->status, ['in_progress', 'completed'])) {
+        if (in_array($project->status, [ProjectStatus::IN_PROGRESS, ProjectStatus::COMPLETED])) {
             $project->load([
                 'proposals' => function ($query) {
-                    return $query->where('status', 'contracted')->select('id', 'project_id', 'freelancer_id');
+                    return $query->where('status', ProposalStatus::CONTRACTED)->select('id', 'project_id', 'freelancer_id');
                 },
                 'proposals.freelancer:id,title,user_id',
                 'proposals.freelancer.user:id,firstName,lastName,avatar',
@@ -127,7 +129,7 @@ class ClientProjectController extends Controller
             $project = Project::create([
                 ...$projectData,
                 'client_id' => $client->id,
-                'status' => 'open',
+                'status' => ProjectStatus::OPEN,
             ]);
 
             $project->skills()->attach($validated['skills']);

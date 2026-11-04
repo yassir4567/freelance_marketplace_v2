@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ContractStatus;
+use App\Enums\ProjectStatus;
 use App\Models\Contract;
 use App\Models\Deliverable;
 use App\Models\Payment;
@@ -16,17 +18,17 @@ class ClientDashboardController extends Controller
 
         $totalProjects = $client->projects()->count();
 
-        $activeContracts = Contract::where('status', 'active')
+        $activeContracts = Contract::where('status', ContractStatus::ACTIVE)
             ->whereHas('proposal.project', function ($query) use ($client) {
                 return $query->where('client_id', $client->id);
             })->count();
 
-        $completedProjects = $client->projects()->where('status', 'completed')->count();
+        $completedProjects = $client->projects()->where('status', ProjectStatus::COMPLETED)->count();
 
         $hiredFreelancers = Contract::join('proposals', 'proposals.id', '=', 'contracts.proposal_id')
             ->join('projects', 'projects.id', '=', 'proposals.project_id')
             ->where('projects.client_id', $client->id)
-            ->whereIn('contracts.status', ['active', 'completed'])
+            ->whereIn('contracts.status', [ContractStatus::ACTIVE, ContractStatus::COMPLETED])
             ->distinct()
             ->count('proposals.freelancer_id');
 
