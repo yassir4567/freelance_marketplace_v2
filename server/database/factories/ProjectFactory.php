@@ -60,12 +60,6 @@ class ProjectFactory extends Factory
             'status' => 'closed'
         ]);
     }
-    public function draft()
-    {
-        return $this->state([
-            'status' => 'draft'
-        ]);
-    }
 
     public function completed()
     {

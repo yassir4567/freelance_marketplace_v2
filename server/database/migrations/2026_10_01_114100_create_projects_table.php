@@ -19,7 +19,6 @@ return new class extends Migration {
                 'open',
                 'in_review',
                 'in_progress',
-                'draft',
                 'closed',
                 'completed',
                 'cancelled'
