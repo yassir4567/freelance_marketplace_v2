@@ -1,42 +1,14 @@
 import { FieldLabel } from "@/components/ui/field";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
-import { IoClose } from "react-icons/io5";
-import type { PublishProjectFormInput } from "./PublishProjectForm";
-import type { Category } from "@/types/category.types";
-import type { Skill } from "@/types/skill.types";
+import { type PublishProjectFormInput } from "../../schema/project.schema";
+import { RadioGroup } from "@/components/ui/radio-group";
 
 interface ProjectScopeFormProps {
   register: UseFormRegister<PublishProjectFormInput>;
   errors: FieldErrors<PublishProjectFormInput>;
-
-  categories: Category[] | null;
-  skills: Skill[] | null;
-
-  isCategoriesLoading: boolean;
-  isSkillsLoading: boolean;
-
-  categoryError: string;
-  skillError: string;
-
-  handleAddSkill: (skill: number) => void;
-  handleRemoveSkill: (skill: number) => void;
-
-  formSkills: number[];
 }
 
-function ProjectScopeForm({
-  register,
-  errors,
-  categories,
-  skills,
-  isCategoriesLoading,
-  isSkillsLoading,
-  categoryError,
-  skillError,
-  handleAddSkill,
-  handleRemoveSkill,
-  formSkills,
-}: ProjectScopeFormProps) {
+function ProjectScopeForm({ register, errors }: ProjectScopeFormProps) {
   const EXPERIENCE_LEVEL = [
     { label: "Junior", value: "junior" },
     { label: "Mid-Level", value: "mid-level" },
@@ -49,139 +21,96 @@ function ProjectScopeForm({
     { label: "Large", value: "large" },
   ];
 
-  const renderedSkillsForSelect =
-    skills?.filter((sk) => !formSkills.includes(sk.id)) ?? null;
+  const DURATIONS = [
+    {
+      value: "less_than_1_month",
+      label: "Less than 1 month",
+    },
+    {
+      value: "1_to_3_month",
+      label: "1 to 3 months",
+    },
+    {
+      value: "3_to_6_month",
+      label: "3 to 6 months",
+    },
+    {
+      value: "more_than_6_month",
+      label: "More than 6 months",
+    },
+  ];
 
   return (
     <div>
-      <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="flex flex-col gap-1">
-          <FieldLabel htmlFor="exp-level">Experience Level</FieldLabel>
-          <select
-            {...register("experienceLevel")}
-            id="exp-level"
-            className="border mt-2 border-gray-200 h-10 text-sm px-2 rounded-lg text-gray-500"
-          >
-            <option value="" className="bg-red-200">
-              Select an experience level
-            </option>
-            {EXPERIENCE_LEVEL.map((exp) => (
-              <option key={exp.label} value={exp.value}>
-                {exp.label}
-              </option>
-            ))}
-          </select>
-          {errors.experienceLevel && (
-            <div className="text-sm text-red-400">
-              {errors.experienceLevel.message}
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-1">
-          <FieldLabel htmlFor="project-size">Project Size</FieldLabel>
-          <select
-            {...register("size")}
-            id="project-size"
-            className="border mt-2 border-gray-200 h-10 text-sm px-2 rounded-lg text-gray-500"
-          >
-            <option value="" className="bg-red-200">
-              Select the project size
-            </option>
-            {PROJECT_SIZE.map((size) => (
-              <option key={size.label} value={size.value}>
-                {size.label}
-              </option>
-            ))}
-          </select>
-          {errors.size && (
-            <div className="text-sm text-red-400">{errors.size.message}</div>
-          )}
-        </div>
-      </div>
-
-      <div className="mb-6">
-        <FieldLabel htmlFor="category">Select The Project Category</FieldLabel>
+      <div className="flex flex-col gap-1 mb-6">
+        <FieldLabel htmlFor="exp-level" className="text-xs font-normal">
+          Experience Level
+        </FieldLabel>
         <select
-          {...register("category_id")}
-          id="category"
-          className="w-full mt-2 border border-gray-200 h-10 text-sm px-2 rounded-lg text-gray-500"
+          {...register("experienceLevel")}
+          id="exp-level"
+          className="w-full mt-2 border border-gray-200 h-10 text-[12px] px-2 rounded-lg text-gray-500"
         >
-          {isCategoriesLoading ? (
-            <option value="">Fetching categories...</option>
-          ) : categories === null || categoryError !== "" ? (
-            <option value="">Failed to get categories, Try again</option>
-          ) : (
-            <>
-              <option value="">Select your category</option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </>
-          )}
+          <option value="" className="bg-red-200">
+            Select an experience level
+          </option>
+          {EXPERIENCE_LEVEL.map((exp) => (
+            <option key={exp.label} value={exp.value}>
+              {exp.label}
+            </option>
+          ))}
         </select>
-        {errors.category_id && (
-          <div className="text-sm text-red-400">
-            {errors.category_id.message}
+        {errors.experienceLevel && (
+          <div className="text-xs mt-1 font-mono text-red-500">
+            {errors.experienceLevel.message}
           </div>
         )}
       </div>
 
-      <div className="mb-6">
-        <FieldLabel>Choose the skills </FieldLabel>
+      <div className="flex flex-col gap-1 mb-6">
+        <FieldLabel htmlFor="project-size" className="text-xs font-normal">
+          Project Size
+        </FieldLabel>
         <select
-          id="skill"
-          onChange={(e) => {
-            const skill = e.target.value;
-
-            if (!skill) return;
-
-            handleAddSkill(+skill);
-            e.target.value = "";
-          }}
-          className="w-full mt-2 border border-gray-200 h-10 text-sm px-2 rounded-lg text-gray-500"
+          {...register("size")}
+          id="project-size"
+          className="w-full mt-2 border border-gray-200 h-10 text-[12px] px-2 rounded-lg text-gray-500"
         >
-          {isSkillsLoading ? (
-            <option value="">Fetching skills...</option>
-          ) : renderedSkillsForSelect === null || skillError !== "" ? (
-            <option value="">Failed to get skills, Try again</option>
-          ) : (
-            <>
-              <option value="">Select your skill</option>
-              {renderedSkillsForSelect.map((skill) => (
-                <option key={skill.id} value={skill.id}>
-                  {skill.name}
-                </option>
-              ))}
-            </>
-          )}
+          <option value="" className="bg-red-200">
+            Select the project size
+          </option>
+          {PROJECT_SIZE.map((size) => (
+            <option key={size.label} value={size.value}>
+              {size.label}
+            </option>
+          ))}
         </select>
-        {errors.skills && (
-          <div className="text-sm text-red-400">{errors.skills.message}</div>
+        {errors.size && (
+          <div className="text-xs mt-1 font-mono text-red-500">
+            {errors.size.message}
+          </div>
         )}
+      </div>
 
-        {skills !== null && (
-          <div className="flex items-start gap-3 flex-wrap mt-3 max-h-20 overflow-auto">
-            {formSkills.map((skill) => {
-              const skillName = skills.find((sk) => sk.id === skill)?.name;
-
-              return (
-                <div
-                  key={skill}
-                  className="bg-sky-100 text-blue-950 px-3 py-1 rounded-lg flex justify-center items-center gap-1"
-                >
-                  <span>{skillName}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveSkill(skill)}
-                  >
-                    <IoClose />
-                  </button>
-                </div>
-              );
-            })}
+      <div className="flex flex-col gap-1">
+        <FieldLabel htmlFor="project-duration" className="text-xs font-normal">
+          Project Duration
+        </FieldLabel>
+        <RadioGroup {...register("duration")} className="w-fit mt-3">
+          {DURATIONS.map((duration) => (
+            <div key={duration.label} className="flex items-center gap-3">
+              <input
+                {...register("duration")}
+                value={duration.value}
+                type="radio"
+              />
+              <label className="text-xs font-normal">{duration.label}</label>
+            </div>
+          ))}
+        </RadioGroup>
+        {errors.duration && (
+          <div className="text-xs mt-1 font-mono text-red-500">
+            {errors.duration.message}
           </div>
         )}
       </div>

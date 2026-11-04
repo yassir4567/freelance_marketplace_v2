@@ -4,7 +4,7 @@ export const useStep = () => {
   const [step, setStep] = useState(1);
 
   const onNext = () => {
-    if (step == 3) return;
+    if (step == 5) return;
     setStep((prev) => prev + 1);
   };
   const onPrev = () => {

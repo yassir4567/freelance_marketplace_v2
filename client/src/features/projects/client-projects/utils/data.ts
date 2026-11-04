@@ -5,31 +5,23 @@ export const formsAsideData = [
     description:
       "Share your project title and describe what you need. Be clear and specific so freelancers can understand your goals and how they can help you.",
   },
+
   {
     step: 2,
+    title: "Choose a category and skills",
+    description:
+      "Select the category that best fits your project and the skills required to complete it.",
+  },
+  {
+    step: 3,
     title: "Define your project requirements",
     description:
-      "Help us find the right freelancers for your project. Choose the experience level, project size, category, and skills that best match your needs.",
+      "Help us find the right freelancers for your project. Choose the experience level, project size, and duration that best match your needs.",
   },
   {
-    step: 3,
-    title: "Set your budget and timeline",
+    step: 4,
+    title: "What is your budget for this project?",
     description:
-      "Set a budget that fits your project and choose your expected completion time. This helps freelancers understand your expectations before submitting their proposals.",
-  },
-];
-
-export const formsHeaderData = [
-  {
-    step: 1,
-    title: "Project Details",
-  },
-  {
-    step: 2,
-    title: "Project Requirements",
-  },
-  {
-    step: 3,
-    title: "Budget & Duration",
+      "Your budget is an initial estimate that helps freelancers understand the scope and expectations of your project. It is not final and can be negotiated based on the proposals you receive.",
   },
 ];

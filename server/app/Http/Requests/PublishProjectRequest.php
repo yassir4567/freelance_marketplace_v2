@@ -23,36 +23,13 @@ class PublishProjectRequest extends FormRequest
      */
     public function rules(): array
     {
-        $durationBySize = [
-            'small' => [
-                'less_than_1_month',
-                '1_to_3_month',
-                '3_to_6_month',
-            ],
-
-            'medium' => [
-                '1_to_3_month',
-                '3_to_6_month',
-                'more_than_6_month',
-            ],
-
-            'large' => [
-                '1_to_3_month',
-                '3_to_6_month',
-                'more_than_6_month',
-            ],
-        ];
-
-        $size = $this->input('size');
-
-
         return [
             'title' => ['required', 'string', 'min:5', 'max:200'],
             'description' => ['required', 'string', 'min:300', 'max:3000'],
             'budget' => ['required', 'numeric', 'min:20'],
             'experienceLevel' => ['required', 'string', Rule::in(['junior', 'mid-level', 'senior'])],
             'size' => ['required', 'string', Rule::in(['small', 'medium', 'large'])],
-            'duration' => ['required', 'string', Rule::in($durationBySize[$size] ?? [])],
+            'duration' => ['required', 'string', Rule::in(["less_than_1_month", "1_to_3_month", "3_to_6_month", "more_than_6_month"])],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'skills' => ['required', 'array', 'min:1'],
             'skills.*' => ['required', 'integer', 'distinct', 'exists:skills,id']

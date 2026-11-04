@@ -1,13 +1,8 @@
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
-import type { PublishProjectFormInput } from "./PublishProjectForm";
+import type { PublishProjectFormInput } from "../../schema/project.schema";
 
 interface ProjectDetailsFormProps {
   register: UseFormRegister<PublishProjectFormInput>;
@@ -18,38 +13,33 @@ function ProjectDetailsForm({ register, errors }: ProjectDetailsFormProps) {
   return (
     <FieldGroup>
       <Field>
-        <div className="flex gap-2 items-center">
-          <FieldLabel htmlFor="title">Title</FieldLabel>
-          <FieldDescription className="text-xs">
-            {"("} Make sure the title between 3 and 200 character {")"}
-          </FieldDescription>
-        </div>
+        <FieldLabel htmlFor="title" className="text-xs font-normal">
+          Enter a title for you project
+        </FieldLabel>
         <Input
           {...register("title")}
           id="title"
-          placeholder="Enter your title"
           className="h-11 rounded-lg text-sm"
         />
         {errors.title && (
-          <div className="text-sm text-red-400">{errors.title.message}</div>
+          <div className="text-xs mt-1 font-mono text-red-500">
+            {errors.title.message}
+          </div>
         )}
       </Field>
 
       <Field className="mt-4">
-        <div className="flex gap-2 items-center">
-          <FieldLabel htmlFor="description">Description</FieldLabel>
-          <FieldDescription className="text-xs">
-            {"("} Make sure the description between 300 and 3000 character {")"}
-          </FieldDescription>
-        </div>
+        <FieldLabel htmlFor="description" className="text-xs font-normal">
+          Description what you need
+        </FieldLabel>
         <Textarea
           id="description"
           {...register("description")}
-          placeholder="Enter your project description"
-          className="h-32 resize-none"
+          placeholder="Enter the description here"
+          className="h-32 resize-none placeholder:text-[12px] text-xs"
         />
         {errors.description && (
-          <div className="text-sm text-red-400">
+          <div className="text-xs mt-1 font-mono text-red-500">
             {errors.description.message}
           </div>
         )}

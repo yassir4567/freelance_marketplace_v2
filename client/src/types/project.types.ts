@@ -12,14 +12,9 @@ type Size = "small" | "medium" | "large";
 
 type Duration =
   | "less_than_1_month"
-  | "1_to_2_month"
-  | "2_to_4_month"
-  | "4_to_6_month"
-  | "6_to_9_month"
-  | "9_to_10_month"
-  | "10_to_12_month"
-  | "more_than_1_year";
-
+  | "1_to_3_month"
+  | "3_to_6_month"
+  | "more_than_6_month";
 
 export type Project = {
   id: number;
