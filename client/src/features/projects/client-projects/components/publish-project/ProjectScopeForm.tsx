@@ -1,7 +1,6 @@
 import { FieldLabel } from "@/components/ui/field";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 import { type PublishProjectFormInput } from "../../schema/project.schema";
-import { RadioGroup } from "@/components/ui/radio-group";
 
 interface ProjectScopeFormProps {
   register: UseFormRegister<PublishProjectFormInput>;
@@ -96,18 +95,24 @@ function ProjectScopeForm({ register, errors }: ProjectScopeFormProps) {
         <FieldLabel htmlFor="project-duration" className="text-xs font-normal">
           Project Duration
         </FieldLabel>
-        <RadioGroup {...register("duration")} className="w-fit mt-3">
+        <div className="w-fit mt-3 flex flex-col gap-2">
           {DURATIONS.map((duration) => (
             <div key={duration.label} className="flex items-center gap-3">
               <input
                 {...register("duration")}
                 value={duration.value}
                 type="radio"
+                id={`id-${duration.value}`}
               />
-              <label className="text-xs font-normal">{duration.label}</label>
+              <label
+                htmlFor={`id-${duration.value}`}
+                className="text-xs font-normal"
+              >
+                {duration.label}
+              </label>
             </div>
           ))}
-        </RadioGroup>
+        </div>
         {errors.duration && (
           <div className="text-xs mt-1 font-mono text-red-500">
             {errors.duration.message}
