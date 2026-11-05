@@ -52,9 +52,22 @@ function PublishProjectForm({ step, onNext, onPrev }: PublishProjectFormProps) {
   const onSubmit: SubmitHandler<PublishProjectFormOutput> = async (data) => {
     const result = await projectApi.publish(data);
     if (!result.success) {
-      setError("root", {
-        message: "Something went wrong, try again",
-      });
+      if (result.status === 422 && result.errors) {
+        const validationErrors = result.errors;
+        Object.entries(validationErrors).forEach(([field, messages]) => {
+          setError(field as keyof PublishProjectFormInput, {
+            type: "server",
+            message: messages[0],
+          });
+        });
+        setError("root", {
+          message: "Some fields are invalid, go back to check them",
+        });
+      } else {
+        setError("root", {
+          message: "Something went wrong, try again",
+        });
+      }
       return;
     }
 
@@ -136,7 +149,7 @@ function PublishProjectForm({ step, onNext, onPrev }: PublishProjectFormProps) {
   return (
     <div className="">
       {errors.root && (
-        <p className="bg-red-100 text-red-900 mt-3 rounded-md py-2 px-3 text-sm">
+        <p className="bg-red-100 text-red-900 mt-3 mb-5 rounded-md py-3 px-4 text-xs">
           {errors.root.message}
         </p>
       )}
