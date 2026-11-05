@@ -5,8 +5,8 @@ function ProjectListHeader() {
   return (
     <div className="flex justify-between items-center mb-7">
       <div className="flex items-center gap-2 text-2xl font-medium">
-        <GoProjectSymlink />
-        <div>Projects</div>
+        <GoProjectSymlink size={18} />
+        <div className="text-[18px]">Here is your published projects</div>
       </div>
 
       <PostProjectBtn />

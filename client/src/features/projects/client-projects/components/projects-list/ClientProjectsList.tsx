@@ -26,10 +26,15 @@ function ClientProjectsList({
     return <div className="text-red-600">{error}</div>;
   }
   if (!projects || projects.length === 0) {
-    return <div className="text-red-600 flex items-center justify-center h-100">No projects found</div>;
+    return (
+      <div className="text-red-600 flex items-center justify-center h-100">
+        No projects found
+      </div>
+    );
   }
+
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col">
       {projects.map((project) => (
         <ClientProjectCard key={project.id} project={project} />
       ))}

@@ -3,6 +3,7 @@ export type ProjectStatus =
   | "in_review"
   | "in_progress"
   | "completed"
+  | "cancelled"
   | "closed";
 
 type ExperienceLevel = "junior" | "mid-level" | "senior";
