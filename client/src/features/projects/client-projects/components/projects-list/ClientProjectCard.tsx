@@ -65,12 +65,14 @@ function ClientProjectCard({ project }: ClientProjectCardProps) {
         >
           View Proposals
         </Link>
-        <Link
-          to={`/client/projects/${project.id}/edit`}
-          className="text-xs border border-blue-500 py-1 rounded-xl text-blue-600 px-4 flex items-center justify-center hover:bg-blue-500 hover:text-white transition"
-        >
-          Edit Project
-        </Link>
+        {project.is_editable && (
+          <Link
+            to={`/client/projects/${project.id}/edit`}
+            className="text-xs border border-blue-500 py-1 rounded-xl text-blue-600 px-4 flex items-center justify-center hover:bg-blue-500 hover:text-white transition"
+          >
+            Edit Project
+          </Link>
+        )}
       </div>
     </div>
   );

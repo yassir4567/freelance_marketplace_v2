@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Project;
 
+use App\Enums\ProjectStatus;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\SkillResource;
 use App\Http\Resources\User\FreelancerSummaryResource;
@@ -43,7 +44,9 @@ class ProjectDetailsResource extends JsonResource
             'freelancer' => $this->when(
                 $proposal?->contract !== null,
                 fn() => new FreelancerSummaryResource($proposal->freelancer)
-            )
+            ),
+            'is_editable' => (bool) in_array($this->status, [ProjectStatus::OPEN, ProjectStatus::IN_REVIEW]),
+
         ];
     }
 }

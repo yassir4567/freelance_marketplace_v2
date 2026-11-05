@@ -21,4 +21,5 @@ export type ClientProjectList = Pick<
   category: Category;
   deadline?: string;
   freelancer?: Pick<Freelancer, "id" | "firstName" | "lastName" | "avatar">;
+  is_editable: boolean;
 };
