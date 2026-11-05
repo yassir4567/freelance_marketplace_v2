@@ -10,6 +10,7 @@ interface ProjectOverviewProps {
   isSubmitting: boolean;
   categories: Category[] | null;
   skills: Skill[] | null;
+  onPrev: () => void;
 }
 
 function ProjectOverview({
@@ -17,6 +18,7 @@ function ProjectOverview({
   isSubmitting,
   categories,
   skills,
+  onPrev,
 }: ProjectOverviewProps) {
   const categoryName = getCategoryNameById(values.category_id, categories);
   return (
@@ -71,35 +73,34 @@ function ProjectOverview({
             {values.skills!.map((skillId, index) => {
               const skillName = getSkillNameById(skillId, skills);
               return (
-                <span>
-                  {skillName} {index !== skills!.length - 1 && ","}
+                <span key={skillId}>
+                  {skillName} {index !== values.skills!.length - 1 && ","}
                 </span>
               );
             })}
           </p>
         </div>
       </div>
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="text-blue-500 hover:text-blue-600 transition flex items-center justify-center gap-2 ml-auto"
-      >
-        <span>{isSubmitting ? "Publishing..." : "Submit"}</span>{" "}
-        <MdOutlineNavigateNext />
-      </button>
+      <div>
+        <button
+          type="button"
+          className="text-blue-400 hover:text-blue-500 transition flex items-center justify-center gap-2 mr-auto"
+          onClick={onPrev}
+        >
+          <MdOutlineNavigateNext className="rotate-180" />
+          <span>Prev</span>
+        </button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="text-blue-500 hover:text-blue-600 transition flex items-center justify-center gap-2 ml-auto"
+        >
+          <span>{isSubmitting ? "Publishing..." : "Submit"}</span>{" "}
+          <MdOutlineNavigateNext />
+        </button>
+      </div>
     </div>
   );
 }
 
 export default ProjectOverview;
-
-// {step == 4 && (
-//             <button
-//               type="submit"
-//               disabled={isSubmitting}
-//               className="text-blue-500 hover:text-blue-600 transition flex items-center justify-center gap-2 ml-auto"
-//             >
-//               <span>{isSubmitting ? "Publishing..." : "Submit"}</span>{" "}
-//               <MdOutlineNavigateNext />
-//             </button>
-//           )}

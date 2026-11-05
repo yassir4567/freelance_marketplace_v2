@@ -149,6 +149,7 @@ function PublishProjectForm({ step, onNext, onPrev }: PublishProjectFormProps) {
             isSubmitting={isSubmitting}
             categories={categories}
             skills={skills}
+            onPrev={onPrev}
           />
         )}
 
