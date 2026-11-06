@@ -45,4 +45,74 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'receiver_id');
     }
+
+    public function getProfileCompelation()
+    {
+        if ($this->role === 'client') {
+            return $this->getClientProfileCompelation();
+        } else if ($this->role === 'freelancer') {
+            return $this->getFreelancerProfileCompelation();
+        }
+        return [
+            'percentage' => 100,
+            'is_profile_complete' => true,
+            'missing_failed' => [],
+        ];
+    }
+
+    public function getClientProfileCompelation()
+    {
+        $fields = [
+            'phone' => $this->phone,
+            'country' => $this->country,
+            'address' => $this->address,
+            'city' => $this->city,
+            'avatar' => $this->avatar,
+        ];
+
+        return $this->calcProfileCompelation($fields);
+    }
+
+    public function getFreelancerProfileCompelation()
+    {
+        $freelancer = $this->freelancer;
+
+        $fields = [
+            'phone' => $this->phone,
+            'country' => $this->country,
+            'address' => $this->address,
+            'city' => $this->city,
+            'avatar' => $this->avatar,
+            'bio' => $freelancer->bio,
+            'title' => $freelancer->title,
+            'portfolio_url' => $freelancer->portfolio_url,
+            'category_id' => $freelancer->category_id,
+            'skills' => $freelancer->skills()->exists()
+        ];
+
+        return $this->calcProfileCompelation($fields);
+    }
+
+    public function calcProfileCompelation($fields)
+    {
+        $totalFields = count($fields);
+        $completed = 0;
+        $missing_fields = [];
+
+        foreach ($fields as $name => $value) {
+            if ($value) {
+                $completed++;
+            } else {
+                $missing_fields[] = $name;
+            }
+        }
+
+        $percentage = round(($completed / $totalFields) * 100);
+
+        return [
+            'percentage' => $percentage,
+            'isProfileCompleted' => $completed === $totalFields,
+            'missingFields' => $missing_fields
+        ];
+    }
 }

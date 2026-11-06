@@ -102,6 +102,10 @@ class AuthController extends Controller
     {
         $user = $request->user();
 
+        if ($user->role === 'freelancer') {
+            $user->load('freelancer');
+        }
+
         return response()->json([
             'message' => 'User retreived successfully',
             'data' => [
@@ -111,7 +115,8 @@ class AuthController extends Controller
                     'lastName' => $user->lastName,
                     'email' => $user->email,
                     'role' => $user->role,
-                ]
+                ],
+                'profile' => $user->getProfileCompelation()
             ]
         ], 200);
     }
