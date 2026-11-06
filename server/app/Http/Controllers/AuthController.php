@@ -40,7 +40,8 @@ class AuthController extends Controller
                     'email' => $user->email,
                     'role' => $user->role,
                 ],
-                'token' => $token
+                'token' => $token,
+                'profile' => $user->getProfileCompelation()
             ]
         ], 200);
     }
@@ -68,7 +69,8 @@ class AuthController extends Controller
 
             return [
                 'user' => $user,
-                'token' => $token
+                'token' => $token,
+                'profile' => $user->getProfileCompelation(),
             ];
         });
 
@@ -83,7 +85,8 @@ class AuthController extends Controller
                     'email' => $transactionResult['user']->email,
                     'role' => $transactionResult['user']->role,
                 ],
-                'token' => $transactionResult['token']
+                'token' => $transactionResult['token'],
+                'profile' => $transactionResult['profile']
             ]
         ], 201);
     }
@@ -101,10 +104,6 @@ class AuthController extends Controller
     public function me(Request $request)
     {
         $user = $request->user();
-
-        if ($user->role === 'freelancer') {
-            $user->load('freelancer');
-        }
 
         return response()->json([
             'message' => 'User retreived successfully',

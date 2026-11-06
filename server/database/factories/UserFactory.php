@@ -28,6 +28,7 @@ class UserFactory extends Factory
             'country' => fake()->country(),
             'address' => fake()->address(),
             'city' => fake()->city(),
+            'avatar' => fake()->url()
         ];
     }
 
