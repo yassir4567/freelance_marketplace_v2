@@ -29,3 +29,9 @@ export type RegisterCredentials = LoginCredentials & {
   firstName: string;
   lastName: string;
 };
+
+export type ProfileCompelation = {
+  percentage: number;
+  isProfileCompleted: boolean;
+  missingFields: string[];
+};

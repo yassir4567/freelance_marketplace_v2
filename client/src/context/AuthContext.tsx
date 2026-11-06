@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import {
+  type ProfileCompelation,
   type LoginCredentials,
   type RegisterCredentials,
   type User,
@@ -31,6 +32,7 @@ type AuthAction =
 
 interface ContextType {
   user: AuthUser | null;
+  profileCompelation: ProfileCompelation | null;
   isLoading: boolean;
   login(credentials: LoginCredentials): Promise<AuthAction>;
   register(credentials: RegisterCredentials): Promise<AuthAction>;
@@ -46,6 +48,8 @@ const AuthContext = createContext<ContextType | null>(null);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [profileCompelation, setProfileCompelation] =
+    useState<ProfileCompelation | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -64,6 +68,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
 
       setUser(result.data.user);
+      setProfileCompelation(result.data.profile);
     };
 
     loadMe();
@@ -85,9 +90,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
       throw new Error("Login response is missing data");
     }
 
-    const { user, token } = result.data;
+    const { user, profile, token } = result.data;
 
     setUser(user);
+    setProfileCompelation(profile);
     localStorage.setItem("auth_token", token);
 
     return {
@@ -114,9 +120,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
       throw new Error("Register response is missing data");
     }
 
-    const { user, token } = result.data;
+    const { user, profile, token } = result.data;
 
     setUser(user);
+    setProfileCompelation(profile);
     localStorage.setItem("auth_token", token);
 
     return {
@@ -130,10 +137,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     await authApi.logout();
     localStorage.removeItem("auth_token");
     setUser(null);
+    setProfileCompelation(null);
   }
 
   const values = {
     user,
+    profileCompelation,
     isLoading,
     login,
     register,
@@ -156,9 +165,15 @@ export function useAuth() {
 
 export function useRequiredAuth() {
   const auth = useAuth();
-  
+
   if (!auth.user) {
     throw new Error("useRequiredAuth must be used with an authenticated user");
+  }
+
+  if (!auth.profileCompelation) {
+    throw new Error(
+      "useRequiredAuth must be used with profile compelation data",
+    );
   }
 
   return {
