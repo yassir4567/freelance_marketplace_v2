@@ -12,7 +12,7 @@ export type ClientDashboardRecentProject = Pick<
   Project,
   "id" | "title" | "status" | "publishedAt"
 > & {
-  proposals_count: number;
+  proposalsCount: number;
 };
 
 export type ClientDashboardData = {

@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->text('bio')->nullable();
             $table->string('title')->nullable();
-            $table->string('portfolio_url')->nullable();
+            $table->string('portfolioUrl')->nullable();
             $table->integer("yearsOfExperience")->nullable();
 
             $table->foreignId('user_id')

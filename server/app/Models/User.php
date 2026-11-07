@@ -88,7 +88,7 @@ class User extends Authenticatable
             'avatar' => $this->avatar,
             'bio' => $freelancer->bio,
             'title' => $freelancer->title,
-            'portfolio_url' => $freelancer->portfolio_url,
+            'portfolioUrl' => $freelancer->portfolioUrl,
             'category_id' => $freelancer->category_id,
             'yearsOfExperience' => $freelancer->yearsOfExperience,
             'skills' => $freelancer->skills()->exists()

@@ -12,7 +12,7 @@ class Freelancer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'bio', 'portfolio_url', 'yearsOfExperience', 'user_id', 'category_id'];
+    protected $fillable = ['title', 'bio', 'portfolioUrl', 'yearsOfExperience', 'user_id', 'category_id'];
 
     public function user(): BelongsTo
     {

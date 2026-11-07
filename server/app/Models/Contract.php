@@ -13,6 +13,7 @@ class Contract extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'contract_pdf',
         'description',
@@ -21,8 +22,10 @@ class Contract extends Model
         'finalDeadline',
         'activated_at',
         'completed_at',
+        'cancelled_at',
         'proposal_id',
     ];
+
 
     protected function casts()
     {

@@ -16,13 +16,13 @@ class Deliverable extends Model
         'description',
         'amount',
         'deadline',
-        'deliverable_links',
+        'deliverableLinks',
         'status',
         'unlocked_at',
         'submitted_at',
         'accepted_at',
         'revision_request_at',
-        'submission_note',
+        'submissionNote',
         'position',
         'contract_id',
     ];
@@ -30,7 +30,7 @@ class Deliverable extends Model
     protected function casts()
     {
         return [
-            'deliverable_links' => 'array',
+            'deliverableLinks' => 'array',
             'amount' => 'decimal:2'
         ];
     }

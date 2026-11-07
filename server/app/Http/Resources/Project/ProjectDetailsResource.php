@@ -30,7 +30,7 @@ class ProjectDetailsResource extends JsonResource
             'size' => $this->size,
             'duration' => $this->duration,
             'publishedAt' => $this->created_at,
-            'proposals_count' => $this->whenCounted('proposals'),
+            'proposalsCount' => $this->whenCounted('proposals'),
             'category' => CategoryResource::make($this->whenLoaded('category')),
             'skills' => SkillResource::collection($this->whenLoaded('skills')),
             'finalPrice' => $this->when(
