@@ -54,14 +54,17 @@ class User extends Authenticatable
         }
         return [
             'percentage' => 100,
-            'is_profile_complete' => true,
-            'missing_failed' => [],
+            'isProfileCompleted' => true,
+            'missingFields' => [],
         ];
     }
 
     public function getClientProfileCompelation()
     {
         $fields = [
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+            'email' => $this->email,
             'phone' => $this->phone,
             'country' => $this->country,
             'city' => $this->city,
@@ -76,6 +79,9 @@ class User extends Authenticatable
         $freelancer = $this->freelancer;
 
         $fields = [
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+            'email' => $this->email,
             'phone' => $this->phone,
             'country' => $this->country,
             'city' => $this->city,
@@ -84,7 +90,7 @@ class User extends Authenticatable
             'title' => $freelancer->title,
             'portfolio_url' => $freelancer->portfolio_url,
             'category_id' => $freelancer->category_id,
-            'yearsOfExperience' => $freelancer->yearsOfExperience ,
+            'yearsOfExperience' => $freelancer->yearsOfExperience,
             'skills' => $freelancer->skills()->exists()
         ];
 
