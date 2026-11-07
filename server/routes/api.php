@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientDashboardController;
+use App\Http\Controllers\ClientProfileController;
 use App\Http\Controllers\ClientProjectController;
 use App\Http\Controllers\FreelancerDashboardController;
 use App\Http\Controllers\SkillController;
@@ -22,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get("/projects/{id}", [ClientProjectController::class, 'show']);
             Route::post("/projects", [ClientProjectController::class, 'store']);
             Route::put("/projects/{id}", [ClientProjectController::class, 'update']);
+            Route::put("/profile", [ClientProfileController::class, 'update']);
         });
     });
 
