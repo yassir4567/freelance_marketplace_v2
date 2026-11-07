@@ -27,7 +27,6 @@ class UpdateClientProfileRequest extends FormRequest
             'lastName' => ['required', 'string', 'min:2'],
             'phone' => ['nullable', 'string'],
             'country' => ['nullable', 'string'],
-            'address' => ['nullable', 'string'],
             'city' => ['nullable', 'string'],
         ];
     }

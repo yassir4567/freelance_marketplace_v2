@@ -10,13 +10,13 @@ export type User = {
   phone: string;
   country: string;
   city: string;
-  address: string;
 };
 
 export type Freelancer = User & {
   bio: string | null;
   title: string | null;
   portfolio_url: string | null;
+  yearsOfExperience: string | null;
 };
 
 export type LoginCredentials = {

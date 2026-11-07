@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->string('lastName');
             $table->string('phone')->nullable();
             $table->string('country')->nullable();
-            $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('avatar')->nullable();
             $table->timestamps();

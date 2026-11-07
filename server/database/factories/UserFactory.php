@@ -26,7 +26,6 @@ class UserFactory extends Factory
             'lastName' => fake()->lastName(),
             'phone' => fake()->phoneNumber(),
             'country' => fake()->country(),
-            'address' => fake()->address(),
             'city' => fake()->city(),
             'avatar' => fake()->url()
         ];
