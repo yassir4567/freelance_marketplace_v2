@@ -47,8 +47,8 @@ class DeliverableFactory extends Factory
             'deadline' => fake()->dateTimeBetween('-5 day', '+15 day'),
             'unlocked_at' => $unlockedAt,
             'submitted_at' => fake()->dateTimeBetween($unlockedAt, 'now'),
-            'submission_note' => fake()->paragraph(rand(1, 3), true),
-            'deliverable_links' => [
+            'submissionNote' => fake()->paragraph(rand(1, 3), true),
+            'deliverableLinks' => [
                 fake()->url(),
                 fake()->url(),
                 fake()->url()
@@ -68,8 +68,8 @@ class DeliverableFactory extends Factory
             'unlocked_at' => $unlockedAt,
             'submitted_at' => $submittedAt,
             'accepted_at' => fake()->dateTimeBetween($submittedAt, 'now'),
-            'submission_note' => fake()->paragraph(rand(1, 3), true),
-            'deliverable_links' => [
+            'submissionNote' => fake()->paragraph(rand(1, 3), true),
+            'deliverableLinks' => [
                 fake()->url(),
                 fake()->url(),
                 fake()->url()
@@ -89,8 +89,8 @@ class DeliverableFactory extends Factory
             'unlocked_at' => $unlockedAt,
             'submitted_at' => $submittedAt,
             'revision_request_at' => fake()->dateTimeBetween($submittedAt, 'now'),
-            'submission_note' => fake()->paragraph(rand(1, 3), true),
-            'deliverable_links' => [
+            'submissionNote' => fake()->paragraph(rand(1, 3), true),
+            'deliverableLinks' => [
                 fake()->url(),
                 fake()->url(),
                 fake()->url()

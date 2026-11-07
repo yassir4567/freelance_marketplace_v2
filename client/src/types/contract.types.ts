@@ -13,8 +13,8 @@ type ContractBase = {
   description: string | null;
   price: number | null;
   deadline: number | null;
-  activatedAt: string | null;
-  completedAt: string | null;
+  activated_at: string | null;
+  completed_at: string | null;
 };
 
 export type PendingContract = ContractBase & {
@@ -23,8 +23,8 @@ export type PendingContract = ContractBase & {
   description: null;
   price: null;
   deadline: null;
-  activatedAt: null;
-  completedAt: null;
+  activated_at: null;
+  completed_at: null;
 };
 
 export type ActiveContract = ContractBase & {
@@ -33,8 +33,8 @@ export type ActiveContract = ContractBase & {
   description: string;
   price: number;
   deadline: string;
-  activatedAt: string;
-  completedAt: null;
+  activated_at: string;
+  completed_at: null;
 };
 
 export type AwaitingFreelancerAcceptContract = ContractBase & {
@@ -43,8 +43,8 @@ export type AwaitingFreelancerAcceptContract = ContractBase & {
   description: string;
   price: number;
   deadline: string;
-  activatedAt: null;
-  completedAt: null;
+  activated_at: null;
+  completed_at: null;
 };
 
 export type CompletedContract = ContractBase & {
@@ -53,8 +53,8 @@ export type CompletedContract = ContractBase & {
   description: string;
   price: number;
   deadline: number;
-  activatedAt: string;
-  completedAt: string;
+  activated_at: string;
+  completed_at: string;
 };
 
 export type RejectedContract = ContractBase & {
@@ -63,8 +63,8 @@ export type RejectedContract = ContractBase & {
   description: null;
   price: null;
   deadline: null;
-  activatedAt: null;
-  completedAt: null;
+  activated_at: null;
+  completed_at: null;
 };
 
 export type Contract =

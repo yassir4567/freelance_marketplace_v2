@@ -38,7 +38,7 @@ function RecentProjectsTable({ projects }: RecentProjectsTableProps) {
               {project.status}
             </td>
             <td className="p-4 border-b border-solid border-gray-300 text-sm">
-              {project.proposals_count}
+              {project.proposalsCount}
             </td>
             <td className="p-4 border-b border-solid border-gray-300 text-sm">
               {formatDate(project.publishedAt)}
