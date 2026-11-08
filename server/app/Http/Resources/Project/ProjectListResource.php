@@ -35,7 +35,7 @@ class ProjectListResource extends JsonResource
                 $proposal?->contract !== null,
                 fn() => new UserResource($proposal->freelancer->user)
             ),
-            'is_editable' => (bool) in_array($this->status, [ProjectStatus::OPEN, ProjectStatus::IN_REVIEW]),
+            'isEditable' => (bool) in_array($this->status, [ProjectStatus::OPEN, ProjectStatus::IN_REVIEW]),
         ];
     }
 }
