@@ -113,8 +113,10 @@ class ClientProjectController extends Controller
     public function store(PublishProjectRequest $request)
     {
         $client = $request->user();
-        $validated = $request->validated();
 
+        $this->authorize('create', Project::class);
+
+        $validated = $request->validated();
 
         $project = DB::transaction(function () use ($client, $validated) {
             $projectData = Arr::only($validated, [

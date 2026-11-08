@@ -13,6 +13,14 @@ class ProjectPolicy
         return $project->client_id === $user->id;
     }
 
+    public function create(User $user): Response
+    {
+        if (!$user->getProfileCompelation()['isProfileCompleted']) {
+            return Response::deny('client can\'t publish a project before completing his profile');
+        }
+        return Response::allow();
+    }
+
     public function update(User $user, Project $project): bool
     {
         return $project->client_id === $user->id
