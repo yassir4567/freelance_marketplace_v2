@@ -15,6 +15,6 @@ export function getUserInitials(firstName: string, lastName: string) {
   return initials.toUpperCase();
 }
 
-export function removeUnderScore(value: string) {
-  return value.split("_").join(" ");
+export function removeSpecialCharacter(value: string, special: string) {
+  return value.split(special).join(" ");
 }

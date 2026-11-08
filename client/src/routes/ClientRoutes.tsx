@@ -3,6 +3,8 @@ import ClientDashboardPage from "../features/dashboards/client-dashboard/pages/C
 import ClientLayout from "../layouts/ClientLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 import ClientProjectsPage from "@/features/projects/client-projects/pages/ClientProjectsPage";
+import ClientProjectDetailsPage from "@/features/projects/client-projects/pages/ClientProjectDetailsPage";
+import ProjectDetailsLayout from "@/features/projects/client-projects/layouts/ProjectDetailsLayout";
 
 export const ClientRoutes = [
   {
@@ -19,6 +21,15 @@ export const ClientRoutes = [
           {
             path: "/client/projects",
             element: <ClientProjectsPage />,
+          },
+          {
+            element: <ProjectDetailsLayout />,
+            children: [
+              {
+                path: "/client/projects/:id",
+                element: <ClientProjectDetailsPage />,
+              },
+            ],
           },
         ],
       },

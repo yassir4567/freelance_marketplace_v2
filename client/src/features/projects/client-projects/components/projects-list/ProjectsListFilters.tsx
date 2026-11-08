@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { removeUnderScore } from "@/utils/helpers";
+import { removeSpecialCharacter } from "@/utils/helpers";
 import type {
   ClientProjectsListFilters,
   ProjectStatusForFilter,
@@ -50,7 +50,7 @@ function ProjectsListFilters({
               className={`capitalize border-b text-sm px-2 text-gray-900 ${filters.status === status && "border-sky-600 text-sky-700"}`}
               onClick={() => onChangeStatus(status)}
             >
-              {removeUnderScore(status)}
+              {removeSpecialCharacter(status, "_")}
             </button>
           ))}
         </div>

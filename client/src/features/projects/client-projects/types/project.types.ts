@@ -23,3 +23,17 @@ export type ClientProjectList = Pick<
   freelancer?: Pick<Freelancer, "id" | "firstName" | "lastName" | "avatar">;
   isEditable: boolean;
 };
+
+export type ClientProjectDetailsFreelancer = Pick<
+  Freelancer,
+  "id" | "firstName" | "lastName" | "avatar" | "title"
+>;
+
+export type ClientProjectDetails = ClientProject & {
+  category: Category;
+  proposalsCount: number;
+  finalPrice?: string;
+  deadline?: string;
+  freelancer?: ClientProjectDetailsFreelancer;
+  isEditable: boolean;
+};

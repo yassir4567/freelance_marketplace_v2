@@ -1,4 +1,4 @@
-import { removeUnderScore } from "@/utils/helpers";
+import { removeSpecialCharacter } from "@/utils/helpers";
 import type { PublishProjectFormInput } from "../../schema/project.schema";
 import type { Category } from "@/types/category.types";
 import { getCategoryNameById, getSkillNameById } from "../../utils/helpers";
@@ -55,7 +55,7 @@ function ProjectOverview({
           <h6 className="mb-2 text-xs font-medium text-gray-500">
             Estimated duration
           </h6>
-          <p className="text-sm">{removeUnderScore(values.duration)}</p>
+          <p className="text-sm">{removeSpecialCharacter(values.duration, "_")}</p>
         </div>
       </div>
       <div className="grid grid-cols-3 mb-8">

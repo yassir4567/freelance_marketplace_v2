@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import type { ClientProjectList } from "../../types/project.types";
-import { formatDate, removeUnderScore } from "@/utils/helpers";
+import { formatDate, removeSpecialCharacter } from "@/utils/helpers";
 
 interface ClientProjectCardProps {
   project: ClientProjectList;
@@ -46,7 +46,7 @@ function ClientProjectCard({ project }: ClientProjectCardProps) {
           <div className="w-38">
             <p className="text-xs text-gray-500 font-medium mb-2">Status</p>
             <p className="text-sm text-gray-600 capitalize">
-              {removeUnderScore(project.status)}
+              {removeSpecialCharacter(project.status , "_")}
             </p>
           </div>
         </div>
