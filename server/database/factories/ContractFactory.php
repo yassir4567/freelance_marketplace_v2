@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ContractStatus;
 use App\Models\Contract;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,21 +26,21 @@ class ContractFactory extends Factory
     public function pending()
     {
         return $this->state([
-            'status' => 'pending'
+            'status' => ContractStatus::PENDING
         ]);
     }
 
     public function rejected()
     {
         return $this->state([
-            'status' => 'rejected'
+            'status' => ContractStatus::REJECTED
         ]);
     }
 
     public function awaiting_freelancer_acceptance()
     {
         return $this->state([
-            'status' => 'awaiting_freelancer_accept',
+            'status' => ContractStatus::AWAITING_FREELANCER_ACCEPT,
             'contract_pdf' => fake()->url(),
             'description' => fake()->paragraphs(rand(4, 7), true),
             'finalPrice' => fake()->randomFloat(2, 50, 10000),
@@ -51,7 +52,7 @@ class ContractFactory extends Factory
     {
         return $this->state([
             'contract_pdf' => fake()->url(),
-            'status' => 'active',
+            'status' => ContractStatus::ACTIVE,
             'activated_at' => fake()->dateTimeBetween('-30 days', '-1 day'),
             'description' => fake()->paragraphs(rand(4, 7), true),
             'finalPrice' => fake()->randomFloat(2, 50, 10000),
@@ -63,7 +64,7 @@ class ContractFactory extends Factory
     {
         return $this->state([
             'contract_pdf' => fake()->url(),
-            'status' => 'completed',
+            'status' => ContractStatus::COMPLETED,
             'activated_at' => fake()->dateTimeBetween('-30 days', '-15 days'),
             'completed_at' => fake()->dateTimeBetween('-14 days', '-1 day'),
             'description' => fake()->paragraphs(rand(4, 7), true),
@@ -76,7 +77,7 @@ class ContractFactory extends Factory
     {
         return $this->state([
             'contract_pdf' => fake()->url(),
-            'status' => 'cancelled',
+            'status' => ContractStatus::CANCELLED,
             'activated_at' => fake()->dateTimeBetween('-30 days', '-15 days'),
             'cancelled_at' => fake()->dateTimeBetween('-14 days', '-1 day'),
             'description' => fake()->paragraphs(rand(4, 7), true),

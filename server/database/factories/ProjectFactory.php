@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ProjectStatus;
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -36,42 +37,42 @@ class ProjectFactory extends Factory
     public function open()
     {
         return $this->state([
-            'status' => 'open'
+            'status' => ProjectStatus::OPEN
         ]);
     }
 
     public function in_review()
     {
         return $this->state([
-            'status' => 'in_review'
+            'status' => ProjectStatus::IN_REVIEW
         ]);
     }
 
     public function in_progress()
     {
         return $this->state([
-            'status' => 'in_progress'
+            'status' => ProjectStatus::IN_PROGRESS
         ]);
     }
 
     public function closed()
     {
         return $this->state([
-            'status' => 'closed'
+            'status' => ProjectStatus::CLOSED
         ]);
     }
 
     public function completed()
     {
         return $this->state([
-            'status' => 'completed'
+            'status' => ProjectStatus::COMPLETED
         ]);
     }
 
     public function cancelled()
     {
         return $this->state([
-            'status' => 'cancelled'
+            'status' => ProjectStatus::CANCELLED
         ]);
     }
 }

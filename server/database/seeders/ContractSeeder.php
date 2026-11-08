@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ProjectStatus;
+use App\Enums\ProposalStatus;
 use App\Models\Contract;
 use App\Models\Proposal;
 use Illuminate\Database\Seeder;
@@ -14,23 +16,23 @@ class ContractSeeder extends Seeder
     public function run(): void
     {
         //
-        $proposals = Proposal::whereNotIn('status', ['pending', 'rejected'])->get();
+        $proposals = Proposal::whereNotIn('status', [ProposalStatus::PENDING, ProposalStatus::REJECTED])->get();
 
         foreach ($proposals as $proposal) {
-            if ($proposal->status == 'accepted') {
+            if ($proposal->status == ProposalStatus::ACCEPTED) {
                 Contract::factory()->pending()->create([
                     'proposal_id' => $proposal->id
                 ]);
             }
 
-            if ($proposal->status == 'revoked') {
+            if ($proposal->status == ProposalStatus::REVOKED) {
                 Contract::factory()->rejected()->create([
                     'proposal_id' => $proposal->id
                 ]);
             }
 
-            if ($proposal->status == 'contracted') {
-                if ($proposal->project->status == "cancelled") {
+            if ($proposal->status == ProposalStatus::CONTRACTED) {
+                if ($proposal->project->status == ProjectStatus::CANCELLED) {
                     Contract::factory()->cancelled()->create([
                         'proposal_id' => $proposal->id
                     ]);

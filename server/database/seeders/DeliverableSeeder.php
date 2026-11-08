@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ContractStatus;
 use App\Models\Contract;
 use App\Models\Deliverable;
 use Illuminate\Database\Seeder;
@@ -14,10 +15,10 @@ class DeliverableSeeder extends Seeder
     public function run(): void
     {
         //
-        $contracts = Contract::whereNotIn('status', ['pending', 'rejected'])->get();
+        $contracts = Contract::whereNotIn('status', [ContractStatus::PENDING, ContractStatus::REJECTED])->get();
 
         foreach ($contracts as $contract) {
-            if ($contract->status == 'awaiting_freelancer_accept') {
+            if ($contract->status == ContractStatus::AWAITING_FREELANCER_ACCEPT) {
                 $totalDeliverables = rand(1, 5);
                 $position = 0;
                 Deliverable::factory()
@@ -34,7 +35,7 @@ class DeliverableSeeder extends Seeder
                     ]);
             }
 
-            if ($contract->status == 'completed') {
+            if ($contract->status == ContractStatus::COMPLETED) {
                 $totalDeliverables = rand(1, 5);
                 $position = 0;
                 Deliverable::factory()
@@ -47,11 +48,10 @@ class DeliverableSeeder extends Seeder
                     })->create([
                             'contract_id' => $contract->id,
                             'amount' => $contract->finalPrice / $totalDeliverables,
-
                         ]);
             }
 
-            if ($contract->status == 'active') {
+            if ($contract->status == ContractStatus::ACTIVE) {
                 $totalDeliverables = rand(2, 5);
                 $position = 0;
 

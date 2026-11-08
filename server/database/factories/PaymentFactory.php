@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\PaymentStatus;
 use App\Models\Payment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,14 +26,14 @@ class PaymentFactory extends Factory
     public function escrow()
     {
         return $this->state([
-            'status' => 'escrow'
+            'status' => PaymentStatus::ESCROW
         ]);
     }
 
     public function released()
     {
         return $this->state([
-            'status' => 'released'
+            'status' => PaymentStatus::RELEASED
         ]);
     }
 }

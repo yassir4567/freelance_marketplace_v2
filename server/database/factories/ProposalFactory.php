@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ProposalStatus;
 use App\Models\Proposal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -32,35 +33,35 @@ class ProposalFactory extends Factory
     public function pending()
     {
         return $this->state([
-            'status' => 'pending'
+            'status' => ProposalStatus::PENDING
         ]);
     }
 
     public function accepted()
     {
         return $this->state([
-            'status' => 'accepted'
+            'status' => ProposalStatus::ACCEPTED
         ]);
     }
 
     public function rejected()
     {
         return $this->state([
-            'status' => 'rejected'
+            'status' => ProposalStatus::REJECTED
         ]);
     }
 
     public function revoked()
     {
         return $this->state([
-            'status' => 'revoked'
+            'status' => ProposalStatus::REVOKED
         ]);
     }
 
     public function contracted()
     {
         return $this->state([
-            'status' => 'contracted'
+            'status' => ProposalStatus::CONTRACTED
         ]);
     }
 }
