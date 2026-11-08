@@ -8,9 +8,11 @@ use Illuminate\Auth\Access\Response;
 
 class ProjectPolicy
 {
-    public function view(User $user, Project $project): bool
+    public function view(User $user, Project $project): Response
     {
-        return $project->client_id === $user->id;
+        if ($project->client_id !== $user->id)
+            return Response::denyAsNotFound();
+        return Response::allow();
     }
 
     public function create(User $user): Response
