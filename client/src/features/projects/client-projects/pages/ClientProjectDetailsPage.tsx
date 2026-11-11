@@ -43,13 +43,7 @@ function ClientProjectDetailsPage() {
 
       <ProjectBudget budgets={budgets} />
 
-      <hr
-        className="bg-gray-900      </div>
-
-      {project.freelancer && (
-        <AboutFreelancer freelancer={project.freelancer} />
-      )} my-9"
-      />
+      <hr className="bg-gray-900 my-9" />
 
       <ProjectCategorySkills
         category={project.category}
