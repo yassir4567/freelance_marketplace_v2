@@ -13,6 +13,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class ClientProjectController extends Controller
 {
@@ -20,49 +21,46 @@ class ClientProjectController extends Controller
     {
         $client = $request->user();
 
+        $validated = $request->validate([
+            'search' => ['nullable', 'string', 'max:255'],
+            'status' => ['nullable', Rule::enum(ProjectStatus::class)],
+            'sort' => ['nullable', Rule::in(['newest', 'oldest'])]
+        ]);
+
         $query = Project::where('client_id', $client->id)
             ->select('id', 'title', 'budget', 'status', 'created_at', 'category_id')
-            ->with([
+            ->with('category:id,name');
+
+        $search = trim($validated['search'] ?? '');
+
+        if ($search !== '') {
+            $query->where('title', 'like', "%{$request->query('search')}%");
+        }
+
+        $status = $validated['status'] ?? null;
+        if ($status !== null) {
+            $query->where('status', $request->query('status'));
+        }
+
+        $sort = $validated['sort'] ?? 'newest';
+
+        if ($sort === 'oldest') {
+            $query->oldest();
+        } else {
+            $query->latest();
+        }
+
+        $projects = $query->get();
+
+        $projects->whereIn('status', [ProjectStatus::IN_PROGRESS, ProjectStatus::COMPLETED, ProjectStatus::CANCELLED])
+            ->load([
                 'proposals' => function ($query) {
                     return $query->where('status', ProposalStatus::CONTRACTED)->select('id', 'freelancer_id', 'project_id');
                 },
                 'proposals.contract:id,proposal_id,finalPrice,finalDeadline',
                 'proposals.freelancer:id,user_id',
                 'proposals.freelancer.user:id,firstName,lastName,avatar',
-                'category:id,name'
             ]);
-
-        if ($request->query->has('search') && trim($request->query('search')) !== "") {
-            $query->where('title', 'like', "%{$request->query('search')}%");
-        }
-
-        if ($request->query->has('status') && trim($request->query('status')) !== "") {
-            $query->where('status', $request->query('status'));
-        }
-
-        if ($request->query->has('sort') && trim($request->query('sort')) !== "") {
-            $sort = $request->query('sort');
-            if ($sort == 'newest') {
-                $query->latest();
-            } else if ($sort == 'oldest') {
-                $query->oldest();
-            }
-        }
-
-        $projects = $query->get()->map(function ($project) {
-            if (in_array($project->status, [ProjectStatus::IN_PROGRESS, ProjectStatus::COMPLETED])) {
-                $project->load([
-                    'proposals' => function ($query) {
-                        return $query->where('status', ProposalStatus::CONTRACTED)->select('id', 'project_id', 'freelancer_id');
-                    },
-                    'proposals.freelancer:id,user_id',
-                    'proposals.freelancer.user:id,firstName,lastName,avatar',
-                ]);
-            }
-
-            return $project;
-        });
-
 
         return ProjectListResource::collection($projects)->additional([
             'success' => true,

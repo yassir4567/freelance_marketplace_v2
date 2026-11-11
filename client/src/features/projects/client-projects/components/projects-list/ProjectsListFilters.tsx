@@ -61,8 +61,8 @@ function ProjectsListFilters({
           onChange={onChangeFields}
           className="border border-gray-200 rounded-lg px-5 h-10 text-sm"
         >
-          <option value="oldest">Oldest</option>
           <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
         </select>
       </div>
     </div>
