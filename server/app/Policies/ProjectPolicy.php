@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\ProjectStatus;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -23,11 +24,18 @@ class ProjectPolicy
         return Response::allow();
     }
 
-    public function update(User $user, Project $project): bool
+    public function update(User $user, Project $project): Response
     {
-        return $project->client_id === $user->id
-            && $project->status === 'open'
-            && $project->proposals()->count() === 0;
+        if ($project->client_id !== $user->id) {
+            return Response::deny("Client can't update a project that doesn't belong to him");
+        }
+        if ($project->status !== ProjectStatus::OPEN) {
+            return Response::deny("Client can't update a project that isn't open");
+        }
+        if ($project->proposals()->count() !== 0) {
+            return Response::deny("Client can't update a project that has recieved proposals");
+        }
+        return Response::allow();
     }
 
     public function delete(User $user, Project $project): bool
