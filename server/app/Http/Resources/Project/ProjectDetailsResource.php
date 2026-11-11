@@ -45,7 +45,7 @@ class ProjectDetailsResource extends JsonResource
                 $proposal?->contract !== null,
                 fn() => new FreelancerSummaryResource($proposal->freelancer)
             ),
-            'isEditable' => (bool) in_array($this->status, [ProjectStatus::OPEN, ProjectStatus::IN_REVIEW]),
+            'isEditable' => (bool) ($this->status === ProjectStatus::OPEN && $this->proposals()->count() === 0),
 
         ];
     }
