@@ -32,9 +32,7 @@ class ProjectPolicy
         if ($project->status !== ProjectStatus::OPEN) {
             return Response::deny("Client can't update a project that isn't open");
         }
-        if ($project->proposals()->count() !== 0) {
-            return Response::deny("Client can't update a project that has recieved proposals");
-        }
+
         return Response::allow();
     }
 
