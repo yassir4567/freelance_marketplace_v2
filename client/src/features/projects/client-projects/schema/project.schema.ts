@@ -4,7 +4,7 @@ export const publishProjectSchema = z.object({
   title: z
     .string()
     .trim()
-    .min(3, { error: "Title must be at least 3 characters" })
+    .min(5, { error: "Title must be at least 5 characters" })
     .max(200, { error: "Title must be at most 200 characters" }),
   description: z
     .string()
@@ -32,12 +32,6 @@ export const publishProjectSchema = z.object({
       error: "Budget should be at least 20$",
     }),
   category_id: z.number({ error: "Please select a category" }), 
-  // category_id: z.preprocess(
-  //   (value) => (value === "" ? undefined : Number(value)),
-  //   z.number({
-  //     error: "Please select a category",
-  //   }),
-  // ),
   skills: z
     .array(z.number(), { error: "Skills must be a valid list" })
     .min(1, { error: "You must select at least one skill" }),
