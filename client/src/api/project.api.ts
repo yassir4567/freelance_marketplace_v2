@@ -3,6 +3,7 @@ import {
   type ClientProject,
   type ClientProjectList,
   type PublishProjectType,
+  type UpdateProjectTypeForm,
 } from "@/features/projects/client-projects/types/project.types";
 import { request } from "./config.api";
 
@@ -18,6 +19,12 @@ const projectApi = {
   },
   getDetails(id: string) {
     return request<ClientProjectDetails>(`/client/projects/${id}`);
+  },
+  update(form: UpdateProjectTypeForm, projectId: string) {
+    return request<ClientProject>(`/client/projects/${projectId}`, {
+      method: "PUT",
+      body: JSON.stringify(form),
+    });
   },
 };
 

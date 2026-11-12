@@ -46,7 +46,7 @@ export default function ClientLayout() {
         <main className="bg-white w-full flex-1 min-h-0 overflow-y-auto rounded-xl p-5 flex justify-center pt-10">
           <div className="w-280">
             <Outlet />
-            <div className="h-20 bg-white"></div>
+            <div className="h-40 bg-white"></div>
           </div>
         </main>
       </div>

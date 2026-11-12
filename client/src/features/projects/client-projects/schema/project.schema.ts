@@ -31,12 +31,16 @@ export const publishProjectSchema = z.object({
     .refine((value) => Number(value) >= 20, {
       error: "Budget should be at least 20$",
     }),
-  category_id: z.number({ error: "Please select a category" }), 
+  category_id: z.number({ error: "Please select a category" }),
   skills: z
     .array(z.number(), { error: "Skills must be a valid list" })
     .min(1, { error: "You must select at least one skill" }),
 });
 
-export type PublishProjectFormInput = z.input<typeof publishProjectSchema>;
+export const updateProjectSchema = publishProjectSchema;
 
+export type PublishProjectFormInput = z.input<typeof publishProjectSchema>;
 export type PublishProjectFormOutput = z.output<typeof publishProjectSchema>;
+
+export type UpdateProjectFormInput = PublishProjectFormInput;
+export type UpdateProjectFormOutput = PublishProjectFormOutput;

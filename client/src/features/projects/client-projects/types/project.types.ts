@@ -10,6 +10,8 @@ export type PublishProjectType = Omit<
   skills: number[];
 };
 
+export type UpdateProjectTypeForm = Partial<PublishProjectType>;
+
 export type ClientProject = Omit<Project, "client_id" | "category_id"> & {
   skills: Skill[];
 };

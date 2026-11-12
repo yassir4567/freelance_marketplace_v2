@@ -10,16 +10,14 @@ export const useCategory = () => {
   useEffect(() => {
     const loadCategories = async () => {
       setIsLoading(true);
-      try {
-        const result = await categoryApi.getAll();
-        if (!result.success) {
-          setError(result.message ?? "Something error in categories fetching");
-        } else {
-          setCategories(result.data);
-        }
-      } finally {
-        setIsLoading(false);
+      setError("");
+      const result = await categoryApi.getAll();
+      setIsLoading(false);
+      if (!result.success) {
+        setError(result.message ?? "Something error in categories fetching");
+        return;
       }
+      setCategories(result.data);
     };
     loadCategories();
   }, []);

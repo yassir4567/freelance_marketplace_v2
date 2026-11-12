@@ -5,6 +5,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import ClientProjectsPage from "@/features/projects/client-projects/pages/ClientProjectsPage";
 import ClientProjectDetailsPage from "@/features/projects/client-projects/pages/ClientProjectDetailsPage";
 import ProjectDetailsLayout from "@/features/projects/client-projects/layouts/ProjectDetailsLayout";
+import ClientEditProjectPage from "@/features/projects/client-projects/pages/ClientEditProjectPage";
 
 export const ClientRoutes = [
   {
@@ -30,6 +31,10 @@ export const ClientRoutes = [
                 element: <ClientProjectDetailsPage />,
               },
             ],
+          },
+          {
+            path: "/client/projects/:id/edit",
+            element: <ClientEditProjectPage />,
           },
         ],
       },
