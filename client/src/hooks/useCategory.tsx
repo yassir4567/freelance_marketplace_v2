@@ -7,20 +7,24 @@ export const useCategory = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const loadCategories = async () => {
-      setIsLoading(true);
-      setError("");
+  const loadCategories = async () => {
+    setIsLoading(true);
+    setError("");
+    try {
       const result = await categoryApi.getAll();
-      setIsLoading(false);
       if (!result.success) {
         setError(result.message ?? "Something error in categories fetching");
         return;
       }
       setCategories(result.data);
-    };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
     loadCategories();
   }, []);
 
-  return { categories, isLoading, error };
+  return { categories, isLoading, error, onRetry: loadCategories };
 };

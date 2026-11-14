@@ -3,8 +3,6 @@ import ProjectDetailsForm from "./ProjectDetailsForm";
 import ProjectScopeForm from "./ProjectScopeForm";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSkills } from "@/hooks/useSkill";
-import { useCategory } from "@/hooks/useCategory";
 import { projectApi } from "@/api/project.api";
 import { useNavigate } from "react-router-dom";
 import {
@@ -15,22 +13,25 @@ import {
 import ProjectCategorySkillsForm from "./ProjectCategorySkillsForm";
 import ProjectBudgetForm from "./ProjectBudgetForm";
 import ProjectOverview from "./ProjectOverview";
+import type { Category } from "@/types/category.types";
+import type { Skill } from "@/types/skill.types";
 
 interface PublishProjectFormProps {
   step: number;
   onNext: () => void;
   onPrev: () => void;
+  categories: Category[];
+  skills: Skill[];
 }
 
-function PublishProjectForm({ step, onNext, onPrev }: PublishProjectFormProps) {
+function PublishProjectForm({
+  step,
+  onNext,
+  onPrev,
+  categories,
+  skills,
+}: PublishProjectFormProps) {
   const navigate = useNavigate();
-  const {
-    categories,
-    isLoading: isCategoriesLoading,
-    error: categoryError,
-  } = useCategory();
-
-  const { skills, isLoading: isSkillsLoading, error: skillError } = useSkills();
 
   const {
     register,
@@ -132,10 +133,6 @@ function PublishProjectForm({ step, onNext, onPrev }: PublishProjectFormProps) {
         categories={categories}
         skills={skills}
         formSkills={formSkills}
-        isCategoriesLoading={isCategoriesLoading}
-        isSkillsLoading={isSkillsLoading}
-        categoryError={categoryError}
-        skillError={skillError}
         handleAddSkill={handleAddSkill}
         handleRemoveSkill={handleRemoveSkill}
       />

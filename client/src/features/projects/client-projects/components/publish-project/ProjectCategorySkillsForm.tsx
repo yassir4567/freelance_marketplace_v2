@@ -9,15 +9,9 @@ interface ProjectCategorySkillsFormProps {
   register: UseFormRegister<PublishProjectFormInput>;
   errors: FieldErrors<PublishProjectFormInput>;
 
-  categories: Category[] | null;
-  skills: Skill[] | null;
+  categories: Category[];
+  skills: Skill[];
   formSkills: number[];
-
-  isCategoriesLoading: boolean;
-  isSkillsLoading: boolean;
-
-  categoryError: string;
-  skillError: string;
 
   handleAddSkill: (skill: number) => void;
   handleRemoveSkill: (skill: number) => void;
@@ -29,10 +23,6 @@ function ProjectCategorySkillsForm({
   categories,
   skills,
   formSkills,
-  isCategoriesLoading,
-  isSkillsLoading,
-  categoryError,
-  skillError,
   handleAddSkill,
   handleRemoveSkill,
 }: ProjectCategorySkillsFormProps) {
@@ -50,20 +40,14 @@ function ProjectCategorySkillsForm({
           id="category"
           className="w-full mt-2 border border-gray-200 h-10 text-[12px] px-2 rounded-lg text-gray-500"
         >
-          {isCategoriesLoading ? (
-            <option value="">Fetching categories...</option>
-          ) : categories === null || categoryError !== "" ? (
-            <option value="">Failed to get categories, Try again</option>
-          ) : (
-            <>
-              <option value="">Select your category</option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </>
-          )}
+          <>
+            <option value="">Select your category</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </>
         </select>
         {errors.category_id && (
           <div className="text-xs mt-1 font-mono text-red-500">
@@ -88,20 +72,14 @@ function ProjectCategorySkillsForm({
           }}
           className="w-full mt-2 border border-gray-200 h-10 text-[12px] px-2 rounded-lg text-gray-500"
         >
-          {isSkillsLoading ? (
-            <option value="">Fetching skills...</option>
-          ) : renderedSkillsForSelect === null || skillError !== "" ? (
-            <option value="">Failed to get skills, Try again</option>
-          ) : (
-            <>
-              <option value="">Select your skill</option>
-              {renderedSkillsForSelect.map((skill) => (
-                <option key={skill.id} value={skill.id}>
-                  {skill.name}
-                </option>
-              ))}
-            </>
-          )}
+          <>
+            <option value="">Select your skill</option>
+            {renderedSkillsForSelect.map((skill) => (
+              <option key={skill.id} value={skill.id}>
+                {skill.name}
+              </option>
+            ))}
+          </>
         </select>
         {errors.skills && (
           <div className="text-xs mt-1 font-mono text-red-500">

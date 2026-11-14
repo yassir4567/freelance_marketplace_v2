@@ -7,22 +7,24 @@ export const useSkills = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const loadSkills = async () => {
-      setIsLoading(true);
-      try {
-        const result = await skillApi.getAll();
-        if (!result.success) {
-          setError(result.message ?? "Something error in skills fetching");
-        } else {
-          setSkills(result.data);
-        }
-      } finally {
-        setIsLoading(false);
+  const loadSkills = async () => {
+    setIsLoading(true);
+    setError("");
+    try {
+      const result = await skillApi.getAll();
+      if (!result.success) {
+        setError(result.message ?? "Something error in skills fetching");
+        return;
       }
-    };
+      setSkills(result.data);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
     loadSkills();
   }, []);
 
-  return { skills, isLoading, error };
+  return { skills, isLoading, error, onRetry: loadSkills };
 };
