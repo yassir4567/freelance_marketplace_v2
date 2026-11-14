@@ -40,7 +40,7 @@ class ClientDashboardController extends Controller
 
         $recentProjects = Project::select('id', 'title', 'status', 'created_at as publishedAt')
             ->where('client_id', $client->id)
-            ->withCount('proposals')
+            ->withCount(['proposals as proposalsCount'])
             ->latest()
             ->take(3)
             ->get();
