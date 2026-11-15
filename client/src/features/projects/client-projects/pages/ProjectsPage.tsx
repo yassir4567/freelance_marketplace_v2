@@ -1,10 +1,10 @@
-import ClientProjectsList from "../components/projects-list/ClientProjectsList";
+import ProjectsList from "../components/projects-list/ProjectsList";
 import { useProjects } from "../hooks/useProjects";
 import ProjectListHeader from "../components/projects-list/ProjectListHeader";
 import ProjectsListFilters from "../components/projects-list/ProjectsListFilters";
 import { useProjectsFilters } from "../hooks/useProjectsFilters";
 
-function ClientProjectsPage() {
+function ProjectsPage() {
   const { filters, onChangeFields, onChangeStatus } = useProjectsFilters();
   const { projects, isLoading, error } = useProjects(filters);
 
@@ -16,7 +16,7 @@ function ClientProjectsPage() {
         onChangeFields={onChangeFields}
         onChangeStatus={onChangeStatus}
       />
-      <ClientProjectsList
+      <ProjectsList
         isLoading={isLoading}
         error={error}
         projects={projects}
@@ -25,4 +25,4 @@ function ClientProjectsPage() {
   );
 }
 
-export default ClientProjectsPage;
+export default ProjectsPage;

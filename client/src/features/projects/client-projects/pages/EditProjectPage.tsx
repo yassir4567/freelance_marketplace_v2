@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useProject } from "../hooks/useProject";
 import EditProjectForm from "../components/edit-project/EditProjectForm";
 
-function ClientEditProjectPage() {
+function EditProjectPage() {
   const { id } = useParams();
   const { project, isLoading, error } = useProject(id);
 
@@ -21,4 +21,4 @@ function ClientEditProjectPage() {
   );
 }
 
-export default ClientEditProjectPage;
+export default EditProjectPage;

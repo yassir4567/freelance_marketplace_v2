@@ -6,7 +6,7 @@ import ProjectCategorySkills from "../components/project-details/ProjectCategory
 import ProjectBudget from "../components/project-details/ProjectBudget";
 import ProjectActivities from "../components/project-details/ProjectActivities";
 
-function ClientProjectDetailsPage() {
+function ProjectDetailsPage() {
   const { project } = useOutletContext<{ project: ClientProjectDetails }>();
 
   const projectSummary = {
@@ -57,4 +57,4 @@ function ClientProjectDetailsPage() {
   );
 }
 
-export default ClientProjectDetailsPage;
+export default ProjectDetailsPage;

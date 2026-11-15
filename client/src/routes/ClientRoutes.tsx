@@ -2,10 +2,10 @@ import PublishProjectPage from "@/features/projects/client-projects/pages/Publis
 import ClientDashboardPage from "../features/dashboards/client-dashboard/pages/ClientDashboardPage";
 import ClientLayout from "../layouts/ClientLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
-import ClientProjectsPage from "@/features/projects/client-projects/pages/ClientProjectsPage";
-import ClientProjectDetailsPage from "@/features/projects/client-projects/pages/ClientProjectDetailsPage";
+import ProjectsPage from "@/features/projects/client-projects/pages/ProjectsPage";
+import ProjectDetailsPage from "@/features/projects/client-projects/pages/ProjectDetailsPage";
 import ProjectDetailsLayout from "@/features/projects/client-projects/layouts/ProjectDetailsLayout";
-import ClientEditProjectPage from "@/features/projects/client-projects/pages/ClientEditProjectPage";
+import EditProjectPage from "@/features/projects/client-projects/pages/EditProjectPage";
 
 export const ClientRoutes = [
   {
@@ -21,20 +21,20 @@ export const ClientRoutes = [
           },
           {
             path: "/client/projects",
-            element: <ClientProjectsPage />,
+            element: <ProjectsPage />,
           },
           {
             element: <ProjectDetailsLayout />,
             children: [
               {
                 path: "/client/projects/:id",
-                element: <ClientProjectDetailsPage />,
+                element: <ProjectDetailsPage />,
               },
             ],
           },
           {
             path: "/client/projects/:id/edit",
-            element: <ClientEditProjectPage />,
+            element: <EditProjectPage />,
           },
         ],
       },

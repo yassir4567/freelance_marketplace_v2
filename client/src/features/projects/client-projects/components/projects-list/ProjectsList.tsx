@@ -1,17 +1,17 @@
 import type { ClientProjectList } from "../../types/project.types";
-import ClientProjectCard from "./ClientProjectCard";
+import ProjectCard from "./ProjectCard";
 
-interface ClientProjectsListProps {
+interface ProjectsListProps {
   projects: ClientProjectList[] | null;
   isLoading: boolean;
   error: string;
 }
 
-function ClientProjectsList({
+function ProjectsList({
   projects,
   isLoading,
   error,
-}: ClientProjectsListProps) {
+}: ProjectsListProps) {
   // todo : This loading state is temporaryy I'll improve it later with all the other loading states
   if (isLoading) {
     return (
@@ -36,10 +36,10 @@ function ClientProjectsList({
   return (
     <div className="flex flex-col">
       {projects.map((project) => (
-        <ClientProjectCard key={project.id} project={project} />
+        <ProjectCard key={project.id} project={project} />
       ))}
     </div>
   );
 }
 
-export default ClientProjectsList;
+export default ProjectsList;

@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import type { ClientProjectList } from "../../types/project.types";
 import { formatDate, removeSpecialCharacter } from "@/utils/helpers";
 
-interface ClientProjectCardProps {
+interface ProjectCardProps {
   project: ClientProjectList;
 }
 
-function ClientProjectCard({ project }: ClientProjectCardProps) {
+function ProjectCard({ project }: ProjectCardProps) {
   console.log(project);
 
   return (
@@ -78,4 +78,4 @@ function ClientProjectCard({ project }: ClientProjectCardProps) {
   );
 }
 
-export default ClientProjectCard;
+export default ProjectCard;
