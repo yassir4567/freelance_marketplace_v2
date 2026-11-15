@@ -7,8 +7,6 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ project }: ProjectCardProps) {
-  console.log(project);
-
   return (
     <div className="w-full border-t border-t-gray-200 py-6 px-6 hover:bg-gray-50">
       <div className="flex-1 flex gap-5">

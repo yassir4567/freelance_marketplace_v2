@@ -7,6 +7,7 @@ export const useProjects = (filters: ClientProjectsListFilters) => {
   const [projects, setProjects] = useState<ClientProjectList[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [statusCode, setStatusCode] = useState<number | null>(null);
 
   const buildFilterQuery = (filters: ClientProjectsListFilters) => {
     const params = new URLSearchParams();
@@ -23,21 +24,30 @@ export const useProjects = (filters: ClientProjectsListFilters) => {
     return query ? `?${query}` : "";
   };
 
-  useEffect(() => {
-    const loadClientProjects = async () => {
-      setError("");
-      setIsLoading(true);
+  const loadClientProjects = async () => {
+    setError("");
+    setIsLoading(true);
+    setStatusCode(null);
+    try {
       const query = buildFilterQuery(filters);
-
       const result = await projectApi.getAll(`${query}`);
 
-      setIsLoading(false);
       if (!result.success) {
-        setError(result.message);
+        if (result.status === 401) {
+          setError("Your session has expired. Please log in again");
+        } else {
+          setError("Unable to load your projects. Please try again");
+        }
+        setStatusCode(result.status);
         return;
       }
       setProjects(result.data);
-    };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
     loadClientProjects();
   }, [filters]);
 
@@ -45,5 +55,7 @@ export const useProjects = (filters: ClientProjectsListFilters) => {
     projects,
     isLoading,
     error,
+    statusCode,
+    retry: loadClientProjects,
   };
 };

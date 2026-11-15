@@ -18,3 +18,20 @@ export function getUserInitials(firstName: string, lastName: string) {
 export function removeSpecialCharacter(value: string, special: string) {
   return value.split(special).join(" ");
 }
+
+export function getErrorMessage(status: number) {
+  switch (status) {
+    case 401:
+      return "Your session has expired. Please log in again.";
+    case 403:
+      return "You are not authorized to access these projects.";
+    case 500:
+      return "Something went wrong while loading your projects.";
+    case 503:
+      return "The service is temporarily unavailable.";
+    case null:
+      return "Unable to connect. Please check your internet connection.";
+    default:
+      return "Unable to load your projects. Please try again.";
+  }
+}

@@ -11,7 +11,7 @@ export function Skeleton({
 }: SkeletonProps) {
   return (
     <div
-      className={`animate-pulse rounded-md bg-gray-100 dark:bg-gray-200 ${className}`}
+      className={`animate-pulse rounded-md bg-gray-200 dark:bg-gray-300 ${className}`}
       style={{ width, height }}
     />
   );

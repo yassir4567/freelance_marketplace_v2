@@ -3,28 +3,9 @@ import ProjectCard from "./ProjectCard";
 
 interface ProjectsListProps {
   projects: ClientProjectList[] | null;
-  isLoading: boolean;
-  error: string;
 }
 
-function ProjectsList({
-  projects,
-  isLoading,
-  error,
-}: ProjectsListProps) {
-  // todo : This loading state is temporaryy I'll improve it later with all the other loading states
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-100">
-        Loading Projects ...
-      </div>
-    );
-  }
-
-  // todo : Also this error state is temporary
-  if (error) {
-    return <div className="text-red-600">{error}</div>;
-  }
+function ProjectsList({ projects }: ProjectsListProps) {
   if (!projects || projects.length === 0) {
     return (
       <div className="text-red-600 flex items-center justify-center h-100">
