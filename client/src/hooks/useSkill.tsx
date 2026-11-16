@@ -26,5 +26,5 @@ export const useSkills = () => {
     loadSkills();
   }, []);
 
-  return { skills, isLoading, error, onRetry: loadSkills };
+  return { skills, isLoading, error, retry: loadSkills };
 };

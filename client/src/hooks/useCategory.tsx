@@ -26,5 +26,5 @@ export const useCategory = () => {
     loadCategories();
   }, []);
 
-  return { categories, isLoading, error, onRetry: loadCategories };
+  return { categories, isLoading, error, retry: loadCategories };
 };

@@ -1,23 +1,47 @@
 import { useParams } from "react-router-dom";
 import { useProject } from "../hooks/useProject";
 import EditProjectForm from "../components/edit-project/EditProjectForm";
+import { useCategory } from "@/hooks/useCategory";
+import { useSkills } from "@/hooks/useSkill";
+import EditProjectSkeleton from "../components/edit-project/EditProjectSkeleton";
 
 function EditProjectPage() {
   const { id } = useParams();
-  const { project, isLoading, error } = useProject(id);
+  const {
+    project,
+    isLoading: isProjectLoading,
+    error: projectError,
+  } = useProject(id);
+  const {
+    categories,
+    isLoading: isCategoriesLoading,
+    error: categoryError,
+  } = useCategory();
 
-  if (isLoading) return <div>Loading project data...</div>;
+  const { skills, isLoading: isSkillsLoading, error: skillError } = useSkills();
 
-  if (error) return <div>{error}</div>;
+  const isLoading = isCategoriesLoading || isSkillsLoading || isProjectLoading;
 
-  if (!project) return <div>No data found</div>;
+  if (isLoading) return <EditProjectSkeleton />;
+
+  if (
+    categoryError ||
+    skillError ||
+    projectError ||
+    !project ||
+    !categories ||
+    !skills
+  )
+    return <div>Something error happen refresh to try again</div>;
 
   if (!project.isEditable) return null;
 
   return (
-    <div>
-      <EditProjectForm project={project} />
-    </div>
+    <EditProjectForm
+      project={project}
+      categories={categories}
+      skills={skills}
+    />
   );
 }
 

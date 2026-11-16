@@ -14,20 +14,20 @@ import EditProjectScope from "./EditProjectScope";
 import { useState } from "react";
 import { projectApi } from "@/api/project.api";
 import { useNavigate } from "react-router-dom";
+import type { Category } from "@/types/category.types";
+import type { Skill } from "@/types/skill.types";
 
 interface EditProjectFormProps {
   project: ClientProjectDetails;
+  categories: Category[];
+  skills: Skill[];
 }
 
-function EditProjectForm({ project }: EditProjectFormProps) {
-  const {
-    categories,
-    isLoading: isCategoriesLoading,
-    error: categoryError,
-  } = useCategory();
-
-  const { skills, isLoading: isSkillsLoading, error: skillError } = useSkills();
-
+function EditProjectForm({
+  project,
+  categories,
+  skills,
+}: EditProjectFormProps) {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const navigate = useNavigate();
@@ -124,20 +124,6 @@ function EditProjectForm({ project }: EditProjectFormProps) {
     reset();
     setIsEditMode(false);
   };
-
-  if (isCategoriesLoading || isSkillsLoading) {
-    return <div>Load categories and skills</div>;
-  }
-
-  if (categoryError !== "") {
-    return <div>{categoryError}</div>;
-  }
-
-  if (skillError !== "") {
-    return <div>{skillError}</div>;
-  }
-
-  if (!categories || !skills) return null;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

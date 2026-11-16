@@ -12,14 +12,14 @@ function PublishProjectPage() {
     categories,
     isLoading: isCategoriesLoading,
     error: categoryError,
-    onRetry: onRetryCategories,
+    retry: onRetryCategories,
   } = useCategory();
 
   const {
     skills,
     isLoading: isSkillsLoading,
     error: skillError,
-    onRetry: onRetrySkills,
+    retry: onRetrySkills,
   } = useSkills();
 
   const onRetry = () => {
