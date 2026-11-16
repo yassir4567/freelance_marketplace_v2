@@ -16,19 +16,29 @@ export const useProject = (id: string | undefined) => {
       }
 
       setIsLoading(true);
-      const result = await projectApi.getDetails(id);
-      setIsLoading(false);
-
-      if (!result.success) {
-        if (result.status === 404) {
-          setError("Project Not Found");
+      setProject(null);
+      setError("");
+      try {
+        const result = await projectApi.getDetails(id);
+        if (!result.success) {
+          if (result.status === 404) {
+            setError("Project not found");
+          } else if (result.status === 401) {
+            setError(
+              "Your session has expired. Please refresh to log in again",
+            );
+          } else {
+            setError(
+              "Unable to load your project. Please refresh to try again",
+            );
+          }
           return;
         }
-        setError(result.message);
-        return;
-      }
 
-      setProject(result.data);
+        setProject(result.data);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     loadProject();
