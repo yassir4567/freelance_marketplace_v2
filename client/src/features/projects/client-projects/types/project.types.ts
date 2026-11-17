@@ -22,20 +22,14 @@ export type ClientProjectList = Pick<
 > & {
   category: Category;
   deadline?: string;
-  freelancer?: Pick<Freelancer, "id" | "firstName" | "lastName" | "avatar">;
+  freelancer?: Pick<Freelancer, "id" | "firstName" | "lastName">;
   isEditable: boolean;
 };
-
-export type ClientProjectDetailsFreelancer = Pick<
-  Freelancer,
-  "id" | "firstName" | "lastName" | "avatar" | "title"
->;
 
 export type ClientProjectDetails = ClientProject & {
   category: Category;
   proposalsCount: number;
   finalPrice?: string;
   deadline?: string;
-  freelancer?: ClientProjectDetailsFreelancer;
   isEditable: boolean;
 };

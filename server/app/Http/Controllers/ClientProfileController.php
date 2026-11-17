@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateClientProfileRequest;
 use App\Http\Resources\Profile\ClientProfileResource;
-use App\Http\Resources\User\UserSummaryResource;
 use Illuminate\Http\Request;
 
 class ClientProfileController extends Controller
@@ -27,7 +26,7 @@ class ClientProfileController extends Controller
 
         $client->update($validated);
 
-        return (new UserSummaryResource($client))->additional([
+        return (new ClientProfileResource($client))->additional([
             'success' => true,
             'message' => 'Client profile updated successfully',
         ]);

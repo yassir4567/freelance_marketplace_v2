@@ -5,7 +5,6 @@ namespace App\Http\Resources\Project;
 use App\Enums\ProjectStatus;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\SkillResource;
-use App\Http\Resources\User\FreelancerSummaryResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -40,10 +39,6 @@ class ProjectDetailsResource extends JsonResource
             'deadline' => $this->when(
                 $proposal?->contract !== null,
                 fn() => $proposal->contract->finalDeadline
-            ),
-            'freelancer' => $this->when(
-                $proposal?->contract !== null,
-                fn() => new FreelancerSummaryResource($proposal->freelancer)
             ),
             'isEditable' => (bool) ($this->status === ProjectStatus::OPEN),
 
