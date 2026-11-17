@@ -27,7 +27,6 @@ class UserFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'country' => fake()->country(),
             'city' => fake()->city(),
-            'avatar' => fake()->url()
         ];
     }
 
