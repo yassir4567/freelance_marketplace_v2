@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class UpdateClientProfileRequest extends FormRequest
 {
@@ -23,11 +24,12 @@ class UpdateClientProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstName' => ['required', 'string', 'min:2'],
-            'lastName' => ['required', 'string', 'min:2'],
-            'phone' => ['nullable', 'string'],
-            'country' => ['nullable', 'string'],
-            'city' => ['nullable', 'string'],
+            'firstName' => ['sometimes', 'required', 'string', 'min:2'],
+            'lastName' => ['sometimes', 'required', 'string', 'min:2'],
+            'phone' => ['sometimes', 'required', 'string'],
+            'country' => ['sometimes', 'required', 'string'],
+            'city' => ['sometimes', 'required', 'string'],
+            'avatar' => ['sometimes', 'required', File::image()->types(['jpeg', 'png', 'jpg', 'webp'])->max('3MB')]
         ];
     }
 }

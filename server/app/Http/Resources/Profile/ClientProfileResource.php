@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources\Profile;
 
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ClientProfileResource extends JsonResource
 {
@@ -14,15 +16,18 @@ class ClientProfileResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        /** @var FilesystemAdapter $disk */
+        $disk = Storage::disk('public');
+
         return [
             'id' => $this->id,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
             'email' => $this->email,
-            'avatar' => $this->avatar,
             'phone' => $this->phone,
             'country' => $this->country,
             'city' => $this->city,
+            'avatar' => $disk->url($this->avatar)
         ];
     }
 }

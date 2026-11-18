@@ -22,7 +22,7 @@ export default function ProfileBadgeDropDownMenu({
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger
-          render={<RiMenu4Fill size={25} className="text-gray-500" />}
+          render={<RiMenu4Fill size={25} className="text-gray-500" />} className="cursor-pointer"
         />
         <DropdownMenuContent>
           <DropdownMenuItem>
