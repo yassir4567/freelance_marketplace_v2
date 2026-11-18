@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateClientProfileRequest;
 use App\Http\Resources\Profile\ClientProfileResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ClientProfileController extends Controller
 {
@@ -23,8 +24,21 @@ class ClientProfileController extends Controller
     {
         $client = $request->user();
         $validated = $request->validated();
+        $oldAvatar = $client->avatar;
+
+        if ($request->hasFile('avatar')) {
+            $validated['avatar'] = $request->file('avatar')->store('profiles', 'public');
+        }
 
         $client->update($validated);
+
+        if (
+            isset($validated['avatar'])
+            && $oldAvatar
+            && Storage::disk('public')->exists($oldAvatar)
+        ) {
+            Storage::disk('public')->delete($oldAvatar);
+        }
 
         return (new ClientProfileResource($client))->additional([
             'success' => true,
