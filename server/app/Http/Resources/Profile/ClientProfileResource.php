@@ -27,6 +27,7 @@ class ClientProfileResource extends JsonResource
             'phone' => $this->phone,
             'country' => $this->country,
             'city' => $this->city,
+            'role' => $this->role,
             'avatar' => $disk->url($this->avatar)
         ];
     }

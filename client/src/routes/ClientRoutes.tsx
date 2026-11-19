@@ -6,6 +6,7 @@ import ProjectsPage from "@/features/projects/client-projects/pages/ProjectsPage
 import ProjectDetailsPage from "@/features/projects/client-projects/pages/ProjectDetailsPage";
 import ProjectDetailsLayout from "@/features/projects/client-projects/layouts/ProjectDetailsLayout";
 import EditProjectPage from "@/features/projects/client-projects/pages/EditProjectPage";
+import ClientProfilePage from "@/features/profiles/pages/ClientProfilePage";
 
 export const ClientRoutes = [
   {
@@ -35,6 +36,10 @@ export const ClientRoutes = [
           {
             path: "/client/projects/:id/edit",
             element: <EditProjectPage />,
+          },
+          {
+            path: "/client/profile",
+            element: <ClientProfilePage />,
           },
         ],
       },
