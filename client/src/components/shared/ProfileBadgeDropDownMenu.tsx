@@ -22,12 +22,18 @@ export default function ProfileBadgeDropDownMenu({
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger
-          render={<RiMenu4Fill size={25} className="text-gray-500" />} className="cursor-pointer"
+          render={
+            <button className="cursor-pointer">
+              <RiMenu4Fill size={25} className="text-gray-500" />
+            </button>
+          }
         />
         <DropdownMenuContent>
-          <DropdownMenuItem>
-            <FiUser />
-            <Link to="/client/profile">Profile</Link>
+          <DropdownMenuItem className="p-0 m-0.5">
+            <Link to="/client/profile" className="flex items-center gap-2 w-full p-1">
+              <FiUser />
+              <span>Profile</span>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem variant="destructive" onClick={logout}>

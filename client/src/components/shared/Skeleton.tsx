@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 type SkeletonProps = {
   width?: string;
   height?: string;
@@ -11,7 +13,10 @@ export function Skeleton({
 }: SkeletonProps) {
   return (
     <div
-      className={`animate-pulse rounded-md bg-gray-200 dark:bg-gray-300 ${className}`}
+      className={cn(
+        "animate-pulse rounded-md bg-gray-200 dark:bg-gray-300",
+        className,
+      )}
       style={{ width, height }}
     />
   );
