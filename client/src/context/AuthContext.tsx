@@ -179,5 +179,6 @@ export function useRequiredAuth() {
   return {
     ...auth,
     user: auth.user,
+    profileCompelation: auth.profileCompelation
   };
 }
