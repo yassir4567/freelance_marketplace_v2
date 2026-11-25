@@ -28,7 +28,7 @@ class ClientProfileResource extends JsonResource
             'country' => $this->country,
             'city' => $this->city,
             'role' => $this->role,
-            'avatar' => $disk->url($this->avatar)
+            'avatar' => $this->avatar ? $disk->url($this->avatar) : null
         ];
     }
 }
