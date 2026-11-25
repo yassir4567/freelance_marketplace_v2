@@ -1,6 +1,4 @@
-import { useCategory } from "@/hooks/useCategory";
 import type { ClientProjectDetails } from "../../types/project.types";
-import { useSkills } from "@/hooks/useSkill";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import EditDetailsForm from "./EditDetailsForm";
 import {

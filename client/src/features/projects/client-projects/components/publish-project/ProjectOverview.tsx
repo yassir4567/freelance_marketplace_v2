@@ -20,7 +20,11 @@ function ProjectOverview({
   skills,
   onPrev,
 }: ProjectOverviewProps) {
-  const categoryName = getCategoryNameById(values.category_id, categories);
+
+  const categoryName = getCategoryNameById(
+    Number(values.category_id as string),
+    categories,
+  );
   return (
     <div>
       <h1 className="text-center font-medium text-md mb-7">
@@ -55,7 +59,9 @@ function ProjectOverview({
           <h6 className="mb-2 text-xs font-medium text-gray-500">
             Estimated duration
           </h6>
-          <p className="text-sm">{removeSpecialCharacter(values.duration, "_")}</p>
+          <p className="text-sm">
+            {removeSpecialCharacter(values.duration, "_")}
+          </p>
         </div>
       </div>
       <div className="grid grid-cols-3 mb-8">

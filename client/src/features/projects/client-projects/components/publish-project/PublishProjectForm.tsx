@@ -46,6 +46,13 @@ function PublishProjectForm({
     resolver: zodResolver(publishProjectSchema),
     mode: "onChange",
     defaultValues: {
+      title: "",
+      description: "",
+      experienceLevel: "",
+      size: "",
+      duration: undefined,
+      budget: "",
+      category_id: "",
       skills: [],
     },
   });
@@ -64,6 +71,12 @@ function PublishProjectForm({
         setError("root", {
           message: "Some fields are invalid, go back to check them",
         });
+      } else if (result.status === 403) {
+        setError("root", {
+          message:
+            "You are not authorized to publish a project, please complete your profile first",
+        });
+        return;
       } else {
         setError("root", {
           message: "Something went wrong, try again",

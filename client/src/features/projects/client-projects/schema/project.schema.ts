@@ -11,15 +11,21 @@ export const publishProjectSchema = z.object({
     .trim()
     .min(300, { error: "Description must be at least 300 characters" })
     .max(3000, { error: "Description must be at most 3000 characters" }),
-  experienceLevel: z.enum(["junior", "mid-level", "senior"], {
-    error: "Please select an experience level",
-  }),
-  size: z.enum(["small", "medium", "large"], {
-    error: "Please select the project size",
-  }),
+  experienceLevel: z
+    .enum(["", "junior", "mid-level", "senior"])
+    .refine((value) => value !== "", {
+      error: "Please select an experience level",
+    }),
+  size: z
+    .enum(["", "small", "medium", "large"])
+    .refine((value) => value !== "", {
+      error: "Please select the project size",
+    }),
   duration: z.enum(
     ["less_than_1_month", "1_to_3_month", "3_to_6_month", "more_than_6_month"],
-    { error: "Please select the estimated duration" },
+    {
+      error: "Please select the estimated duration",
+    },
   ),
   budget: z
     .string()
@@ -31,7 +37,10 @@ export const publishProjectSchema = z.object({
     .refine((value) => Number(value) >= 20, {
       error: "Budget should be at least 20$",
     }),
-  category_id: z.number({ error: "Please select a category" }),
+  category_id: z.preprocess(
+    (value) => (value === "" ? undefined : Number(value)),
+    z.number({ error: "Please select a category" }),
+  ),
   skills: z
     .array(z.number(), { error: "Skills must be a valid list" })
     .min(1, { error: "You must select at least one skill" }),

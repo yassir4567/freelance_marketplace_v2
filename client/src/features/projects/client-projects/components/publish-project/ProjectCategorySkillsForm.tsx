@@ -36,7 +36,7 @@ function ProjectCategorySkillsForm({
           Select The Project Category
         </FieldLabel>
         <select
-          {...register("category_id", { valueAsNumber: true })}
+          {...register("category_id")}
           id="category"
           className="w-full mt-2 border border-gray-200 h-10 text-[12px] px-2 rounded-lg text-gray-500"
         >
