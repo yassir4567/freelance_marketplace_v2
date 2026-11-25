@@ -38,6 +38,7 @@ interface ContextType {
   register(credentials: RegisterCredentials): Promise<AuthAction>;
   logout(): Promise<void>;
   isAuthenticated: Boolean;
+  reloadMe: () => void;
 }
 
 interface AuthProviderProps {
@@ -52,25 +53,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
     useState<ProfileCompelation | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const loadMe = async () => {
-      const token = getToken();
-      if (!token) {
-        setIsLoading(false);
-        return;
-      }
-      const result = await authApi.me();
+  const loadMe = async () => {
+    const token = getToken();
+    if (!token) {
       setIsLoading(false);
+      return;
+    }
+    const result = await authApi.me();
+    setIsLoading(false);
 
-      if (!result.success || !result.data) {
-        localStorage.removeItem("auth_token");
-        return;
-      }
+    if (!result.success || !result.data) {
+      localStorage.removeItem("auth_token");
+      return;
+    }
 
-      setUser(result.data.user);
-      setProfileCompelation(result.data.profile);
-    };
+    setUser(result.data.user);
+    setProfileCompelation(result.data.profile);
+  };
 
+  useEffect(() => {
     loadMe();
   }, []);
 
@@ -148,6 +149,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     register,
     logout,
     isAuthenticated: user !== null,
+    reloadMe: loadMe,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
@@ -179,6 +181,6 @@ export function useRequiredAuth() {
   return {
     ...auth,
     user: auth.user,
-    profileCompelation: auth.profileCompelation
+    profileCompelation: auth.profileCompelation,
   };
 }

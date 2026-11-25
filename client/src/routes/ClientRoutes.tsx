@@ -7,6 +7,7 @@ import ProjectDetailsPage from "@/features/projects/client-projects/pages/Projec
 import ProjectDetailsLayout from "@/features/projects/client-projects/layouts/ProjectDetailsLayout";
 import EditProjectPage from "@/features/projects/client-projects/pages/EditProjectPage";
 import ClientProfilePage from "@/features/profiles/pages/ClientProfilePage";
+import EditProfilePage from "@/features/profiles/pages/EditProfilePage";
 
 export const ClientRoutes = [
   {
@@ -40,6 +41,10 @@ export const ClientRoutes = [
           {
             path: "/client/profile",
             element: <ClientProfilePage />,
+          },
+          {
+            path: "/client/profile/edit",
+            element: <EditProfilePage />,
           },
         ],
       },
