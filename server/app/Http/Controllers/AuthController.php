@@ -6,9 +6,11 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Freelancer;
 use App\Models\User;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -29,6 +31,9 @@ class AuthController extends Controller
         $user->tokens()->delete();
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        /** @var FilesystemAdapter $disk */
+        $disk = Storage::disk('public');
+
         return response()->json([
             'message' => 'User authenticated successfully',
             'data' => [
@@ -38,6 +43,7 @@ class AuthController extends Controller
                     'lastName' => $user->lastName,
                     'email' => $user->email,
                     'role' => $user->role,
+                    'avatar' => $user->avatar ? $disk->url($user->avatar) : null
                 ],
                 'token' => $token,
                 'profile' => $user->getProfileCompelation()
@@ -73,7 +79,6 @@ class AuthController extends Controller
             ];
         });
 
-
         return response()->json([
             'message' => 'User registred successfully',
             'data' => [
@@ -104,6 +109,9 @@ class AuthController extends Controller
     {
         $user = $request->user();
 
+        /** @var FilesystemAdapter $disk */
+        $disk = Storage::disk('public');
+
         return response()->json([
             'message' => 'User retreived successfully',
             'data' => [
@@ -113,6 +121,7 @@ class AuthController extends Controller
                     'lastName' => $user->lastName,
                     'email' => $user->email,
                     'role' => $user->role,
+                    'avatar' => $user->avatar ? $disk->url($user->avatar) : null
                 ],
                 'profile' => $user->getProfileCompelation()
             ]

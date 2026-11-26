@@ -15,7 +15,7 @@ import { getToken } from "../utils/helpers";
 import { authApi } from "../api/auth.api";
 import type { ValidationErrors } from "../api/config.api";
 
-type AuthUser = Pick<User, "id" | "firstName" | "lastName" | "email" | "role">;
+type AuthUser = Pick<User, "id" | "firstName" | "lastName" | "email" | "role" | "avatar">;
 
 type AuthAction =
   | {
