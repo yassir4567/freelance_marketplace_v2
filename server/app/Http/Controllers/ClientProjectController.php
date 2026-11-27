@@ -218,5 +218,30 @@ class ClientProjectController extends Controller
         ]);
     }
 
-}
+    public function close(string $id)
+    {
+        $project = Project::select('id', 'client_id', 'status')
+            ->withCount('proposals')
+            ->findOrFail($id);
+        $this->authorize('close', $project);
 
+        DB::transaction(function () use ($project) {
+            $project->status = ProjectStatus::CLOSED;
+            $project->save();
+            if ($project->proposals_count > 0) {
+                $project->proposals()->where("status", ProposalStatus::PENDING)->update([
+                    'status' => ProposalStatus::REJECTED
+                ]);
+
+                $project->proposals()->where("status", ProposalStatus::ACCEPTED)->update([
+                    'status' => ProposalStatus::DECLINED
+                ]);
+            }
+        });
+
+        return (new ProjectResource($project))->additional([
+            'success' => true,
+            'message' => 'Project closed successfully',
+        ]);
+    }
+}

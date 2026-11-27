@@ -36,10 +36,16 @@ class ProjectPolicy
         return Response::allow();
     }
 
-    public function delete(User $user, Project $project): bool
+    public function close(User $user, Project $project): Response
     {
-        return true;
+        if ($project->client_id !== $user->id) {
+            return Response::deny("Client can't close a project that doesn't belong to him");
+        }
+
+        if (!in_array($project->status, [ProjectStatus::OPEN, ProjectStatus::IN_REVIEW])) {
+            return Response::deny("Client can't close a contracted project");
+        }
+
+        return Response::allow();
     }
-
-
 }

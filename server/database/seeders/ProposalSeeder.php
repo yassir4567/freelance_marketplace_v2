@@ -86,7 +86,7 @@ class ProposalSeeder extends Seeder
                     Proposal::factory()->create([
                         'project_id' => $project->id,
                         'freelancer_id' => $freelancer->id,
-                        'status' => fake()->randomElement([ProposalStatus::REJECTED, ProposalStatus::REVOKED])
+                        'status' => fake()->randomElement([ProposalStatus::REJECTED, ProposalStatus::WITHDRAWN])
                     ]);
                 }
             }
@@ -107,7 +107,7 @@ class ProposalSeeder extends Seeder
                     Proposal::factory()->create([
                         'project_id' => $project->id,
                         'freelancer_id' => $freelancer->id,
-                        'status' => fake()->randomElement([ProposalStatus::REJECTED, ProposalStatus::REVOKED])
+                        'status' => fake()->randomElement([ProposalStatus::REJECTED, ProposalStatus::WITHDRAWN])
                     ]);
                 }
             }

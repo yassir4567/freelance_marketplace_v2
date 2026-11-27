@@ -51,10 +51,10 @@ class ProposalFactory extends Factory
         ]);
     }
 
-    public function revoked()
+    public function withdrawn()
     {
         return $this->state([
-            'status' => ProposalStatus::REVOKED
+            'status' => ProposalStatus::WITHDRAWN
         ]);
     }
 

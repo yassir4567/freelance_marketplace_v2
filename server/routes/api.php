@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get("/projects/{id}", [ClientProjectController::class, 'show']);
             Route::post("/projects", [ClientProjectController::class, 'store']);
             Route::put("/projects/{id}", [ClientProjectController::class, 'update']);
+            Route::patch("/projects/{id}/close", [ClientProjectController::class, "close"]);
             Route::put("/profile", [ClientProfileController::class, 'update']);
             Route::get("/profile", [ClientProfileController::class, "show"]);
         });

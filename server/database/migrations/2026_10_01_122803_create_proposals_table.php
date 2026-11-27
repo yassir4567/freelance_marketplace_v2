@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('proposals', function (Blueprint $table) {
             $table->id();
             $table->text('coverLetter');
-            $table->enum('status', ['pending', 'accepted', 'rejected', 'revoked', 'contracted']);
+            $table->enum('status', ['pending', 'accepted', 'rejected', 'withdrawn', 'declined', 'contracted']);
             $table->string('proposedDuration');
             $table->decimal('proposedPrice', 10, 2);
 

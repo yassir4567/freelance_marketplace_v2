@@ -7,6 +7,7 @@ enum ProposalStatus: string
     case PENDING = "pending";
     case ACCEPTED = "accepted";
     case REJECTED = "rejected";
-    case REVOKED = "revoked";
+    case WITHDRAWN = "withdrawn";
+    case DECLINED = "declined";
     case CONTRACTED = "contracted";
 }

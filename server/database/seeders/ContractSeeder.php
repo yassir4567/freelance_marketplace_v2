@@ -25,7 +25,7 @@ class ContractSeeder extends Seeder
                 ]);
             }
 
-            if ($proposal->status == ProposalStatus::REVOKED) {
+            if ($proposal->status == ProposalStatus::WITHDRAWN) {
                 Contract::factory()->rejected()->create([
                     'proposal_id' => $proposal->id
                 ]);
