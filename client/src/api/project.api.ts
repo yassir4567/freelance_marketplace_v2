@@ -26,6 +26,11 @@ const projectApi = {
       body: JSON.stringify(form),
     });
   },
+  close(projectId: string) {
+    return request<ClientProject>(`/client/projects/${projectId}/close`, {
+      method: "PATCH",
+    });
+  },
 };
 
 export { projectApi };
